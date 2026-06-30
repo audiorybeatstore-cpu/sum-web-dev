@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Web Dev | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">SUM<span>WEBDEV</span></div>
+            <nav>
+                <a href="#projects">Work</a>
+                <a href="#features">Features</a>
+                <button id="theme-toggle" aria-label="Toggle Theme">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>High-Performance Web Applications</h1>
+        <p>Clean code. High contrast interfaces. Built for speed and perfect across all devices.</p>
+        <a href="#projects" class="btn-primary">View Showcases <i class="fas fa-arrow-down"></i></a>
+    </section>
+
+    <section id="projects" class="matrix-section">
+        <h2 class="section-title">Project Showcases</h2>
+        <div class="grid-container">
+            
+            <div class="card">
+                <div class="card-badge">Production</div>
+                <h3>Audiory Marketplace</h3>
+                <p>A next-gen digital marketplace empowering independent music creators and audio producers with zero-friction licensing tools.</p>
+                <div class="tech-tags">
+                    <span>Node.js</span><span>Next.js</span><span>Firebase</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-badge">Live</div>
+                <h3>Shamba Fest Platform</h3>
+                <p>An expansive, multi-page ticketing architecture built to handle high-volume registrations, dynamic checkouts, and clean event management.</p>
+                <div class="tech-tags">
+                    <span>JavaScript</span><span>Tailwind</span><span>Supabase</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-badge">System</div>
+                <h3>Local AI Knowledge Agent</h3>
+                <p>Privacy-focused offline support hub processing user intent metrics locally via large language model nodes.</p>
+                <div class="tech-tags">
+                    <span>Ollama</span><span>Llama 3.2</span><span>WebSockets</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <h2 class="section-title">Engineering Standards</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <i class="fas fa-bolt"></i>
+                <h4>Edge Delivery</h4>
+                <p>Optimized natively for Cloudflare's global edge network resulting in near-zero TTFB globally.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-mobile-alt"></i>
+                <h4>Fluid Responsive</h4>
+                <p>Mobile-first CSS structures guaranteeing structural flexibility across varying breakpoints.</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-circle-half-stroke"></i>
+                <h4>High Contrast Mode</h4>
+                <p>Strict accessibility colors targeting optimal readability and premium contrast control.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; © 2026 Sum Web Dev.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
