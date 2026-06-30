@@ -4,8 +4,433 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sum Web Dev | Portfolio</title>
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =================================*********
+           HIGH CONTRAST THEME PROPERTIES & TOKENS
+        ============================================ */
+        :root[data-theme="light"] {
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F9FA;
+            --bg-mockup-panel: #EAECEF;
+            --text-main: #000000;
+            --text-muted: #4A5568;
+            --accent: #E11D48; /* Premium High-Contrast Red Accent */
+            --accent-hover: #BE123C;
+            --border-color: #000000;
+            --tag-bg: #000000;
+            --tag-text: #FFFFFF;
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #0B0F19;
+            --bg-secondary: #1E293B;
+            --bg-mockup-panel: #111827;
+            --text-main: #FFFFFF;
+            --text-muted: #94A3B8;
+            --accent: #FB7185; 
+            --accent-hover: #FDA4AF;
+            --border-color: #334155;
+            --tag-bg: #FFFFFF;
+            --tag-text: #000000;
+        }
+
+        /* Base Resets */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.5;
+        }
+
+        /* Sticky Clean Navigation */
+        header {
+            border-bottom: 2px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background: var(--bg-primary);
+            z-index: 1000;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Quick-action Theme Control */
+        #theme-toggle {
+            background: var(--text-main);
+            color: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease;
+        }
+
+        #theme-toggle:active {
+            transform: scale(0.95);
+        }
+
+        /* =================================*********
+           SPLIT HERO HERO COMPONENT (Screenshot Style)
+        ============================================ */
+        .hero-split-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            min-height: calc(85vh - 80px);
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        /* Left Content Column */
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 3rem;
+        }
+
+        .hero-left h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        .hero-left p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 620px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            align-self: flex-start;
+            background-color: var(--accent);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* Right Visual Canvas Showcase (Adaptive Grid Matrix) */
+        .hero-right {
+            background-color: var(--bg-mockup-panel);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-left: 2px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Interactive Multi-Device Layout Array */
+        .showcase-display {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+
+        .mock-device {
+            position: absolute;
+            background: var(--bg-primary);
+            border: 3px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 8px 8px 0px var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .mock-device:hover {
+            transform: translateY(-8px);
+        }
+
+        .device-main {
+            width: 75%;
+            height: 240px;
+            top: 10%;
+            left: 5%;
+            z-index: 2;
+        }
+
+        .device-mobile {
+            width: 32%;
+            height: 200px;
+            bottom: 5%;
+            right: 5%;
+            z-index: 4;
+        }
+
+        .device-sub {
+            width: 45%;
+            height: 140px;
+            bottom: 15%;
+            left: 20%;
+            z-index: 3;
+        }
+
+        .device-preview-header {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+        .device-preview-header span {
+            width: 6px;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 50%;
+        }
+
+        .device-content {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--text-muted);
+        }
+        .device-content h4 {
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        /* =================================*********
+           PROJECT MATRIX DESIGN
+        ============================================ */
+        .matrix-section, .features-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 3px;
+            background: var(--border-color);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+        }
+
+        /* Premium Showcasing Cards */
+        .card {
+            background-color: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        .card-badge {
+            align-self: flex-start;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 0.75rem;
+            font-weight: 900;
+            padding: 0.3rem 0.8rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .tech-tags span {
+            font-size: 0.8rem;
+            font-weight: 800;
+            border: 2px solid var(--border-color);
+            padding: 0.2rem 0.6rem;
+            background: var(--bg-primary);
+        }
+
+        /* =================================*********
+           ENGINEERING STANDARDS GRID
+        ============================================ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-item {
+            padding: 1rem;
+        }
+
+        .feature-item i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-item h4 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem 2rem;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* =================================*********
+           CRITICAL BREAKPOINTS (RESPONSIVE ENGINE)
+        ============================================ */
+        @media (max-width: 1024px) {
+            .hero-split-container {
+                grid-template-columns: 1fr;
+            }
+            .hero-right {
+                border-left: none;
+                border-top: 2px solid var(--border-color);
+                min-height: 450px;
+            }
+            .hero-left h1 {
+                font-size: 3.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            .hero-left {
+                padding: 3rem 1.5rem;
+            }
+            .hero-left h1 {
+                font-size: 2.5rem;
+            }
+            .matrix-section, .features-section {
+                padding: 4rem 1.5rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .showcase-display {
+                height: 320px;
+            }
+            .device-main { width: 90%; left: 5%; }
+            .device-mobile { display: none; } /* Drop noise on tight displays */
+            .device-sub { display: none; }
+        }
+    </style>
 </head>
 <body>
 
@@ -15,78 +440,134 @@
             <nav>
                 <a href="#projects">Work</a>
                 <a href="#features">Features</a>
-                <button id="theme-toggle" aria-label="Toggle Theme">
+                <button id="theme-toggle" aria-label="Toggle High-Contrast Theme">
                     <i class="fas fa-moon"></i>
                 </button>
             </nav>
         </div>
     </header>
 
-    <section class="hero">
-        <h1>High-Performance Web Applications</h1>
-        <p>Clean code. High contrast interfaces. Built for speed and perfect across all devices.</p>
-        <a href="#projects" class="btn-primary">View Showcases <i class="fas fa-arrow-down"></i></a>
-    </section>
-
-    <section id="projects" class="matrix-section">
-        <h2 class="section-title">Project Showcases</h2>
-        <div class="grid-container">
+    <main>
+        <section class="hero-split-container">
+            <div class="hero-left">
+                <h1>Creating Digital Experiences That Drive Growth</h1>
+                <p>A web development showcase with a passionate belief in clean code, structural durability, and high-performance user interfaces.</p>
+                <a href="#projects" class="btn-primary">Explore Showcases <i class="fas fa-arrow-right"></i></a>
+            </div>
             
-            <div class="card">
-                <div class="card-badge">Production</div>
-                <h3>Audiory Marketplace</h3>
-                <p>A next-gen digital marketplace empowering independent music creators and audio producers with zero-friction licensing tools.</p>
-                <div class="tech-tags">
-                    <span>Node.js</span><span>Next.js</span><span>Firebase</span>
+            <div class="hero-right">
+                <div class="showcase-display">
+                    <div class="mock-device device-main">
+                        <div class="device-preview-header"><span></span><span></span><span></span></div>
+                        <div class="device-content">
+                            <h4>Audiory Music</h4>
+                            <p>Active Engine Panel Connected</p>
+                        </div>
+                    </div>
+                    <div class="mock-device device-sub">
+                        <div class="device-preview-header"><span></span><span></span><span></span></div>
+                        <div class="device-content">
+                            <h4>Shamba Fest</h4>
+                            <p>Ticketing Core Stable</p>
+                        </div>
+                    </div>
+                    <div class="mock-device device-mobile">
+                        <div class="device-preview-header"><span></span><span></span></div>
+                        <div class="device-content">
+                            <h4>Local Node AI</h4>
+                            <p>Online</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="card">
-                <div class="card-badge">Live</div>
-                <h3>Shamba Fest Platform</h3>
-                <p>An expansive, multi-page ticketing architecture built to handle high-volume registrations, dynamic checkouts, and clean event management.</p>
-                <div class="tech-tags">
-                    <span>JavaScript</span><span>Tailwind</span><span>Supabase</span>
+        <section id="projects" class="matrix-section">
+            <h2 class="section-title">Project Showcases</h2>
+            <div class="grid-container">
+                
+                <div class="card">
+                    <div class="card-badge">Production</div>
+                    <h3>Audiory Marketplace</h3>
+                    <p>A high-performance marketplace enabling producers to manage licensing models with instantaneous global content delivery pipelines.</p>
+                    <div class="tech-tags">
+                        <span>Node.js</span><span>Next.js</span><span>Firebase Auth</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-badge">Live</div>
+                    <h3>Shamba Fest Platform</h3>
+                    <p>An expansive, multi-page ticket distribution engine designed to navigate intensive registration loads smoothly.</p>
+                    <div class="tech-tags">
+                        <span>JavaScript</span><span>Tailwind CSS</span><span>Supabase</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-badge">System Core</div>
+                    <h3>Local AI Knowledge Agent</h3>
+                    <p>Privacy-first offline assistant cluster executing prompt evaluations through integrated edge model networks.</p>
+                    <div class="tech-tags">
+                        <span>Ollama</span><span>Llama 3.2</span><span>WebSockets</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <h2 class="section-title">Engineering Standards</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Edge Compilation</h4>
+                    <p>Optimized to live completely on the Cloudflare global network for unmatched speed.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-mobile-screen"></i>
+                    <h4>Responsive Symmetry</h4>
+                    <p>Carefully engineered breakpoint metrics layout perfectly whether on ultra-wide screens or mobile viewports.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-circle-half-stroke"></i>
+                    <h4>Contrast Integrity</h4>
+                    <p>Adhering to crisp visual boundaries for effortless usability in both bright daylight and low-light environments.</p>
                 </div>
             </div>
-
-            <div class="card">
-                <div class="card-badge">System</div>
-                <h3>Local AI Knowledge Agent</h3>
-                <p>Privacy-focused offline support hub processing user intent metrics locally via large language model nodes.</p>
-                <div class="tech-tags">
-                    <span>Ollama</span><span>Llama 3.2</span><span>WebSockets</span>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="features" class="features-section">
-        <h2 class="section-title">Engineering Standards</h2>
-        <div class="features-grid">
-            <div class="feature-item">
-                <i class="fas fa-bolt"></i>
-                <h4>Edge Delivery</h4>
-                <p>Optimized natively for Cloudflare's global edge network resulting in near-zero TTFB globally.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-mobile-alt"></i>
-                <h4>Fluid Responsive</h4>
-                <p>Mobile-first CSS structures guaranteeing structural flexibility across varying breakpoints.</p>
-            </div>
-            <div class="feature-item">
-                <i class="fas fa-circle-half-stroke"></i>
-                <h4>High Contrast Mode</h4>
-                <p>Strict accessibility colors targeting optimal readability and premium contrast control.</p>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <p>&copy; 2026 Sum Web Dev.</p>
+        <p>&copy; 2026 Sum Web Dev. Rendered globally via Cloudflare Edge.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlElement = document.documentElement;
+            const toggleIcon = themeToggle.querySelector('i');
+
+            // Persistent theme selection engine
+            const activeTheme = localStorage.getItem('sum-web-theme') || 'light';
+            htmlElement.setAttribute('data-theme', activeTheme);
+            refreshToggleState(activeTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const targetTheme = htmlElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+                htmlElement.setAttribute('data-theme', targetTheme);
+                localStorage.setItem('sum-web-theme', targetTheme);
+                refreshToggleState(targetTheme);
+            });
+
+            function refreshToggleState(theme) {
+                if (theme === 'dark') {
+                    toggleIcon.className = 'fas fa-sun';
+                } else {
+                    toggleIcon.className = 'fas fa-moon';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
