@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,9 +15,9 @@
     
     <style>
         /* ==========================================================================
-           1. Premium Architecture System Tokens & Global Settings
+           1. Premium Theme Tokens & Root Variables
            ========================================================================== */
-        :root {
+        :root[data-theme="dark"] {
             --bg-main: #0B0F19;
             --bg-card: #151A28;
             --accent-primary: #6C63FF;
@@ -26,7 +26,21 @@
             --text-muted: #94A3B8;
             --border-glass: rgba(255, 255, 255, 0.08);
             --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
-            --nav-height: 80px;
+            --header-bg: rgba(11, 15, 25, 0.75);
+            --invert-factor: 0;
+        }
+
+        :root[data-theme="light"] {
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --accent-primary: #4F46E5;
+            --accent-neon: #0EA5E9;
+            --text-pure: #0F172A;
+            --text-muted: #64748B;
+            --border-glass: rgba(15, 23, 42, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
+            --header-bg: rgba(248, 250, 252, 0.8);
+            --invert-factor: 1;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -37,106 +51,99 @@
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Scroll Progress Bar Indicator */
         .scroll-progress {
-            position: fixed;
-            top: 0; left: 0; width: 0%; height: 3px;
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
             z-index: 9999;
         }
 
         /* ==========================================================================
-           2. Component Framework (Buttons, Headers, Layout Shells)
+           2. Layout Utilities & Header
            ========================================================================== */
         .main-header {
-            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
-            background: rgba(11, 15, 25, 0.75);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-glass);
-            z-index: 1000;
-            display: flex; align-items: center;
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--header-bg); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass); z-index: 1000;
+            display: flex; align-items: center; transition: background 0.3s ease;
         }
         .nav-container {
             width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem;
             display: flex; justify-content: space-between; align-items: center;
         }
+        
+        /* Classic SVG Custom Logo Alignment */
         .logo {
-            font-weight: 900; font-size: 1.6rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
+            display: flex; align-items: center; gap: 0.75rem;
+            font-weight: 900; font-size: 1.5rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
         }
+        .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
         .logo span { color: var(--accent-neon); }
 
-        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
         .nav-item {
             color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
             transition: color 0.2s ease;
         }
         .nav-item:hover, .nav-item.active { color: var(--text-pure); }
-        .nav-cta {
-            background: var(--accent-primary); color: var(--text-pure);
-            padding: 0.6rem 1.2rem; border-radius: 4px; font-weight: 600;
-            transition: background 0.2s ease;
+        
+        /* Utility Controls (Theme + Lang Dropdown) */
+        .utility-btn {
+            background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
         }
-        .nav-cta:hover { background: #574feb; }
+        .lang-select {
+            background: var(--bg-card); border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.4rem 0.75rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none;
+        }
 
-        .mobile-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        .mobile-toggle { display: none; background: none; border: none; color: var(--text-pure); font-size: 1.5rem; cursor: pointer; }
 
         /* Button Ecosystem */
         .btn {
             display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.9rem 2rem;
-            font-weight: 600; font-size: 1rem; border-radius: 4px; text-decoration: none; transition: all 0.2s ease;
+            font-weight: 600; font-size: 1rem; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;
         }
-        .btn-primary { background: var(--accent-primary); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(108, 99, 255, 0.3); }
-        .btn-secondary { background: transparent; color: white; border: 1px solid var(--border-glass); }
+        .btn-primary { background: var(--accent-primary); color: #FFF; border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25); }
+        .btn-secondary { background: transparent; color: var(--text-pure); border: 1px solid var(--border-glass); }
         .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
-        .btn-sm { padding: 0.5rem 1.2rem; font-size: 0.85rem; }
-        .btn-block { width: 100%; justify-content: center; cursor: pointer; border: none; font-family: inherit; }
+        .btn-sm { padding: 0.5rem 1.2rem; font-size: 0.85rem; border-radius: 4px; }
+        .btn-block { width: 100%; justify-content: center; cursor: pointer; }
 
         /* ==========================================================================
-           3. Viewport Sections (Hero, Services, Portfolio, Intake Form)
+           3. Page Section Modules
            ========================================================================== */
         .hero-section {
-            min-height: 100vh; display: flex; align-items: center; padding-top: var(--nav-height);
+            min-height: 100vh; display: flex; align-items: center; padding-top: 80px;
             position: relative; overflow: hidden;
         }
-        .glow-orb {
-            position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.15; z-index: 0;
-        }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; z-index: 0; }
         .orb-1 { top: 20%; left: 10%; width: 400px; height: 400px; background: var(--accent-primary); }
         .orb-2 { bottom: 10%; right: 10%; width: 500px; height: 500px; background: var(--accent-neon); }
 
-        .hero-container {
-            width: 100%; max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1;
-        }
+        .hero-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(108, 99, 255, 0.1); border: 1px solid rgba(108, 99, 255, 0.3);
-            padding: 0.4rem 1rem; border-radius: 50px; color: var(--accent-neon); font-size: 0.85rem; font-weight: 600; margin-bottom: 2rem;
+            background: rgba(108, 99, 255, 0.1); border: 1px solid rgba(108, 99, 255, 0.2);
+            padding: 0.4rem 1rem; border-radius: 50px; color: var(--accent-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 2rem;
         }
-        .hero-headline {
-            font-size: 4.2rem; font-weight: 900; letter-spacing: -2.5px; line-height: 1.1; max-width: 1000px; margin-bottom: 1.5rem;
-        }
-        .hero-headline span {
-            background: linear-gradient(135deg, #FFF 30%, var(--accent-neon) 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero-subtext {
-            font-size: 1.3rem; color: var(--text-muted); max-width: 750px; margin-bottom: 3rem; font-weight: 400;
-        }
+        .hero-headline { font-size: 4.2rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; max-width: 1000px; margin-bottom: 1.5rem; }
+        .hero-headline span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-subtext { font-size: 1.3rem; color: var(--text-muted); max-width: 750px; margin-bottom: 3rem; }
         .hero-actions { display: flex; gap: 1.5rem; margin-bottom: 5rem; }
 
-        /* Dynamic Metrics Engine UI */
+        /* Telemetry Counters */
         .metrics-grid { display: grid; grid-template-columns: repeat(3, 280px); gap: 3rem; border-top: 1px solid var(--border-glass); padding-top: 3rem; }
         .metric-num { font-size: 3rem; font-weight: 800; color: var(--text-pure); line-height: 1; margin-bottom: 0.25rem; }
         .metric-num::after { content: '+'; color: var(--accent-neon); }
         .metric-label { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
 
-        /* Structural Content Framework sections */
-        .services-section, .portfolio-section, .booking-section {
-            max-width: 1400px; margin: 0 auto; padding: 8rem 2rem;
-        }
+        /* Main Structured Sections Layout */
+        .services-section, .portfolio-section, .booking-section { max-width: 1400px; margin: 0 auto; padding: 8rem 2rem; }
         .section-header { margin-bottom: 4rem; }
         .section-header .sub-title { color: var(--accent-primary); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 0.5rem; }
         .section-header h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
@@ -144,16 +151,12 @@
 
         .services-grid, .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2.5rem; }
 
-        /* Glassmorphic Container Hulls */
+        /* Premium Glass Containers */
         .service-card, .portfolio-item-card {
-            background: var(--glass-grad);
-            border: 1px solid var(--border-glass);
-            border-radius: 8px; padding: 2.5rem;
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+            background: var(--glass-grad); border: 1px solid var(--border-glass);
+            border-radius: 12px; padding: 2.5rem; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
         }
-        .service-card:hover, .portfolio-item-card:hover {
-            transform: translateY(-5px); border-color: rgba(108, 99, 255, 0.3);
-        }
+        .service-card:hover, .portfolio-item-card:hover { transform: translateY(-5px); border-color: rgba(108, 99, 255, 0.3); }
 
         .service-icon { font-size: 2rem; color: var(--accent-neon); margin-bottom: 1.5rem; }
         .service-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
@@ -161,13 +164,10 @@
         .service-features { list-style: none; margin-bottom: 2rem; }
         .service-features li { font-size: 0.9rem; color: var(--text-pure); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
         .service-features i { color: var(--accent-primary); font-size: 0.8rem; }
-
-        .service-meta {
-            display: flex; justify-content: space-between; border-top: 1px solid var(--border-glass); padding-top: 1.25rem; font-size: 0.9rem; color: var(--text-muted);
-        }
+        .service-meta { display: flex; justify-content: space-between; border-top: 1px solid var(--border-glass); padding-top: 1.25rem; font-size: 0.9rem; color: var(--text-muted); }
         .service-meta strong { color: var(--text-pure); font-size: 1.1rem; }
 
-        /* Interactive Filter System UI */
+        /* Dynamic Portfolio Segment */
         .filter-wrapper { display: flex; gap: 1rem; margin-bottom: 3rem; overflow-x: auto; padding-bottom: 0.5rem; }
         .filter-btn {
             background: transparent; border: 1px solid var(--border-glass); color: var(--text-muted);
@@ -175,10 +175,11 @@
         }
         .filter-btn:hover, .filter-btn.active { border-color: var(--accent-primary); color: var(--text-pure); background: rgba(108, 99, 255, 0.1); }
 
-        /* Case Studies Configurations */
         .portfolio-item-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-        .project-img-wrapper { background: #1B2336; height: 220px; display: flex; align-items: center; justify-content: center; }
-        .mock-img-placeholder { font-family: monospace; font-size: 1.2rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; }
+        .project-img-wrapper { background: rgba(27, 35, 54, 0.4); height: 240px; overflow: hidden; position: relative; }
+        .project-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .portfolio-item-card:hover .project-img-wrapper img { transform: scale(1.04); }
+        
         .project-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
         .project-tag { font-size: 0.75rem; text-transform: uppercase; color: var(--accent-neon); font-weight: 700; letter-spacing: 1px; margin-bottom: 0.5rem; }
         .project-content h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
@@ -187,12 +188,12 @@
         .tech-stack-row span { background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; color: var(--text-muted); }
         .project-actions { display: flex; gap: 1rem; }
 
-        /* Intake / Booking Terminal Styles */
+        /* Integrated Intake Form Frame */
         .booking-wrapper { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; background: var(--glass-grad); border: 1px solid var(--border-glass); padding: 4rem; border-radius: 12px; }
         .booking-info-pane h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1.5rem; }
         .booking-info-pane p { color: var(--text-muted); margin-bottom: 3rem; }
         .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
-        .method-node { display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; font-weight: 600; }
+        .method-node { display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; font-weight: 600; text-decoration: none; color: var(--text-pure); }
         .method-node i { color: var(--accent-neon); }
 
         .booking-form-pane form { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -200,44 +201,75 @@
         .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
         .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
         .form-group input, .form-group select, .form-group textarea {
-            background: #0B0F19; border: 1px solid var(--border-glass); border-radius: 4px; padding: 0.85rem; color: white; font-family: inherit; font-size: 0.95rem; transition: border-color 0.2s ease;
+            background: var(--bg-main); border: 1px solid var(--border-glass); border-radius: 6px; padding: 0.85rem; color: var(--text-pure); font-family: inherit; font-size: 0.95rem; transition: border-color 0.2s ease;
         }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-primary); }
+        
+        /* Direct Embedded Inline Form Feedback State */
+        .form-status-msg { padding: 1rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; display: none; margin-top: 1rem; text-align: center; }
+        .form-status-msg.success { display: block; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; color: #10B981; }
+        .form-status-msg.error { display: block; background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #EF4444; }
 
-        /* Global Lightbox Component Window */
+        /* Lightbox Window Modal Overlays */
         .lightbox-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 12, 0.9);
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 12, 0.85);
             backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 2rem;
         }
         .lightbox-card {
-            background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 8px;
+            background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px;
             width: 100%; max-width: 800px; padding: 3rem; position: relative; max-height: 90vh; overflow-y: auto;
         }
-        .close-lightbox { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+        .close-lightbox { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--text-pure); font-size: 2rem; cursor: pointer; }
 
-        /* Utilities Controls */
-        .back-to-top {
-            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: white;
-            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 500; transition: all 0.2s ease;
+        /* Global Corporate Structural Footer */
+        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
+        .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
+        .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
+        .footer-col ul a:hover { color: var(--text-pure); }
+        
+        .footer-social-row { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-link-icon {
+            display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            border-radius: 6px; border: 1px solid var(--border-glass); color: var(--text-pure); text-decoration: none; transition: background 0.2s ease;
         }
-        .back-to-top:hover { transform: translateY(-3px); background: #574feb; }
+        .social-link-icon:hover { background: var(--accent-primary); color: #FFF; }
+
+        .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-glass); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .footer-legal-links { display: flex; gap: 1.5rem; }
+        .footer-legal-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .footer-legal-links a:hover { color: var(--text-pure); }
+
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
+            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
+        }
 
         /* ==========================================================================
-           4. Responsive Media Breakpoint Engine
+           4. Responsive Media Breakpoints Engine
            ========================================================================== */
         @media(max-width: 1024px) {
             .hero-headline { font-size: 3rem; }
             .booking-wrapper { grid-template-columns: 1fr; gap: 3rem; padding: 2.5rem; }
             .metrics-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
         }
 
         @media(max-width: 768px) {
-            .nav-links { display: none; position: absolute; top: var(--nav-height); left: 0; width: 100%; background: #0B0F19; border-bottom: 1px solid var(--border-glass); flex-direction: column; padding: 2rem; gap: 1.5rem; align-items: flex-start; }
+            .nav-links {
+                display: none; position: absolute; top: 80px; left: 0; width: 100%;
+                background: var(--bg-main); border-bottom: 1px solid var(--border-glass);
+                flex-direction: column; padding: 2rem; gap: 1.5rem; align-items: flex-start;
+            }
             .nav-links.active { display: flex; }
             .mobile-toggle { display: block; }
             .hero-headline { font-size: 2.5rem; }
             .hero-actions { flex-direction: column; }
             .metrics-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
         }
     </style>
 </head>
@@ -247,16 +279,34 @@
     
     <header class="main-header">
         <div class="nav-container">
-            <a href="#" class="logo">Sum<span>WebDev</span></a>
-            <nav class="nav-links" id="navLinks">
-                <a href="#home" class="nav-item active">Home</a>
-                <a href="#services" class="nav-item">Services</a>
-                <a href="#portfolio" class="nav-item">Portfolio</a>
-                <a href="#booking" class="nav-item nav-cta">Book a Project</a>
-            </nav>
-            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
-                <i class="fas fa-bars"></i>
-            </button>
+            <a href="#" class="logo">
+                <svg viewBox="0 0 32 32"><path d="M6 18L16 6L26 18L16 22L6 18Z"/><path d="M6 24L16 16L26 24L16 28L6 24Z"/></svg>
+                Sum<span>WebDev</span>
+            </a>
+            
+            <div class="nav-controls-wrapper">
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-item active">Home</a>
+                    <a href="#services" class="nav-item">Services</a>
+                    <a href="#portfolio" class="nav-item">Portfolio</a>
+                    <a href="booking/index.html" class="nav-item">Intake</a>
+                </nav>
+
+                <select class="lang-select" id="languageSelector" aria-label="Language Selector">
+                    <option value="en">EN</option>
+                    <option value="nl">NL (Dutch)</option>
+                    <option value="de">DE</option>
+                    <option value="fr">FR</option>
+                </select>
+
+                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme Layout">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -264,7 +314,7 @@
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
         <div class="hero-container">
-            <div class="hero-badge"><i class="fas fa-bolt"></i> Availability Open for Q3 2026</div>
+            <div class="hero-badge"><i class="fas fa-bolt"></i> Global Operations Live | 2026</div>
             <h1 class="hero-headline">I Build Fast, Modern Websites That <span>Grow Your Business.</span></h1>
             <p class="hero-subtext">Engineered at the intersection of premium visual aesthetics and rock-solid full-stack architecture. Turn your traffic into high-converting revenue streams.</p>
             
@@ -293,7 +343,7 @@
     <section id="services" class="services-section">
         <div class="section-header">
             <span class="sub-title">Expertise Matrix</span>
-            <h2>Architectural Services Offered</h2>
+            <h2>Architectural Services</h2>
             <p>Production-grade solutions optimized for cross-platform utility, raw processing speed, and clean semantic indexing.</p>
         </div>
         
@@ -307,7 +357,7 @@
                     <li><i class="fas fa-check"></i> Custom dashboard integrations</li>
                 </ul>
                 <div class="service-meta">
-                    <span>From <strong>$1,200</strong></span>
+                    <span>From <strong>&euro;1.200</strong></span>
                     <span>14-21 Days</span>
                 </div>
             </div>
@@ -321,7 +371,7 @@
                     <li><i class="fas fa-check"></i> Isolated token authentication</li>
                 </ul>
                 <div class="service-meta">
-                    <span>From <strong>$2,500</strong></span>
+                    <span>From <strong>&euro;2.500</strong></span>
                     <span>21-35 Days</span>
                 </div>
             </div>
@@ -332,10 +382,10 @@
                 <p>Auditing and refactoring legacy script profiles to establish 100/100 Core Web Vitals rankings, reducing user bounce rates immediately.</p>
                 <ul class="service-features">
                     <li><i class="fas fa-check"></i> Complete asset compression pipelines</li>
-                    <li><i class="fas fa-check"></i> Schema markup structured data</li>
+                    <li><i class="fas fa-check"></i> Schema markup data mapping</li>
                 </ul>
                 <div class="service-meta">
-                    <span>From <strong>$600</strong></span>
+                    <span>From <strong>&euro;600</strong></span>
                     <span>5-7 Days</span>
                 </div>
             </div>
@@ -344,7 +394,7 @@
 
     <section id="portfolio" class="portfolio-section">
         <div class="section-header">
-            <span class="sub-title">Engineered Case Studies</span>
+            <span class="sub-title">Case Studies</span>
             <h2>Live Production Deployments</h2>
         </div>
 
@@ -352,13 +402,13 @@
             <button class="filter-btn active" data-filter="all">All Architecture</button>
             <button class="filter-btn" data-filter="marketplace">Marketplaces</button>
             <button class="filter-btn" data-filter="events">Event Systems</button>
-            <button class="filter-btn" data-filter="ai">AI Platforms</button>
         </div>
 
         <div class="portfolio-grid">
             <div class="portfolio-item-card" data-category="marketplace">
                 <div class="project-img-wrapper">
-                    <div class="mock-img-placeholder"><i class="fas fa-music"></i> Audiory Hub Matrix</div>
+                    <img src="audiory.webp" alt="Audiory Platform System Interface Mockup" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="mock-img-placeholder" style="display:none; height:100%; width:100%; align-items:center; justify-content:center;"><i class="fas fa-music"></i> Audiory Frame</div>
                 </div>
                 <div class="project-content">
                     <span class="project-tag">Music Marketplace</span>
@@ -376,7 +426,8 @@
 
             <div class="portfolio-item-card" data-category="events">
                 <div class="project-img-wrapper">
-                    <div class="mock-img-placeholder"><i class="fas fa-ticket-alt"></i> Shamba System</div>
+                    <img src="shambafest.webp" alt="Shamba Fest Booking Platform Mockup" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="mock-img-placeholder" style="display:none; height:100%; width:100%; align-items:center; justify-content:center;"><i class="fas fa-ticket-alt"></i> Shamba Frame</div>
                 </div>
                 <div class="project-content">
                     <span class="project-tag">Transactional Engine</span>
@@ -397,19 +448,19 @@
     <section id="booking" class="booking-section">
         <div class="booking-wrapper">
             <div class="booking-info-pane">
-                <h2>Ready to Initialize Your Platform Architecture?</h2>
+                <h2>Initialize Your Platform Architecture</h2>
                 <p>Provide your system parameters in the intake terminal. After verification, a structured architectural development timeline will be issued directly to your email.</p>
                 <div class="contact-methods">
-                    <div class="method-node"><i class="fab fa-whatsapp"></i> <span>Direct Dev Channel Active</span></div>
-                    <div class="method-node"><i class="fas fa-envelope"></i> <span>ops@sumweb.dev</span></div>
+                    <a href="https://wa.me/254700000000" class="method-node" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span>Direct Dev WhatsApp Channel</span></a>
+                    <a href="mailto:support@sumwebdev.com" class="method-node"><i class="fas fa-envelope"></i> <span>support@sumwebdev.com</span></a>
                 </div>
             </div>
             
             <div class="booking-form-pane">
-                <form id="intakeTerminal" onsubmit="handleFormSubmission(event)">
+                <form id="intakeTerminal" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
                     <div class="form-group">
                         <label for="projType">Architecture Footprint</label>
-                        <select id="projType" required>
+                        <select name="Project Type" id="projType" required>
                             <option value="">-- Choose Footprint --</option>
                             <option value="ecommerce">E-commerce Enterprise Ecosystem</option>
                             <option value="saas">SaaS / Automated App Layer</option>
@@ -419,15 +470,15 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="budget">Allocated Capital Allocation</label>
-                            <select id="budget" required>
-                                <option value="starter">$1,000 - $2,500</option>
-                                <option value="mid">$2,500 - $5,000</option>
-                                <option value="enterprise">$5,000+</option>
+                            <select name="Budget Range" id="budget" required>
+                                <option value="starter">&euro;1.000 - &euro;2.500</option>
+                                <option value="mid">&euro;2.500 - &euro;5.000</option>
+                                <option value="enterprise">&euro;5.000+</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="timeline">Timeline Scale</label>
-                            <select id="timeline" required>
+                            <select name="Timeline Target" id="timeline" required>
                                 <option value="expedited">Expedited (Under 2 weeks)</option>
                                 <option value="standard">Standard Execution (3-4 weeks)</option>
                             </select>
@@ -435,9 +486,11 @@
                     </div>
                     <div class="form-group">
                         <label for="details">System Parameters & Project Breakdown</label>
-                        <textarea id="details" rows="4" placeholder="Detail any operational workflows, desired integrations, or database dependencies required..." required></textarea>
+                        <textarea name="Project Description" id="details" rows="4" placeholder="Detail any operational workflows, desired integrations, or database dependencies required..." required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Transmit Project Parameters</button>
+                    
+                    <div id="formStatus" class="form-status-msg"></div>
                 </form>
             </div>
         </div>
@@ -445,12 +498,60 @@
 
     <div class="lightbox-overlay" id="lightboxOverlay">
         <div class="lightbox-card">
-            <button class="close-lightbox" id="closeLightbox">&times;</button>
+            <button class="close-lightbox" id="closeLightbox" aria-label="Close details window">&times;</button>
             <div id="lightboxDynamicContent"></div>
         </div>
     </div>
 
-    <button id="backToTop" class="back-to-top" aria-label="Scroll to system top"><i class="fas fa-chevron-up"></i></button>
+    <button id="backToTop" class="back-to-top" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <svg viewBox="0 0 32 32"><path d="M6 18L16 6L26 18L16 22L6 18Z"/><path d="M6 24L16 16L26 24L16 28L6 24Z"/></svg>
+                    Sum<span>WebDev</span>
+                </a>
+                <p>High-performance web architecture designed to scale corporate presence, handle transactional checkouts, and clean up technical debt.</p>
+                <div class="footer-social-row">
+                    <a href="https://github.com" class="social-link-icon" target="_blank" rel="noopener" aria-label="GitHub Developer Page"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com" class="social-link-icon" target="_blank" rel="noopener" aria-label="LinkedIn Professional Network"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://twitter.com" class="social-link-icon" target="_blank" rel="noopener" aria-label="Twitter Ecosystem Profile"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Solutions</h4>
+                <ul>
+                    <li><a href="services/index.html">Web Engineering</a></li>
+                    <li><a href="services/index.html">E-commerce Stores</a></li>
+                    <li><a href="services/index.html">Speed Optimization</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Agency</h4>
+                <ul>
+                    <li><a href="about/index.html">About Narrative</a></li>
+                    <li><a href="portfolio/index.html">Case Portfolio</a></li>
+                    <li><a href="contact/index.html">Contact Hub</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>System Maps</h4>
+                <ul>
+                    <li><a href="sitemap/index.html">HTML Sitemap</a></li>
+                    <li><a href="booking/index.html">Client Intake Terminal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 Sum Web Dev. All Engineering Clear.</div>
+            <div class="footer-legal-links">
+                <a href="privacy/index.html">Privacy Policy</a>
+                <a href="terms/index.html">Terms of Service</a>
+                <a href="privacy-settings/index.html">Privacy Settings</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -458,9 +559,11 @@
             initializeMetricCounters();
             initializePortfolioFilters();
             initializeLightboxModules();
+            initializeThemeEngine();
+            initializeFormspreeTerminal();
         });
 
-        // Navigation Loops and Header Transitions
+        // Sticky Headers & Progress Tracking
         function initializeNavigationModules() {
             const header = document.querySelector(".main-header");
             const mobileToggle = document.getElementById("mobileToggle");
@@ -477,10 +580,8 @@
                 }
 
                 if (window.scrollY > 100) {
-                    header.style.background = "#0B0F19";
                     backToTop.style.display = "flex";
                 } else {
-                    header.style.background = "rgba(11, 15, 25, 0.75)";
                     backToTop.style.display = "none";
                 }
 
@@ -511,7 +612,21 @@
             });
         }
 
-        // Running Live Telemetry Incrementers
+        // Native Light/Dark Theme Engine
+        function initializeThemeEngine() {
+            const toggler = document.getElementById("themeToggler");
+            const icon = toggler.querySelector("i");
+            
+            toggler.addEventListener("click", () => {
+                const currentTheme = document.documentElement.getAttribute("data-theme");
+                const targetTheme = currentTheme === "dark" ? "light" : "dark";
+                
+                document.documentElement.setAttribute("data-theme", targetTheme);
+                icon.className = targetTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
+            });
+        }
+
+        // Live Telemetry Incremental Counters
         function initializeMetricCounters() {
             const metrics = document.querySelectorAll(".metric-num");
             
@@ -544,7 +659,7 @@
             metrics.forEach(metric => observer.observe(metric));
         }
 
-        // Live Filter Engines
+        // Client Side Filter Systems
         function initializePortfolioFilters() {
             const buttons = document.querySelectorAll(".filter-btn");
             const cards = document.querySelectorAll(".portfolio-item-card");
@@ -567,7 +682,7 @@
             });
         }
 
-        // Localized Lightbox Database Storehouse
+        // Static Lightbox Core Content Hydration Mapping
         const projectSpecifications = {
             "modal-audiory": {
                 title: "Audiory Marketplace Framework",
@@ -583,7 +698,6 @@
             }
         };
 
-        // Lightbox Handler Framework Loops
         function initializeLightboxModules() {
             const overlay = document.getElementById("lightboxOverlay");
             const dynamicContent = document.getElementById("lightboxDynamicContent");
@@ -597,12 +711,12 @@
 
                     if (data) {
                         dynamicContent.innerHTML = `
-                            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #00D4FF;">${data.title}</h2>
-                            <h4 style="margin-bottom: 0.5rem; text-transform: uppercase; color: #94A3B8;">Operational Scope</h4>
+                            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-neon);">${data.title}</h2>
+                            <h4 style="margin-bottom: 0.5rem; text-transform: uppercase; color: var(--text-muted);">Operational Scope</h4>
                             <p style="margin-bottom: 1.5rem;">${data.clientGoal}</p>
-                            <h4 style="margin-bottom: 0.5rem; text-transform: uppercase; color: #94A3B8;">Engineering Execution</h4>
+                            <h4 style="margin-bottom: 0.5rem; text-transform: uppercase; color: var(--text-muted);">Engineering Execution</h4>
                             <p style="margin-bottom: 1.5rem;">${data.solution}</p>
-                            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 4px; border-left: 4px solid #6C63FF; font-family: monospace;">
+                            <div style="background: rgba(108,99,255,0.08); padding: 1rem; border-radius: 6px; border-left: 4px solid var(--accent-primary); font-family: monospace; color: var(--text-pure);">
                                 <strong>System Telemetry:</strong> ${data.metrics}
                             </div>
                         `;
@@ -615,21 +729,43 @@
             overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.style.display = "none"; });
         }
 
-        // Secure Payload Processor
-        function handleFormSubmission(event) {
-            event.preventDefault();
-            const btn = event.target.querySelector("button[type='submit']");
-            btn.innerText = "Transmitting Packet Clear...";
-            btn.style.background = "#00D4FF";
-            btn.style.color = "#0B0F19";
+        // Inline Formspree Validation Pipeline (Zero Alert Windows/Popups)
+        function initializeFormspreeTerminal() {
+            const form = document.getElementById("intakeTerminal");
+            const statusBox = document.getElementById("formStatus");
 
-            setTimeout(() => {
-                alert("Data payload received successfully. Your engineering analysis is routing now.");
-                event.target.reset();
-                btn.innerText = "Transmit Project Parameters";
-                btn.style.background = "#6C63FF";
-                btn.style.color = "white";
-            }, 1200);
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const data = new FormData(form);
+                const submitBtn = form.querySelector("button[type='submit']");
+                
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Transmitting Packet Clear...";
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: data,
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        statusBox.className = "form-status-msg success";
+                        statusBox.innerText = "Data payload received successfully. Your structural engineering analysis is routing now.";
+                        form.reset();
+                    } else {
+                        const errorData = await response.json();
+                        statusBox.className = "form-status-msg error";
+                        statusBox.innerText = errorData.errors ? errorData.errors.map(err => err.message).join(", ") : "Transmission validation loop rejected payload.";
+                    }
+                } catch (error) {
+                    statusBox.className = "form-status-msg error";
+                    statusBox.innerText = "Network transport error. Check routing parameters or firewalls.";
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = "Transmit Project Parameters";
+                }
+            });
         }
     </script>
 </body>
