@@ -247,3 +247,42 @@
             .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
             .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15sNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
         }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
+    
+    <!-- Header with SVG Logo and System Settings Dropdowns -->
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg viewBox="0 0 32 32"><path d="M6 18L16 6L26 18L16 22L6 18Z"/><path d="M6 24L16 16L26 24L16 28L6 24Z"/></svg>
+                Sum<span>WebDev</span>
+            </a>
+            
+            <div class="nav-controls-wrapper">
+                <nav class="nav-links" id="navLinks">
+                    <a href="#home" class="nav-item active" data-lang-key="nav_home">Home</a>
+                    <a href="#services" class="nav-item" data-lang-key="nav_services">Services</a>
+                    <a href="#portfolio" class="nav-item" data-lang-key="nav_portfolio">Portfolio</a>
+                    <a href="booking/index.html" class="nav-item" data-lang-key="nav_intake">Intake</a>
+                </nav>
+
+                <select class="lang-select" id="languageSelector" aria-label="Language Selector">
+                    <option value="en">EN</option>
+                    <option value="nl">NL</option>
+                    <option value="de">DE</option>
+                    <option value="fr">FR</option>
+                </select>
+
+                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme Layout">
+                    <i class="fas fa-moon"></i>
+                </button>
+
+                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
