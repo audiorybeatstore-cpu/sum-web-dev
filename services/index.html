@@ -1,1 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | Sum Web Dev</title>
+    <meta name="description" content="Explore our premium full-stack web engineering services designed to scale revenue, automate checkouts, and build digital authority.">
+    
+    <!-- External Assets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. Premium Theme Tokens & Root Variables
+           ========================================================================== */
+        :root[data-theme="dark"] {
+            --bg-main: #0B0F19;
+            --bg-card: #151A28;
+            --accent-primary: #6C63FF;
+            --accent-neon: #00D4FF;
+            --text-pure: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
+            --header-bg: rgba(11, 15, 25, 0.85);
+        }
 
+        :root[data-theme="light"] {
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --accent-primary: #4F46E5;
+            --accent-neon: #0EA5E9;
+            --text-pure: #0F172A;
+            --text-muted: #64748B;
+            --border-glass: rgba(15, 23, 42, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
+            --header-bg: rgba(248, 250, 252, 0.9);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-pure);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
+            z-index: 9999;
+        }
+
+        /* ==========================================================================
+           2. Header Ecosystem (Fixed Layout Structure)
+           ========================================================================== */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--header-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass); z-index: 1000;
+            display: flex; align-items: center; transition: background 0.3s ease;
+        }
+        .nav-container {
+            width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-weight: 900; font-size: 1.5rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
+            z-index: 1010;
+        }
+        .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
+        .logo span { color: var(--accent-neon); }
+
+        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.25rem; z-index: 1010; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        
+        .nav-item {
+            color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
+            transition: color 0.2s ease; position: relative;
+        }
+        .nav-item:hover, .nav-item.active { color: var(--text-pure); }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+            background: var(--accent-neon); border-radius: 2px;
+        }
+        
+        .utility-btn {
+            background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            transition: all 0.2s ease;
+        }
+        .utility-btn:hover { border-color: var(--accent-primary); }
+
+        .lang-select {
+            background: var(--bg-card); border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.4rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none;
+            transition: all 0.2s ease; height: 38px;
+        }
+        .lang-select:focus { border-color: var(--accent-primary); }
+
+        .mobile-toggle {
+            display: none; background: transparent; border: 1px solid var(--border-glass); 
+            color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
+            border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
+            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
+        }
+        .mobile-toggle span {
+            display: block; width: 18px; height: 2px; background-color: var(--text-pure);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .mobile-toggle:hover { border-color: var(--accent-primary); }
+        
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        /* Button Ecosystem */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.9rem 2rem;
+            font-weight: 600; font-size: 1rem; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;
+        }
+        .btn-primary { background: var(--accent-primary); color: #FFF; border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25); }
+
+        /* ==========================================================================
+           3. Services Specific Content Modules
+           ========================================================================== */
+        .services-hero {
+            padding: 160px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; z-index: 0; }
+        .orb-1 { top: 10%; left: 15%; width: 400px; height: 400px; background: var(--accent-primary); }
+        .orb-2 { bottom: 5%; right: 15%; width: 400px; height: 400px; background: var(--accent-neon); }
+
+        .services-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .services-title { font-size: 3.8rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.5rem; }
+        .services-title span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .services-subtext { font-size: 1.25rem; color: var(--text-muted); }
+
+        .services-section { max-width: 1400px; margin: 0 auto; padding: 2rem 2rem 8rem; position: relative; z-index: 2; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; }
+
+        .service-card {
+            background: var(--glass-grad); border: 1px solid var(--border-glass);
+            border-radius: 12px; padding: 3rem 2.5rem; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+            display: flex; flex-direction: column;
+        }
+        .service-card:hover { transform: translateY(-5px); border-color: rgba(108, 99, 255, 0.3); }
+
+        .service-icon { font-size: 2.5rem; color: var(--accent-neon); margin-bottom: 1.5rem; }
+        .service-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .service-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem; flex-grow: 1; }
+        
+        .service-features { list-style: none; margin-bottom: 2.5rem; }
+        .service-features li { font-size: 0.95rem; color: var(--text-pure); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .service-features i { color: var(--accent-primary); font-size: 0.85rem; }
+        
+        .service-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); }
+        .service-meta strong { color: var(--text-pure); font-size: 1.25rem; font-weight: 700; }
+
+        /* ==========================================================================
+           4. Global Corporate Structural Footer
+           ========================================================================== */
+        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); position: relative; z-index: 2; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
+        .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
+        .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
+        .footer-col ul a:hover { color: var(--text-pure); }
+        
+        .footer-social-row { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-link-icon {
+            display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            border-radius: 6px; border: 1px solid var(--border-glass); color: var(--text-pure); text-decoration: none; transition: background 0.2s ease;
+        }
+        .social-link-icon:hover { background: var(--accent-primary); color: #FFF; }
+
+        .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-glass); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .footer-legal-links { display: flex; gap: 1.5rem; }
+        .footer-legal-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .footer-legal-links a:hover { color: var(--text-pure); }
+
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
+            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
+        }
+
+        /* ==========================================================================
+           5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
+           ========================================================================== */
+        @media(max-width: 1024px) {
+            .services-title { font-size: 3rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        }
+
+        @media(max-width: 768px) {
+            .mobile-toggle { display: flex; }
+            
+            /* Keeps UI tools correctly aligned layout-wise inside mobile frame limits */
+            .nav-controls-wrapper { position: relative; }
+            .lang-select, #themeToggler { position: relative !important; top: auto !important; right: auto !important; }
+
+            /* Premium backdrop side-drawer layout panel architecture */
+            .nav-links {
+                display: flex; 
+                flex-direction: column; 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 100%;
+                max-width: 300px; 
+                height: 100vh; 
+                background: rgba(21, 26, 40, 0.96);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-left: 1px solid var(--border-glass); 
+                padding: 120px 2rem 2rem;
+                gap: 2rem; 
+                align-items: flex-start; 
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -20px 0 40px rgba(0,0,0,0.4); 
+                z-index: 1005;
+            }
+            .nav-links.active { right: 0; }
+
+            /* Cinematic slide and fade animations for inner menu elements */
+            .nav-links .nav-item {
+                font-size: 1.25rem;
+                font-weight: 600;
+                opacity: 0;
+                transform: translateX(15px);
+                transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active .nav-item { opacity: 1; transform: translateX(0); }
+            .nav-links.active .nav-item:nth-child(1) { transition-delay: 0.05s; }
+            .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15sNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+        }
