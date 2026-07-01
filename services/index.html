@@ -6,7 +6,6 @@
     <title>Our Services | Sum Web Dev</title>
     <meta name="description" content="Explore our premium full-stack web engineering services designed to scale revenue, automate checkouts, and build digital authority.">
     
-    <!-- External Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -109,17 +108,9 @@
             display: none; background: transparent; border: 1px solid var(--border-glass); 
             color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
             border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
-            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
-        }
-        .mobile-toggle span {
-            display: block; width: 18px; height: 2px; background-color: var(--text-pure);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1010;
         }
         .mobile-toggle:hover { border-color: var(--accent-primary); }
-        
-        .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
-        .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
         /* Button Ecosystem */
         .btn {
@@ -195,6 +186,7 @@
             position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
             border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
         }
+        .back-to-top.visible { display: flex; }
 
         /* ==========================================================================
            5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
@@ -206,12 +198,13 @@
 
         @media(max-width: 768px) {
             .mobile-toggle { display: flex; }
+            .services-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
             
-            /* Keeps UI tools correctly aligned layout-wise inside mobile frame limits */
             .nav-controls-wrapper { position: relative; }
             .lang-select, #themeToggler { position: relative !important; top: auto !important; right: auto !important; }
 
-            /* Premium backdrop side-drawer layout panel architecture */
             .nav-links {
                 display: flex; 
                 flex-direction: column; 
@@ -234,7 +227,6 @@
             }
             .nav-links.active { right: 0; }
 
-            /* Cinematic slide and fade animations for inner menu elements */
             .nav-links .nav-item {
                 font-size: 1.25rem;
                 font-weight: 600;
@@ -245,7 +237,8 @@
             .nav-links.active .nav-item { opacity: 1; transform: translateX(0); }
             .nav-links.active .nav-item:nth-child(1) { transition-delay: 0.05s; }
             .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
-            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15sNormally I can help with things like this, but I don't seem to have access to that content. You can try again or ask me for something else.
+            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15s; }
+            .nav-links.active .nav-item:nth-child(4) { transition-delay: 0.2s; }
         }
     </style>
 </head>
@@ -253,7 +246,6 @@
 
     <div class="scroll-progress" id="scrollProgress"></div>
     
-    <!-- Header with SVG Logo and System Settings Dropdowns -->
     <header class="main-header">
         <div class="nav-container">
             <a href="#" class="logo">
@@ -263,10 +255,10 @@
             
             <div class="nav-controls-wrapper">
                 <nav class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-item active" data-lang-key="nav_home">Home</a>
-                    <a href="#services" class="nav-item" data-lang-key="nav_services">Services</a>
-                    <a href="#portfolio" class="nav-item" data-lang-key="nav_portfolio">Portfolio</a>
-                    <a href="booking/index.html" class="nav-item" data-lang-key="nav_intake">Intake</a>
+                    <a href="#" class="nav-item" data-lang-key="nav_home">Home</a>
+                    <a href="#" class="nav-item active" data-lang-key="nav_services">Services</a>
+                    <a href="#" class="nav-item" data-lang-key="nav_portfolio">Portfolio</a>
+                    <a href="#" class="nav-item" data-lang-key="nav_intake">Intake</a>
                 </nav>
 
                 <select class="lang-select" id="languageSelector" aria-label="Language Selector">
@@ -286,3 +278,246 @@
             </div>
         </div>
     </header>
+
+    <section class="services-hero">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="services-hero-content">
+            <h1 class="services-title"><span data-lang-key="hero_title">Premium Engineering Services</span></h1>
+            <p class="services-subtext" data-lang-key="hero_subtext">We design, build, and deploy high-performance full-stack architectures built to maximize architecture scaling speed and conversion efficiency.</p>
+        </div>
+    </section>
+
+    <main class="services-section" id="services">
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-layer-group"></i></div>
+                <h3 data-lang-key="s1_title">Full-Stack Engineering</h3>
+                <p data-lang-key="s1_desc">Tailor-made structural cloud architectures built using Next.js, TypeScript, and modern headless infrastructures for ultimate speed execution.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s1_f1">Headless CMS Integrations</span></li>
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s1_f2">Enterprise System Scalability</span></li>
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s1_f3">Ultra-optimized Core Web Vitals</span></li>
+                </ul>
+                <div class="service-meta">
+                    <span data-lang-key="investment">Investment</span>
+                    <strong><span data-lang-key="s1_price">From €4,999</span></strong>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-credit-card"></i></div>
+                <h3 data-lang-key="s2_title">Automated E-Commerce</h3>
+                <p data-lang-key="s2_desc">Flawless automated shopping checkout funnels mapped to maximize conversion rates and global multi-currency payment workflows.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s2_f1">Custom Stripe Engine Pipelines</span></li>
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s2_f2">Sub-second Cart Transactions</span></li>
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s2_f3">Automated Inventory Webhooks</span></li>
+                </ul>
+                <div class="service-meta">
+                    <span data-lang-key="investment">Investment</span>
+                    <strong><span data-lang-key="s2_price">From €7,499</span></strong>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+                <h3 data-lang-key="s3_title">Digital Authority Growth</h3>
+                <p data-lang-key="s3_desc">Advanced performance optimization mechanisms combined with programmatic technical SEO structures to outpace direct market rivals.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s3_f1">Predictive Semantic SEO Models</span></li>
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s3_f2">Real-time Analytics Infrastructure</span></li>
+                    <li><i class="fas fa-circle-check"></i> <span data-lang-key="s3_f3">Conversion Rate Optimization</span></li>
+                </ul>
+                <div class="service-meta">
+                    <span data-lang-key="investment">Investment</span>
+                    <strong><span data-lang-key="s3_price">Custom Quote</span></strong>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <svg viewBox="0 0 32 32"><path d="M6 18L16 6L26 18L16 22L6 18Z"/><path d="M6 24L16 16L26 24L16 28L6 24Z"/></svg>
+                    Sum<span>WebDev</span>
+                </a>
+                <p data-lang-key="footer_brand_desc">Architecting premium digital assets designed to scale revenue throughput for global operators.</p>
+                <div class="footer-social-row">
+                    <a href="#" class="social-link-icon" aria-label="LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link-icon" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link-icon" aria-label="Twitter X Profile"><i class="fab fa-x-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 data-lang-key="f_col1_title">Services</h4>
+                <ul>
+                    <li><a href="#" data-lang-key="s1_title">Full-Stack Engineering</a></li>
+                    <li><a href="#" data-lang-key="s2_title">Automated E-Commerce</a></li>
+                    <li><a href="#" data-lang-key="s3_title">Digital Authority Growth</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-lang-key="f_col2_title">Company</h4>
+                <ul>
+                    <li><a href="#" data-lang-key="nav_portfolio">Our Work</a></li>
+                    <li><a href="#" data-lang-key="f_link_about">About Team</a></li>
+                    <li><a href="#" data-lang-key="nav_intake">Intake Form</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-lang-key="f_col3_title">Contact</h4>
+                <ul>
+                    <li><a href="#">ops@sumweb.dev</a></li>
+                    <li><a href="#">Amsterdam, NL</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sum Web Dev. All rights reserved.</p>
+            <div class="footer-legal-links">
+                <a href="#" data-lang-key="privacy">Privacy Policy</a>
+                <a href="#" data-lang-key="terms">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Scroll Back To Top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Localization Resource Repository map Matrix
+        const localizationData = {
+            en: {
+                nav_home: "Home", nav_services: "Services", nav_portfolio: "Portfolio", nav_intake: "Intake",
+                hero_title: "Premium Engineering Services", hero_subtext: "We design, build, and deploy high-performance full-stack architectures built to maximize architecture scaling speed and conversion efficiency.",
+                investment: "Investment", privacy: "Privacy Policy", terms: "Terms of Service",
+                f_col1_title: "Services", f_col2_title: "Company", f_col3_title: "Contact", f_link_about: "About Team",
+                footer_brand_desc: "Architecting premium digital assets designed to scale revenue throughput for global operators.",
+                s1_title: "Full-Stack Engineering", s1_desc: "Tailor-made structural cloud architectures built using Next.js, TypeScript, and modern headless infrastructures for ultimate speed execution.",
+                s1_f1: "Headless CMS Integrations", s1_f2: "Enterprise System Scalability", s1_f3: "Ultra-optimized Core Web Vitals", s1_price: "From €4,999",
+                s2_title: "Automated E-Commerce", s2_desc: "Flawless automated shopping checkout funnels mapped to maximize conversion rates and global multi-currency payment workflows.",
+                s2_f1: "Custom Stripe Engine Pipelines", s2_f2: "Sub-second Cart Transactions", s2_f3: "Automated Inventory Webhooks", s2_price: "From €7,499",
+                s3_title: "Digital Authority Growth", s3_desc: "Advanced performance optimization mechanisms combined with programmatic technical SEO structures to outpace direct market rivals.",
+                s3_f1: "Predictive Semantic SEO Models", s3_f2: "Real-time Analytics Infrastructure", s3_f3: "Conversion Rate Optimization", s3_price: "Custom Quote"
+            },
+            nl: {
+                nav_home: "Home", nav_services: "Diensten", nav_portfolio: "Portfolio", nav_intake: "Intake",
+                hero_title: "Premium Engineering Diensten", hero_subtext: "Wij ontwerpen, bouwen en implementeren hoogwaardige full-stack architecturen om schaalsnelheid en conversie-efficiëntie te maximaliseren.",
+                investment: "Investering", privacy: "Privacybeleid", terms: "Algemene Voorwaarden",
+                f_col1_title: "Diensten", f_col2_title: "Bedrijf", f_col3_title: "Contact", f_link_about: "Over Ons",
+                footer_brand_desc: "Het ontwerpen van premium digitale activa om de omzet voor wereldwijde bedrijven te verhogen.",
+                s1_title: "Full-Stack Engineering", s1_desc: "Op maat gemaakte cloudarchitecturen gebouwd met Next.js, TypeScript en moderne headless infrastructuren voor ultieme prestaties.",
+                s1_f1: "Headless CMS Integraties", s1_f2: "Enterprise Systeemschaalbaarheid", s1_f3: "Geoptimaliseerde Core Web Vitals", s1_price: "Vanaf €4.999",
+                s2_title: "Geautomatiseerde E-Commerce", s2_desc: "Foutloze geautomatiseerde checkout-funnels ontworpen om conversieratio's en wereldwijde betalingsworkflows te maximaliseren.",
+                s2_f1: "Aangepaste Stripe Engine Pijplijnen", s2_f2: "Sub-seconde Winkelwagen Transacties", s2_f3: "Geautomatiseerde Voorraad Webhooks", s2_price: "Vanaf €7.499",
+                s3_title: "Digitale Autoriteit Groei", s3_desc: "Geavanceerde optimalisatiemechanismen gecombineerd met programmatische technische SEO-structuren om concurrenten voor te blijven.",
+                s3_f1: "Voorspellende Semantische SEO-modellen", s3_f2: "Real-time Analytics Infrastructuur", s3_f3: "Conversieratio Optimalisatie", s3_price: "Maatwerk Offerte"
+            },
+            de: {
+                nav_home: "Startseite", nav_services: "Dienstleistungen", nav_portfolio: "Portfolio", nav_intake: "Anfrage",
+                hero_title: "Premium Engineering Services", hero_subtext: "Wir entwerfen, bauen und implementieren hochperformante Full-Stack-Architekturen, um Skalierungsgeschwindigkeit und Conversion-Effizienz zu maximieren.",
+                investment: "Investition", privacy: "Datenschutz", terms: "AGB",
+                f_col1_title: "Dienste", f_col2_title: "Unternehmen", f_col3_title: "Kontakt", f_link_about: "Über Uns",
+                footer_brand_desc: "Architektur von Premium-Digital-Assets zur Umsatzsteigerung für globale Unternehmen.",
+                s1_title: "Full-Stack Engineering", s1_desc: "Maßgeschneiderte Cloud-Architekturen basierend auf Next.js, TypeScript und modernen Headless-Infrastrukturen für maximale Geschwindigkeit.",
+                s1_f1: "Headless CMS-Integrationen", s1_f2: "Skalierbarkeit für Unternehmen", s1_f3: "Optimierte Core Web Vitals", s1_price: "Ab €4.999",
+                s2_title: "Automatisierter E-Commerce", s2_desc: "Fehlerfreie automatisierte Checkout-Funnels zur Optimierung der Konversionsraten und globalen Zahlungsströme.",
+                s2_f1: "Benutzerdefinierte Stripe-Pipelines", s2_f2: "Warenkorb-Transaktionen in Untersekunden", s2_f3: "Automatisierte Bestands-Webhooks", s2_price: "Ab €7.499",
+                s3_title: "Digitale Autorität & Wachstum", s3_desc: "Erweiterte Leistungsoptimierung kombiniert mit programmatischen technischen SEO-Strukturen, um Wettbewerber zu übertreffen.",
+                s3_f1: "Prädiktive semantische SEO-Modelle", s3_f2: "Echtzeit-Analyse-Infrastruktur", s3_f3: "Conversion-Optimierung", s3_price: "Individuelles Angebot"
+            },
+            fr: {
+                nav_home: "Accueil", nav_services: "Services", nav_portfolio: "Portfolio", nav_intake: "Intake",
+                hero_title: "Services d'Ingénierie Premium", hero_subtext: "Nous concevons, construisons et déployons des architectures full-stack haute performance conçues pour maximiser la vitesse de mise à l'échelle et l'efficacité de la conversion.",
+                investment: "Investissement", privacy: "Confidentialité", terms: "Conditions",
+                f_col1_title: "Services", f_col2_title: "Entreprise", f_col3_title: "Contact", f_link_about: "Notre Équipe",
+                footer_brand_desc: "Conception d'actifs numériques premium conçus pour optimiser les revenus des entreprises mondiales.",
+                s1_title: "Ingénierie Full-Stack", s1_desc: "Architectures cloud sur mesure basées sur Next.js, TypeScript et des infrastructures headless modernes pour une exécution ultra-rapide.",
+                s1_f1: "Intégrations de CMS Headless", s1_f2: "Évolutivité de niveau entreprise", s1_f3: "Optimisation des Core Web Vitals", s1_price: "À partir de 4 999 €",
+                s2_title: "E-Commerce Automatisé", s2_desc: "Tunnels d'achat automatisés fluides configurés pour maximiser les taux de conversion et les flux de paiement mondiaux.",
+                s2_f1: "Pipelines Stripe personnalisés", s2_f2: "Transactions de panier ultra-rapides", s2_f3: "Webhooks d'inventaire automatisés", s2_price: "À partir de 7 499 €",
+                s3_title: "Croissance de l'Autorité Digitale", s3_desc: "Mécanismes avancés d'optimisation des performances combinés à des structures SEO techniques programmatiques pour devancer vos concurrents.",
+                s3_f1: "Modèles SEO sémantiques prédictifs", s3_f2: "Infrastructure d'analyse en temps réel", s3_f3: "Optimisation du taux de conversion", s3_price: "Tarif sur mesure"
+            }
+        };
+
+        // UI DOM References
+        const htmlElement = document.documentElement;
+        const themeToggler = document.getElementById('themeToggler');
+        const languageSelector = document.getElementById('languageSelector');
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        const scrollProgress = document.getElementById('scrollProgress');
+        const backToTop = document.getElementById('backToTop');
+
+        // Theme Toggle Manager
+        themeToggler.addEventListener('click', () => {
+            const activeTheme = htmlElement.getAttribute('data-theme');
+            const targetTheme = activeTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', targetTheme);
+            
+            const icon = themeToggler.querySelector('i');
+            if(targetTheme === 'light') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        });
+
+        // Language Translation Pipeline
+        languageSelector.addEventListener('change', (e) => {
+            const targetLanguage = e.target.value;
+            document.querySelectorAll('[data-lang-key]').forEach(element => {
+                const translationKey = element.getAttribute('data-lang-key');
+                if(localizationData[targetLanguage] && localizationData[targetLanguage][translationKey]) {
+                    element.textContent = localizationData[targetLanguage][translationKey];
+                }
+            });
+        });
+
+        // Mobile Menu Drawer Handler
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const toggleIcon = mobileToggle.querySelector('i');
+            if(navLinks.classList.contains('active')) {
+                toggleIcon.className = 'fas fa-times';
+            } else {
+                toggleIcon.className = 'fas fa-bars';
+            }
+        });
+
+        // Dismiss mobile drawer on navigation link selection
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+
+        // Scroll Engine Indicators & Component Visibility Tracking
+        window.addEventListener('scroll', () => {
+            const windowScroll = document.documentElement.scrollTop;
+            const heightMetric = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progressPercentage = (windowScroll / heightMetric) * 100;
+            
+            scrollProgress.style.width = `${progressPercentage}%`;
+
+            if (windowScroll > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
