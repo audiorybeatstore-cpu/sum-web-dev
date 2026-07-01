@@ -6,12 +6,10 @@
     <title>Sum Web Dev | Premium Full-Stack Web Engineering Agency</title>
     <meta name="description" content="We design and deploy high-performance, fast, and modern websites optimized to scale revenue, automate checkouts, and dominate search rankings.">
     
-    <!-- Open Graph Metadata -->
     <meta property="og:title" content="Sum Web Dev | High-Performance Web Engineering">
     <meta property="og:description" content="Premium web development architectures tailored for businesses looking to scale operations and digital authority.">
     <meta property="og:type" content="website">
     
-    <!-- Fonts & Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -260,37 +258,6 @@
         /* ==========================================================================
            4. Responsive Media Breakpoints Engine (Refactored Hamburger Overlays)
            ========================================================================== */
-        @media(max-width: 768px) {
-            /* ... existing mobile rules ... */
-
-            /* Loosen up the intake panel wrapper spacing */
-            .booking-section {
-                padding: 4rem 1rem; /* Reduces outer section clipping */
-            }
-
-            .booking-wrapper {
-                grid-template-columns: 1fr; 
-                gap: 2.5rem; 
-                padding: 2rem 1.25rem; /* Drastically drops padding inside the card container */
-                border-radius: 8px;
-            }
-
-            .booking-info-pane h2 {
-                font-size: 1.85rem; /* Scales heading size down for smaller mobile Viewports */
-                letter-spacing: -0.5px;
-            }
-
-            .booking-info-pane p {
-                margin-bottom: 2rem;
-                font-size: 0.95rem;
-            }
-
-            /* Force input rows to fold cleanly into single columns */
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
         @media(max-width: 1024px) {
             .hero-headline { font-size: 3rem; }
             .booking-wrapper { grid-template-columns: 1fr; gap: 3rem; padding: 2.5rem; }
@@ -300,22 +267,32 @@
 
         @media(max-width: 768px) {
             .mobile-toggle { display: flex; }
-    
-            /* Force wrapper to position elements correctly */
+            
+            /* Controls Wrapper Static Adjustment */
             .nav-controls-wrapper { 
                 position: static; 
             }
 
-            /* Move the selector into the sliding menu layout stream */
+            /* Fixed Language Selector on Mobile Beside Hamburger Menu */
             .lang-select {
                 position: fixed;
-                top: 25px;
-                right: 80px; /* Sits cleanly right next to the hamburger trigger button */
+                top: 21px;
+                right: 130px;
                 z-index: 1010;
                 height: 38px;
             }
 
-            /* Clean Mobile Full Height Drawer Panel */
+            /* Fixed Theme Toggler Button Layout Stream Beside Language Selector */
+            #themeToggler {
+                position: fixed;
+                top: 21px;
+                right: 80px;
+                z-index: 1010;
+                height: 38px;
+                width: 38px;
+            }
+
+            /* Mobile Full Height Sliding Overlay Menu */
             .nav-links {
                 display: flex; 
                 flex-direction: column; 
@@ -326,7 +303,7 @@
                 height: 100vh; 
                 background: var(--bg-card); 
                 border-left: 1px solid var(--border-glass); 
-                padding: 120px 2rem 2rem; /* Increased top padding so nothing is blocked */
+                padding: 120px 2rem 2rem;
                 gap: 2rem; 
                 align-items: flex-start; 
                 transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -335,6 +312,29 @@
             }
             .nav-links.active { right: 0; }
             
+            /* Clean Form & Intake Elements Scaling */
+            .booking-section {
+                padding: 4rem 1rem;
+            }
+            .booking-wrapper {
+                grid-template-columns: 1fr; 
+                gap: 2.5rem; 
+                padding: 2rem 1.25rem;
+                border-radius: 8px;
+            }
+            .booking-info-pane h2 {
+                font-size: 1.85rem;
+                letter-spacing: -0.5px;
+            }
+            .booking-info-pane p {
+                margin-bottom: 2rem;
+                font-size: 0.95rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
             .hero-headline { font-size: 2.5rem; }
             .hero-actions { flex-direction: column; }
             .metrics-grid { grid-template-columns: 1fr; gap: 2rem; }
