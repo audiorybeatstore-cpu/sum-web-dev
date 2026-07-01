@@ -260,6 +260,37 @@
         /* ==========================================================================
            4. Responsive Media Breakpoints Engine (Refactored Hamburger Overlays)
            ========================================================================== */
+        @media(max-width: 768px) {
+            /* ... existing mobile rules ... */
+
+            /* Loosen up the intake panel wrapper spacing */
+            .booking-section {
+                padding: 4rem 1rem; /* Reduces outer section clipping */
+            }
+
+            .booking-wrapper {
+                grid-template-columns: 1fr; 
+                gap: 2.5rem; 
+                padding: 2rem 1.25rem; /* Drastically drops padding inside the card container */
+                border-radius: 8px;
+            }
+
+            .booking-info-pane h2 {
+                font-size: 1.85rem; /* Scales heading size down for smaller mobile Viewports */
+                letter-spacing: -0.5px;
+            }
+
+            .booking-info-pane p {
+                margin-bottom: 2rem;
+                font-size: 0.95rem;
+            }
+
+            /* Force input rows to fold cleanly into single columns */
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
         @media(max-width: 1024px) {
             .hero-headline { font-size: 3rem; }
             .booking-wrapper { grid-template-columns: 1fr; gap: 3rem; padding: 2.5rem; }
@@ -269,14 +300,38 @@
 
         @media(max-width: 768px) {
             .mobile-toggle { display: flex; }
-            
+    
+            /* Force wrapper to position elements correctly */
+            .nav-controls-wrapper { 
+                position: static; 
+            }
+
+            /* Move the selector into the sliding menu layout stream */
+            .lang-select {
+                position: fixed;
+                top: 25px;
+                right: 80px; /* Sits cleanly right next to the hamburger trigger button */
+                z-index: 1010;
+                height: 38px;
+            }
+
             /* Clean Mobile Full Height Drawer Panel */
             .nav-links {
-                display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; 
-                width: 280px; height: 100vh; background: var(--bg-card); 
-                border-left: 1px solid var(--border-glass); padding: 100px 2rem 2rem; gap: 2rem; 
-                align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                box-shadow: -10px 0 30px rgba(0,0,0,0.25); z-index: 1005;
+                display: flex; 
+                flex-direction: column; 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 280px; 
+                height: 100vh; 
+                background: var(--bg-card); 
+                border-left: 1px solid var(--border-glass); 
+                padding: 120px 2rem 2rem; /* Increased top padding so nothing is blocked */
+                gap: 2rem; 
+                align-items: flex-start; 
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.25); 
+                z-index: 1005;
             }
             .nav-links.active { right: 0; }
             
