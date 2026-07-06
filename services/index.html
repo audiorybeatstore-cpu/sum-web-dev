@@ -1,1163 +1,485 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Engineering Services | Sum Web Dev</title>
+    <meta name="description" content="Explore our premium full-stack web engineering services designed to scale revenue, automate checkouts, and build digital authority.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. Premium Theme Tokens & Root Variables
+           ========================================================================== */
+        :root[data-theme="dark"] {
+            --bg-main: #0B0F19;
+            --bg-card: #151A28;
+            --accent-primary: #6C63FF;
+            --accent-neon: #00D4FF;
+            --text-pure: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
+            --header-bg: rgba(11, 15, 25, 0.85);
+        }
 
-    <title>Services | Sum Web Dev</title>
+        :root[data-theme="light"] {
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --accent-primary: #4F46E5;
+            --accent-neon: #0EA5E9;
+            --text-pure: #0F172A;
+            --text-muted: #64748B;
+            --border-glass: rgba(15, 23, 42, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
+            --header-bg: rgba(248, 250, 252, 0.9);
+        }
 
-    <meta name="description"
-        content="Professional website development, eCommerce, SEO optimization, web applications, UI/UX design and website maintenance.">
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 
-    <meta name="keywords"
-        content="Web Development, Ecommerce, SEO, Web Design, Website Maintenance, UI UX, Kenya">
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-pure);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-    <meta property="og:title" content="Services | Sum Web Dev">
-    <meta property="og:description"
-        content="Professional web solutions built to grow your business.">
+        body.menu-open { overflow: hidden; }
 
-    <meta property="og:type" content="website">
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
+            z-index: 9999;
+        }
 
-    <link rel="icon" href="../assets/favicon.png">
+        /* ==========================================================================
+           2. Header & Navigation Ecosystem
+           ========================================================================== */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--header-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass); z-index: 1000;
+            display: flex; align-items: center; transition: background 0.3s ease;
+        }
+        .nav-container {
+            width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-weight: 900; font-size: 1.5rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
+            z-index: 1010;
+        }
+        .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
+        .logo span { color: var(--accent-neon); }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.25rem; z-index: 1010; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        
+        .nav-item {
+            color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
+            transition: color 0.2s ease; position: relative;
+        }
+        .nav-item:hover, .nav-item.active { color: var(--text-pure); }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+            background: var(--accent-neon); border-radius: 2px;
+        }
+        
+        .utility-btn {
+            background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            transition: all 0.2s ease;
+        }
+        .utility-btn:hover { border-color: var(--accent-primary); }
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        .lang-select {
+            background: var(--bg-card); border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.4rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none;
+            transition: all 0.2s ease; height: 38px;
+        }
+        .lang-select:focus { border-color: var(--accent-primary); }
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+        .mobile-toggle {
+            display: none; background: transparent; border: 1px solid var(--border-glass); 
+            color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
+            border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
+            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
+        }
+        .mobile-toggle span {
+            display: block; width: 18px; height: 2px; background-color: var(--text-pure);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .mobile-toggle:hover { border-color: var(--accent-primary); }
+        
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; width: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+        /* Button System */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.9rem 2rem;
+            font-weight: 600; font-size: 1rem; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;
+        }
+        .btn-primary { background: var(--accent-primary); color: #FFF; border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25); }
 
-    <link rel="stylesheet" href="services.css">
+        /* ==========================================================================
+           3. Services Specific Modules
+           ========================================================================== */
+        .services-hero {
+            padding: 160px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; z-index: 0; }
+        .orb-1 { top: 10%; left: 15%; width: 400px; height: 400px; background: var(--accent-primary); }
+        .orb-2 { bottom: 5%; right: 15%; width: 400px; height: 400px; background: var(--accent-neon); }
+
+        .services-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+        .services-title { font-size: 3.8rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.5rem; }
+        .services-title span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .services-subtext { font-size: 1.25rem; color: var(--text-muted); }
+
+        .services-section { max-width: 1400px; margin: 0 auto; padding: 2rem 2rem 8rem; position: relative; z-index: 2; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; }
+
+        .service-card {
+            background: var(--glass-grad); border: 1px solid var(--border-glass);
+            border-radius: 12px; padding: 3rem 2.5rem; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+            display: flex; flex-direction: column;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .service-card:hover { transform: translateY(-5px); border-color: rgba(108, 99, 255, 0.3); }
+
+        .service-icon { font-size: 2.5rem; color: var(--accent-neon); margin-bottom: 1.5rem; }
+        .service-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .service-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem; flex-grow: 1; }
+        
+        .service-features { list-style: none; margin-bottom: 2.5rem; }
+        .service-features li { font-size: 0.95rem; color: var(--text-pure); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .service-features i { color: var(--accent-primary); font-size: 0.85rem; }
+        
+        .service-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); }
+        .service-meta strong { color: var(--text-pure); font-size: 1.25rem; font-weight: 700; }
+
+        /* ==========================================================================
+           4. Global Corporate Structural Footer
+           ========================================================================== */
+        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); position: relative; z-index: 2; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
+        .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
+        .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
+        .footer-col ul a:hover { color: var(--text-pure); }
+        
+        .footer-social-row { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-link-icon {
+            display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            border-radius: 6px; border: 1px solid var(--border-glass); color: var(--text-pure); text-decoration: none; transition: background 0.2s ease;
+        }
+        .social-link-icon:hover { background: var(--accent-primary); color: #FFF; }
+
+        .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-glass); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .footer-legal-links { display: flex; gap: 1.5rem; }
+        .footer-legal-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .footer-legal-links a:hover { color: var(--text-pure); }
+
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
+            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
+        }
+
+        /* ==========================================================================
+           5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
+           ========================================================================== */
+        @media(max-width: 1024px) {
+            .services-title { font-size: 3rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        }
+
+        @media(max-width: 768px) {
+            .mobile-toggle { display: flex; }
+            
+            /* Structural alignment keeping utilities aligned inside header bounds */
+            .nav-controls-wrapper { position: relative; }
+            .lang-select, #themeToggler { position: relative !important; top: auto !important; right: auto !important; }
+
+            /* Premium backdrop side-drawer layout panel architecture */
+            .nav-links {
+                display: flex; 
+                flex-direction: column; 
+                position: fixed; 
+                top: 0; 
+                right: -100%; 
+                width: 100%;
+                max-width: 300px; 
+                height: 100vh; 
+                background: rgba(21, 26, 40, 0.96);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-left: 1px solid var(--border-glass); 
+                padding: 120px 2rem 2rem;
+                gap: 2rem; 
+                align-items: flex-start; 
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -20px 0 40px rgba(0,0,0,0.4); 
+                z-index: 1005;
+            }
+            .nav-links.active { right: 0; }
+
+            /* Cinematic slide and fade animations for inner menu elements */
+            .nav-links .nav-item {
+                font-size: 1.25rem;
+                font-weight: 600;
+                opacity: 0;
+                transform: translateX(15px);
+                transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active .nav-item { opacity: 1; transform: translateX(0); }
+            .nav-links.active .nav-item:nth-child(1) { transition-delay: 0.05s; }
+            .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15s; }
+            .nav-links.active .nav-item:nth-child(4) { transition-delay: 0.2s; }
+
+            .services-hero { padding-top: 130px; }
+            .services-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="scroll-progress" id="scrollProgress"></div>
+    <div class="scroll-progress" id="scrollBar"></div>
 
-<!--================ HEADER ================-->
-
-<header class="main-header">
-
-    <div class="nav-container">
-
-        <a href="../index.html" class="logo">
-
-            <svg viewBox="0 0 32 32">
-
-                <path d="M6 18L16 6L26 18L16 22L6 18Z"/>
-
-                <path d="M6 24L16 16L26 24L16 28L6 24Z"/>
-
-            </svg>
-
-            Sum<span>WebDev</span>
-
-        </a>
-
-        <nav class="nav-links" id="navLinks">
-
-            <a href="../index.html">Home</a>
-
-            <a href="index.html" class="active">Services</a>
-
-            <a href="../portfolio/index.html">Portfolio</a>
-
-            <a href="../about/index.html">About</a>
-
-            <a href="../contact/index.html">Contact</a>
-
-            <a href="../booking/index.html" class="nav-btn">
-
-                Get Started
-
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="../" class="logo">
+                <svg viewBox="0 0 32 32">
+                    <path d="M6 22L16 6L26 22H6Z" />
+                </svg>
+                SUM<span>WEBDEV</span>
             </a>
-
-        </nav>
-
-        <div class="header-actions">
-
-            <button id="themeToggle">
-
-                <i class="fas fa-moon"></i>
-
-            </button>
-
-            <button id="mobileMenu">
-
-                <i class="fas fa-bars"></i>
-
-            </button>
-
-        </div>
-
-    </div>
-
-</header>
-
-<!--================ HERO ================-->
-
-<section class="services-hero">
-
-    <div class="hero-glow hero-one"></div>
-
-    <div class="hero-glow hero-two"></div>
-
-    <div class="container">
-
-        <span class="hero-badge">
-
-            <i class="fas fa-code"></i>
-
-            Professional Digital Solutions
-
-        </span>
-
-        <h1>
-
-            Services That Help
-
-            <span>Businesses Grow Online</span>
-
-        </h1>
-
-        <p>
-
-            We create modern, fast, responsive and conversion-focused websites
-
-            designed to help brands attract more customers and increase revenue.
-
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="../booking/index.html" class="btn-primary">
-
-                Start Your Project
-
-            </a>
-
-            <a href="#services" class="btn-secondary">
-
-                Explore Services
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ SERVICES ================-->
-
-<section class="services-section" id="services">
-
-<div class="container">
-
-<div class="section-title">
-
-<span>WHAT WE OFFER</span>
-
-<h2>Professional Services</h2>
-
-<p>
-
-Everything you need to build, launch and grow your online presence.
-
-</p>
-
-</div>
-
-    <!-- Service 1 -->
-    <div class="service-card">
-        <div class="service-icon">
-            <i class="fas fa-laptop-code"></i>
-        </div>
-
-        <h3>Custom Website Development</h3>
-
-        <p>
-            Modern business websites built with speed, responsiveness and
-            clean code to give your brand a professional online presence.
-        </p>
-
-        <ul>
-            <li><i class="fas fa-check"></i> Responsive Design</li>
-            <li><i class="fas fa-check"></i> SEO Ready</li>
-            <li><i class="fas fa-check"></i> Lightning Fast</li>
-            <li><i class="fas fa-check"></i> Secure Hosting Support</li>
-        </ul>
-
-        <div class="service-footer">
-            <span>Starting From</span>
-
-            <h4>$350</h4>
-
-            <a href="../booking/index.html">
-                Get Started
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <!-- Service 2 -->
-    <div class="service-card">
-        <div class="service-icon">
-            <i class="fas fa-cart-shopping"></i>
-        </div>
-
-        <h3>E-Commerce Stores</h3>
-
-        <p>
-            Complete online stores with shopping cart, secure checkout,
-            Paystack integration, product management and inventory tools.
-        </p>
-
-        <ul>
-            <li><i class="fas fa-check"></i> Paystack Payments</li>
-            <li><i class="fas fa-check"></i> Shopping Cart</li>
-            <li><i class="fas fa-check"></i> Order Management</li>
-            <li><i class="fas fa-check"></i> Customer Accounts</li>
-        </ul>
-
-        <div class="service-footer">
-            <span>Starting From</span>
-
-            <h4>$700</h4>
-
-            <a href="../booking/index.html">
-                Get Started
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <!-- Service 3 -->
-    <div class="service-card">
-        <div class="service-icon">
-            <i class="fas fa-mobile-screen"></i>
-        </div>
-
-        <h3>Responsive Web Design</h3>
-
-        <p>
-            Beautiful user interfaces that work perfectly across desktop,
-            tablets and mobile devices while delivering the best user experience.
-        </p>
-
-        <ul>
-            <li><i class="fas fa-check"></i> Mobile First</li>
-            <li><i class="fas fa-check"></i> UI / UX Design</li>
-            <li><i class="fas fa-check"></i> Cross Browser Support</li>
-            <li><i class="fas fa-check"></i> Modern Animations</li>
-        </ul>
-
-        <div class="service-footer">
-            <span>Starting From</span>
-
-            <h4>$300</h4>
-
-            <a href="../booking/index.html">
-                Get Started
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <!-- Service 4 -->
-    <div class="service-card">
-        <div class="service-icon">
-            <i class="fas fa-chart-line"></i>
-        </div>
-
-        <h3>SEO Optimization</h3>
-
-        <p>
-            Improve your Google rankings with technical SEO, page speed,
-            schema markup and on-page optimization.
-        </p>
-
-        <ul>
-            <li><i class="fas fa-check"></i> Technical SEO</li>
-            <li><i class="fas fa-check"></i> Core Web Vitals</li>
-            <li><i class="fas fa-check"></i> Keyword Optimization</li>
-            <li><i class="fas fa-check"></i> Google Analytics</li>
-        </ul>
-
-        <div class="service-footer">
-            <span>Starting From</span>
-
-            <h4>$250</h4>
-
-            <a href="../booking/index.html">
-                Get Started
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <!-- Service 5 -->
-    <div class="service-card">
-        <div class="service-icon">
-            <i class="fas fa-server"></i>
-        </div>
-
-        <h3>Web Applications</h3>
-
-        <p>
-            Powerful dashboards, booking systems, portals and custom web
-            applications tailored to your business.
-        </p>
-
-        <ul>
-            <li><i class="fas fa-check"></i> Admin Dashboard</li>
-            <li><i class="fas fa-check"></i> Authentication</li>
-            <li><i class="fas fa-check"></i> Database Integration</li>
-            <li><i class="fas fa-check"></i> API Development</li>
-        </ul>
-
-        <div class="service-footer">
-            <span>Starting From</span>
-
-            <h4>$1200</h4>
-
-            <a href="../booking/index.html">
-                Get Started
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
-    <!-- Service 6 -->
-    <div class="service-card">
-        <div class="service-icon">
-            <i class="fas fa-shield-halved"></i>
-        </div>
-
-        <h3>Website Maintenance</h3>
-
-        <p>
-            Keep your website secure, updated and running smoothly with
-            regular maintenance and backups.
-        </p>
-
-        <ul>
-            <li><i class="fas fa-check"></i> Security Updates</li>
-            <li><i class="fas fa-check"></i> Daily Backups</li>
-            <li><i class="fas fa-check"></i> Bug Fixes</li>
-            <li><i class="fas fa-check"></i> Performance Monitoring</li>
-        </ul>
-
-        <div class="service-footer">
-            <span>Monthly From</span>
-
-            <h4>$50</h4>
-
-            <a href="../booking/index.html">
-                Get Started
-                <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-
-</div>
-
-</div>
-
-</section>
-
-<!--================ WHY CHOOSE US ================-->
-
-<section class="why-us">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>WHY CHOOSE US</span>
-
-            <h2>Built For Performance & Growth</h2>
-
-            <p>
-                Every project is carefully planned and developed using modern
-                technologies to deliver exceptional speed, security and user
-                experience.
-            </p>
-
-        </div>
-
-        <div class="why-grid">
-
-            <div class="why-card">
-
-                <div class="why-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-
-                <h3>Lightning Fast</h3>
-
-                <p>
-                    Optimized code and assets ensure your website loads in
-                    seconds on every device.
-                </p>
-
-            </div>
-
-            <div class="why-card">
-
-                <div class="why-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-
-                <h3>Secure Development</h3>
-
-                <p>
-                    We follow modern security standards to keep your website
-                    protected against threats.
-                </p>
-
-            </div>
-
-            <div class="why-card">
-
-                <div class="why-icon">
-                    <i class="fas fa-mobile-alt"></i>
-                </div>
-
-                <h3>Responsive Design</h3>
-
-                <p>
-                    Every page adapts beautifully across desktop, tablet and
-                    mobile devices.
-                </p>
-
-            </div>
-
-            <div class="why-card">
-
-                <div class="why-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-
-                <h3>SEO Optimized</h3>
-
-                <p>
-                    Built using SEO best practices to help your business rank
-                    higher on search engines.
-                </p>
-
-            </div>
-
-            <div class="why-card">
-
-                <div class="why-icon">
-                    <i class="fas fa-headset"></i>
-                </div>
-
-                <h3>Dedicated Support</h3>
-
-                <p>
-                    We provide continuous support, updates and maintenance after
-                    launch.
-                </p>
-
-            </div>
-
-            <div class="why-card">
-
-                <div class="why-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
-
-                <h3>Future Ready</h3>
-
-                <p>
-                    Built using scalable architecture so your business can grow
-                    without limitations.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ STATS ================-->
-
-<section class="stats">
-
-    <div class="container">
-
-        <div class="stats-grid">
-
-            <div class="stat-card">
-
-                <h2 class="counter" data-target="150">0</h2>
-
-                <p>Projects Completed</p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <h2 class="counter" data-target="98">0</h2>
-
-                <p>Client Satisfaction %</p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <h2 class="counter" data-target="12">0</h2>
-
-                <p>Countries Served</p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <h2 class="counter" data-target="24">0</h2>
-
-                <p>Support Hours</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ PROCESS ================-->
-
-<section class="process">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>OUR PROCESS</span>
-
-            <h2>How We Build Your Project</h2>
-
-            <p>
-                From planning to launch, every project follows a proven workflow
-                to ensure quality and success.
-            </p>
-
-        </div>
-
-        <div class="process-grid">
-
-            <div class="process-card">
-
-                <div class="step-number">01</div>
-
-                <h3>Discovery</h3>
-
-                <p>
-                    We understand your business goals, audience and project
-                    requirements.
-                </p>
-
-            </div>
-
-            <div class="process-card">
-
-                <div class="step-number">02</div>
-
-                <h3>Planning</h3>
-
-                <p>
-                    Wireframes, architecture and design strategy are created
-                    before development begins.
-                </p>
-
-            </div>
-
-            <div class="process-card">
-
-                <div class="step-number">03</div>
-
-                <h3>Development</h3>
-
-                <p>
-                    Your website is built using modern technologies with clean,
-                    scalable code.
-                </p>
-
-            </div>
-
-            <div class="process-card">
-
-                <div class="step-number">04</div>
-
-                <h3>Launch</h3>
-
-                <p>
-                    Testing, optimization and deployment with continued support
-                    after launch.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ PRICING ================-->
-
-<section class="pricing">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>PRICING</span>
-
-            <h2>Choose Your Perfect Package</h2>
-
-            <p>
-                Transparent pricing with no hidden costs. Every package is
-                customized to fit your business needs.
-            </p>
-
-        </div>
-
-        <div class="pricing-grid">
-
-            <!-- Starter -->
-
-            <div class="price-card">
-
-                <div class="price-header">
-
-                    <h3>Starter</h3>
-
-                    <h1>$350</h1>
-
-                    <span>One Time Payment</span>
-
-                </div>
-
-                <ul>
-
-                    <li><i class="fas fa-check"></i>5 Responsive Pages</li>
-
-                    <li><i class="fas fa-check"></i>Mobile Friendly</li>
-
-                    <li><i class="fas fa-check"></i>Basic SEO</li>
-
-                    <li><i class="fas fa-check"></i>Contact Form</li>
-
-                    <li><i class="fas fa-check"></i>Free SSL</li>
-
-                </ul>
-
-                <a href="../booking/index.html" class="pricing-btn">
-
-                    Choose Plan
-
-                </a>
-
-            </div>
-
-            <!-- Business -->
-
-            <div class="price-card featured">
-
-                <div class="popular">
-
-                    MOST POPULAR
-
-                </div>
-
-                <div class="price-header">
-
-                    <h3>Business</h3>
-
-                    <h1>$700</h1>
-
-                    <span>Complete Business Website</span>
-
-                </div>
-
-                <ul>
-
-                    <li><i class="fas fa-check"></i>10+ Pages</li>
-
-                    <li><i class="fas fa-check"></i>CMS Integration</li>
-
-                    <li><i class="fas fa-check"></i>Premium UI Design</li>
-
-                    <li><i class="fas fa-check"></i>Advanced SEO</li>
-
-                    <li><i class="fas fa-check"></i>Analytics Setup</li>
-
-                    <li><i class="fas fa-check"></i>Speed Optimization</li>
-
-                </ul>
-
-                <a href="../booking/index.html" class="pricing-btn">
-
-                    Choose Plan
-
-                </a>
-
-            </div>
-
-            <!-- Enterprise -->
-
-            <div class="price-card">
-
-                <div class="price-header">
-
-                    <h3>Enterprise</h3>
-
-                    <h1>Custom</h1>
-
-                    <span>Tailored Solution</span>
-
-                </div>
-
-                <ul>
-
-                    <li><i class="fas fa-check"></i>Unlimited Pages</li>
-
-                    <li><i class="fas fa-check"></i>Custom Dashboard</li>
-
-                    <li><i class="fas fa-check"></i>E-Commerce</li>
-
-                    <li><i class="fas fa-check"></i>Booking Systems</li>
-
-                    <li><i class="fas fa-check"></i>API Integrations</li>
-
-                    <li><i class="fas fa-check"></i>Priority Support</li>
-
-                </ul>
-
-                <a href="../booking/index.html" class="pricing-btn">
-
-                    Contact Us
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ TECHNOLOGIES ================-->
-
-<section class="technologies">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>OUR STACK</span>
-
-            <h2>Technologies We Use</h2>
-
-        </div>
-
-        <div class="tech-grid">
-
-            <div class="tech-box"><i class="fab fa-html5"></i><span>HTML5</span></div>
-
-            <div class="tech-box"><i class="fab fa-css3-alt"></i><span>CSS3</span></div>
-
-            <div class="tech-box"><i class="fab fa-js"></i><span>JavaScript</span></div>
-
-            <div class="tech-box"><i class="fab fa-react"></i><span>React</span></div>
-
-            <div class="tech-box"><i class="fab fa-node-js"></i><span>Node.js</span></div>
-
-            <div class="tech-box"><i class="fas fa-database"></i><span>Firebase</span></div>
-
-            <div class="tech-box"><i class="fas fa-server"></i><span>Supabase</span></div>
-
-            <div class="tech-box"><i class="fab fa-github"></i><span>GitHub</span></div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ TESTIMONIALS ================-->
-
-<section class="testimonials">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>TESTIMONIALS</span>
-
-            <h2>What Our Clients Say</h2>
-
-        </div>
-
-        <div class="testimonial-grid">
-
-            <div class="testimonial-card">
-
-                <p>
-
-                    "Amazing work! The website exceeded our expectations
-                    and helped us increase online sales."
-
-                </p>
-
-                <h4>John Mwangi</h4>
-
-                <span>Business Owner</span>
-
-            </div>
-
-            <div class="testimonial-card">
-
-                <p>
-
-                    "Professional communication and excellent quality.
-                    Highly recommended."
-
-                </p>
-
-                <h4>Sarah Achieng</h4>
-
-                <span>CEO</span>
-
-            </div>
-
-            <div class="testimonial-card">
-
-                <p>
-
-                    "Fast delivery, clean code and outstanding support
-                    after launch."
-
-                </p>
-
-                <h4>Kevin Otieno</h4>
-
-                <span>Entrepreneur</span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ FAQ ================-->
-
-<section class="faq">
-
-    <div class="container">
-
-        <div class="section-title">
-
-            <span>FAQ</span>
-
-            <h2>Frequently Asked Questions</h2>
-
-        </div>
-
-        <div class="faq-container">
-
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    How long does a website take?
-
-                    <i class="fas fa-plus"></i>
-
+            
+            <nav class="nav-links" id="menuPanel">
+                <a href="../" class="nav-item">Home</a>
+                <a href="./" class="nav-item active">Services</a>
+                <a href="../portfolio/" class="nav-item">Portfolio</a>
+                <a href="../booking/" class="nav-item">Book Strategy</a>
+            </nav>
+
+            <div class="nav-controls-wrapper">
+                <select class="lang-select" id="langSwitch">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                </select>
+                
+                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
                 </button>
+                
+                <button class="mobile-toggle" id="hamburgerMenu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
 
-                <div class="faq-answer">
+    <section class="services-hero">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="services-hero-content">
+            <h1 class="services-title">Production Engineering <span>Solutions</span></h1>
+            <p class="services-subtext">High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.</p>
+        </div>
+    </section>
 
-                    <p>
-
-                        Most projects take between 2–6 weeks depending on
-                        the size and features required.
-
-                    </p>
-
+    <section class="services-section">
+        <div class="services-grid">
+            
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Full-Stack Web Engineering</h3>
+                <p>Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.</p>
+                <ul class="service-features">
+                    <li><i class="fa-solid fa-circle-check"></i> Next.js & Server-Side Systems</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Clean, Adaptive Layout Frameworks</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Custom Node.js & REST API Nodes</li>
+                </ul>
+                <div class="service-meta">
+                    <span>Timeline: <strong>2-4 Wks</strong></span>
+                    <a href="../booking/" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Select Framework</a>
                 </div>
-
             </div>
 
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    Do you offer support after launch?
-
-                    <i class="fas fa-plus"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    <p>
-
-                        Yes. We provide maintenance, updates and technical
-                        support for all projects.
-
-                    </p>
-
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-cubes"></i></div>
+                <h3>SaaS Ecosystem Design</h3>
+                <p>Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.</p>
+                <ul class="service-features">
+                    <li><i class="fa-solid fa-circle-check"></i> Multi-Tenant DB Configurations</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Firebase & Supabase Architecture</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Automated Billing Integrations</li>
+                </ul>
+                <div class="service-meta">
+                    <span>Timeline: <strong>4-6 Wks</strong></span>
+                    <a href="../booking/" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Select Scale</a>
                 </div>
-
             </div>
 
-            <div class="faq-item">
-
-                <button class="faq-question">
-
-                    Can you redesign my current website?
-
-                    <i class="fas fa-plus"></i>
-
-                </button>
-
-                <div class="faq-answer">
-
-                    <p>
-
-                        Absolutely. We can redesign and modernize your
-                        existing website while improving performance.
-
-                    </p>
-
+            <div class="service-card">
+                <div class="service-icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <h3>Performance Audits</h3>
+                <p>Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.</p>
+                <ul class="service-features">
+                    <li><i class="fa-solid fa-circle-check"></i> Zero-Jank Animation Pipelines</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Severe Asset Compression Systems</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Advanced Cache Tuning Logic</li>
+                </ul>
+                <div class="service-meta">
+                    <span>Timeline: <strong>1 Wk</strong></span>
+                    <a href="../booking/" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Select Optimization</a>
                 </div>
-
             </div>
 
         </div>
+    </section>
 
-    </div>
-
-</section>
-
-<!--================ CALL TO ACTION ================-->
-
-<section class="cta">
-
-    <div class="container">
-
-        <div class="cta-box">
-
-            <h2>Ready To Build Your Next Website?</h2>
-
-            <p>
-
-                Let's turn your idea into a modern, high-performing website
-                that helps your business grow.
-
-            </p>
-
-            <a href="../booking/index.html" class="btn-primary">
-
-                Start Your Project
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!--================ FOOTER ================-->
-
-<footer class="main-footer">
-
-    <div class="container">
-
+    <footer class="main-footer">
         <div class="footer-grid">
-
-            <!-- Company -->
-
-            <div class="footer-column">
-
-                <a href="../index.html" class="logo">
-
+            <div class="footer-brand">
+                <a href="../" class="logo">
                     <svg viewBox="0 0 32 32">
-
-                        <path d="M6 18L16 6L26 18L16 22L6 18Z"/>
-
-                        <path d="M6 24L16 16L26 24L16 28L6 24Z"/>
-
+                        <path d="M6 22L16 6L26 22H6Z" />
                     </svg>
-
-                    Sum<span>WebDev</span>
-
+                    SUM<span>WEBDEV</span>
                 </a>
-
-                <p>
-
-                    We build modern websites, e-commerce stores and custom web
-                    applications that help businesses grow online.
-
-                </p>
-
-                <div class="footer-social">
-
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-
-                    <a href="#"><i class="fab fa-x-twitter"></i></a>
-
-                    <a href="#"><i class="fab fa-github"></i></a>
-
+                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <div class="footer-social-row">
+                    <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
-
             </div>
-
-            <!-- Services -->
-
-            <div class="footer-column">
-
-                <h3>Services</h3>
-
+            <div class="footer-col">
+                <h4>Engine Structures</h4>
                 <ul>
-
-                    <li><a href="#">Website Development</a></li>
-
-                    <li><a href="#">E-Commerce</a></li>
-
-                    <li><a href="#">SEO Optimization</a></li>
-
-                    <li><a href="#">Web Applications</a></li>
-
-                    <li><a href="#">Website Maintenance</a></li>
-
+                    <li><a href="./">Web Frameworks</a></li>
+                    <li><a href="./">SaaS Ecosystems</a></li>
+                    <li><a href="./">Database Integration</a></li>
                 </ul>
-
             </div>
-
-            <!-- Company -->
-
-            <div class="footer-column">
-
-                <h3>Company</h3>
-
+            <div class="footer-col">
+                <h4>Resources</h4>
                 <ul>
-
-                    <li><a href="../about/index.html">About</a></li>
-
-                    <li><a href="../portfolio/index.html">Portfolio</a></li>
-
-                    <li><a href="../contact/index.html">Contact</a></li>
-
-                    <li><a href="#">Privacy Policy</a></li>
-
-                    <li><a href="#">Terms & Conditions</a></li>
-
+                    <li><a href="../portfolio/">Case Profiles</a></li>
+                    <li><a href="#">System Diagnostics</a></li>
                 </ul>
-
             </div>
-
-            <!-- Contact -->
-
-            <div class="footer-column">
-
-                <h3>Contact</h3>
-
+            <div class="footer-col">
+                <h4>Corporate</h4>
                 <ul>
-
-                    <li>
-
-                        <i class="fas fa-envelope"></i>
-
-                        info@sumwebdev.com
-
-                    </li>
-
-                    <li>
-
-                        <i class="fas fa-phone"></i>
-
-                        +254 XXX XXX XXX
-
-                    </li>
-
-                    <li>
-
-                        <i class="fas fa-location-dot"></i>
-
-                        Nairobi, Kenya
-
-                    </li>
-
+                    <li><a href="../booking/">Secure Booking</a></li>
+                    <li><a href="#">Network Framework</a></li>
                 </ul>
-
             </div>
-
         </div>
-
         <div class="footer-bottom">
-
-            <p>
-
-                © 2026 Sum Web Dev. All Rights Reserved.
-
-            </p>
-
-            <div class="footer-links">
-
-                <a href="#">Privacy</a>
-
-                <a href="#">Terms</a>
-
-                <a href="#">Cookies</a>
-
+            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <div class="footer-legal-links">
+                <a href="#">Security Protocol</a>
+                <a href="#">Terms of Architecture</a>
             </div>
-
         </div>
+    </footer>
 
-    </div>
+    <button class="back-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
-</footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- UI Control Elements Initialization ---
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const menuPanel = document.getElementById('menuPanel');
+            const themeToggler = document.getElementById('themeToggler');
+            const langSwitch = document.getElementById('langSwitch');
+            const scrollBar = document.getElementById('scrollBar');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const htmlRoot = document.documentElement;
 
-<!--================ BACK TO TOP ================-->
+            // --- Mobile Drop Drawer Navigation Toggle Rules ---
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                menuPanel.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
 
-<button id="backToTop">
+            // Close responsive drawer layout upon clicking link targets
+            document.querySelectorAll('.nav-item').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerMenu.classList.remove('active');
+                    menuPanel.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
 
-    <i class="fas fa-arrow-up"></i>
+            // --- Theme State Toggling Mechanics Engine ---
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            htmlRoot.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
 
-</button>
+            themeToggler.addEventListener('click', () => {
+                const currentTheme = htmlRoot.getAttribute('data-theme');
+                const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlRoot.setAttribute('data-theme', targetTheme);
+                localStorage.setItem('theme', targetTheme);
+                updateThemeIcon(targetTheme);
+            });
 
-<!--================ LOADING SCREEN ================-->
+            function updateThemeIcon(theme) {
+                const icon = themeToggler.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fa-solid fa-sun';
+                } else {
+                    icon.className = 'fa-solid fa-moon';
+                }
+            }
 
-<div class="page-loader" id="loader">
+            // --- Scrolling Metrics Analytics & Action Toggles ---
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollBar.style.width = scrolled + '%';
 
-    <div class="loader-circle"></div>
+                if (window.scrollY > 400) {
+                    scrollTopBtn.style.display = 'flex';
+                } else {
+                    scrollTopBtn.style.display = 'none';
+                }
+            });
 
-</div>
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
 
-<!--================ JAVASCRIPT ================-->
-
-<script src="services.js"></script>
-
+            // --- Language Switch Stub Notification Trigger ---
+            langSwitch.addEventListener('change', (e) => {
+                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
+            });
+        });
+    </script>
 </body>
-
 </html>
