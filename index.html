@@ -3,13 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sum Web Dev | Premium Full-Stack Web Engineering Agency</title>
-    <meta name="description" content="We design and deploy high-performance, fast, and modern websites optimized to scale revenue, automate checkouts, and dominate search rankings.">
+    <title>Sum Web Dev | Premium Full-Stack Architectural Engineering</title>
+    <meta name="description" content="Engineering high-performance full-stack web platforms, multi-tenant SaaS ecosystems, and secure cloud infrastructure. Powered by modern decoupled systems.">
     
-    <meta property="og:title" content="Sum Web Dev | High-Performance Web Engineering">
-    <meta property="og:description" content="Premium web development architectures tailored for businesses looking to scale operations and digital authority.">
-    <meta property="og:type" content="website">
-    
+    <!-- Design Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -27,6 +24,7 @@
             --border-glass: rgba(255, 255, 255, 0.08);
             --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
             --header-bg: rgba(11, 15, 25, 0.85);
+            --icon-box-bg: rgba(0, 212, 255, 0.1);
         }
 
         :root[data-theme="light"] {
@@ -39,6 +37,7 @@
             --border-glass: rgba(15, 23, 42, 0.08);
             --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
             --header-bg: rgba(248, 250, 252, 0.9);
+            --icon-box-bg: rgba(14, 165, 233, 0.08);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
@@ -52,6 +51,8 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        body.menu-open { overflow: hidden; }
+
         .scroll-progress {
             position: fixed; top: 0; left: 0; width: 0%; height: 3px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
@@ -59,11 +60,12 @@
         }
 
         /* ==========================================================================
-           2. Header & Clean Hamburger Ecosystem
+           2. Header & Navigation Ecosystem
            ========================================================================== */
         .main-header {
             position: fixed; top: 0; left: 0; width: 100%; height: 80px;
             background: var(--header-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-glass); z-index: 1000;
             display: flex; align-items: center; transition: background 0.3s ease;
         }
@@ -80,13 +82,18 @@
         .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
         .logo span { color: var(--accent-neon); }
 
-        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.25rem; }
+        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.25rem; z-index: 1010; }
         .nav-links { display: flex; align-items: center; gap: 2rem; }
+        
         .nav-item {
             color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
             transition: color 0.2s ease; position: relative;
         }
         .nav-item:hover, .nav-item.active { color: var(--text-pure); }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+            background: var(--accent-neon); border-radius: 2px;
+        }
         
         .utility-btn {
             background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
@@ -102,145 +109,117 @@
         }
         .lang-select:focus { border-color: var(--accent-primary); }
 
-        /* Premium Classic Hamburger Button Component */
         .mobile-toggle {
             display: none; background: transparent; border: 1px solid var(--border-glass); 
             color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
-            border-radius: 6px; align-items: center; justify-content: center; z-index: 1010; transition: all 0.2s ease;
-            flex-direction: column; gap: 4px; padding: 0;
+            border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
+            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
         }
         .mobile-toggle span {
             display: block; width: 18px; height: 2px; background-color: var(--text-pure);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
         }
         .mobile-toggle:hover { border-color: var(--accent-primary); }
         
-        /* Animated Active States for Hamburger Lines */
         .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-        .mobile-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; width: 0; }
         .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-        /* Button Ecosystem */
-        .btn {
-            display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.9rem 2rem;
-            font-weight: 600; font-size: 1rem; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;
-        }
-        .btn-primary { background: var(--accent-primary); color: #FFF; border: none; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25); }
-        .btn-secondary { background: transparent; color: var(--text-pure); border: 1px solid var(--border-glass); }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); }
-        .btn-sm { padding: 0.5rem 1.2rem; font-size: 0.85rem; border-radius: 4px; }
-        .btn-block { width: 100%; justify-content: center; cursor: pointer; }
-
         /* ==========================================================================
-           3. Page Section Modules
+           3. Classic Split Hero Architecture
            ========================================================================== */
         .hero-section {
-            min-height: 100vh; display: flex; align-items: center; padding-top: 80px;
-            position: relative; overflow: hidden;
+            padding: 180px 2rem 6rem; position: relative; overflow: hidden;
         }
-        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; z-index: 0; }
-        .orb-1 { top: 20%; left: 10%; width: 400px; height: 400px; background: var(--accent-primary); }
-        .orb-2 { bottom: 10%; right: 10%; width: 500px; height: 500px; background: var(--accent-neon); }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(130px); opacity: 0.15; z-index: 0; }
+        .orb-1 { top: 15%; left: 5%; width: 500px; height: 500px; background: var(--accent-primary); }
+        .orb-2 { bottom: 10%; right: 10%; width: 400px; height: 400px; background: var(--accent-neon); }
 
-        .hero-container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(108, 99, 255, 0.1); border: 1px solid rgba(108, 99, 255, 0.2);
-            padding: 0.4rem 1rem; border-radius: 50px; color: var(--accent-primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 2rem;
+        .hero-container {
+            max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: center; position: relative; z-index: 2;
         }
-        .hero-headline { font-size: 4.2rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; max-width: 1000px; margin-bottom: 1.5rem; }
-        .hero-headline span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-subtext { font-size: 1.3rem; color: var(--text-muted); max-width: 750px; margin-bottom: 3rem; }
-        .hero-actions { display: flex; gap: 1.5rem; margin-bottom: 5rem; }
+        .hero-text h1 { font-size: 4.2rem; font-weight: 900; letter-spacing: -2.5px; line-height: 1.05; margin-bottom: 1.5rem; }
+        .hero-text h1 span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero-text p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; max-width: 680px; }
+        
+        .btn-group { display: flex; gap: 1.25rem; }
+        .prime-btn {
+            background: linear-gradient(135deg, var(--accent-primary), #5B52E5); color: #FFF; text-decoration: none;
+            padding: 0.9rem 2rem; border-radius: 8px; font-weight: 600; font-size: 1rem; transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.25);
+        }
+        .prime-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(108, 99, 255, 0.4); }
+        
+        .alt-btn {
+            background: transparent; color: var(--text-pure); text-decoration: none; padding: 0.9rem 2rem;
+            border-radius: 8px; font-weight: 600; font-size: 1rem; border: 1px solid var(--border-glass); transition: all 0.2s ease;
+        }
+        .alt-btn:hover { border-color: var(--text-pure); background: rgba(255,255,255,0.02); }
 
-        /* Telemetry Counters */
-        .metrics-grid { display: grid; grid-template-columns: repeat(3, 280px); gap: 3rem; border-top: 1px solid var(--border-glass); padding-top: 3rem; }
-        .metric-num { font-size: 3rem; font-weight: 800; color: var(--text-pure); line-height: 1; margin-bottom: 0.25rem; }
-        .metric-num::after { content: '+'; color: var(--accent-neon); }
-        .metric-label { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; }
+        /* Structural Console Mockup Box */
+        .console-box {
+            background: #080C14; border: 1px solid var(--border-glass); border-radius: 12px; padding: 2rem;
+            font-family: monospace; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); position: relative;
+        }
+        .console-header { display: flex; gap: 6px; margin-bottom: 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; }
+        .console-dot { width: 11px; height: 11px; border-radius: 50%; background: #334155; }
+        .console-dot:nth-child(1) { background: #EF4444; }
+        .console-dot:nth-child(2) { background: #F59E0B; }
+        .console-dot:nth-child(3) { background: #10B981; }
+        .console-line { margin-bottom: 0.5rem; font-size: 0.9rem; color: #94A3B8; }
+        .console-line span.accent { color: var(--accent-neon); }
+        .console-line span.keyword { color: #6C63FF; }
 
-        /* Main Structured Sections Layout */
-        .services-section, .portfolio-section, .booking-section { max-width: 1400px; margin: 0 auto; padding: 8rem 2rem; }
-        .section-header { margin-bottom: 4rem; }
-        .section-header .sub-title { color: var(--accent-primary); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 0.5rem; }
+        /* ==========================================================================
+           4. Services Pillars Matrix Grid
+           ========================================================================== */
+        .section-container { max-width: 1400px; margin: 0 auto; padding: 6rem 2rem; position: relative; z-index: 2; }
+        .section-header { margin-bottom: 4rem; max-width: 700px; }
         .section-header h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1rem; }
-        .section-header p { color: var(--text-muted); max-width: 600px; font-size: 1.1rem; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
 
-        .services-grid, .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2.5rem; }
-
-        /* Premium Glass Containers */
-        .service-card, .portfolio-item-card {
-            background: var(--glass-grad); border: 1px solid var(--border-glass);
-            border-radius: 12px; padding: 2.5rem; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+        .services-matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+        .matrix-card {
+            background: var(--glass-grad); border: 1px solid var(--border-glass); border-radius: 12px; padding: 3.5rem 2.5rem;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all 0.3s ease;
+            text-decoration: none; color: inherit; display: block;
         }
-        .service-card:hover, .portfolio-item-card:hover { transform: translateY(-5px); border-color: rgba(108, 99, 255, 0.3); }
-
-        .service-icon { font-size: 2rem; color: var(--accent-neon); margin-bottom: 1.5rem; }
-        .service-card h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
-        .service-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
-        .service-features { list-style: none; margin-bottom: 2rem; }
-        .service-features li { font-size: 0.9rem; color: var(--text-pure); display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
-        .service-features i { color: var(--accent-primary); font-size: 0.8rem; }
-        .service-meta { display: flex; justify-content: space-between; border-top: 1px solid var(--border-glass); padding-top: 1.25rem; font-size: 0.9rem; color: var(--text-muted); }
-        .service-meta strong { color: var(--text-pure); font-size: 1.1rem; }
-
-        /* Dynamic Portfolio Segment */
-        .filter-wrapper { display: flex; gap: 1rem; margin-bottom: 3rem; overflow-x: auto; padding-bottom: 0.5rem; }
-        .filter-btn {
-            background: transparent; border: 1px solid var(--border-glass); color: var(--text-muted);
-            padding: 0.6rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s ease;
-        }
-        .filter-btn:hover, .filter-btn.active { border-color: var(--accent-primary); color: var(--text-pure); background: rgba(108, 99, 255, 0.1); }
-
-        .portfolio-item-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-        .project-img-wrapper { background: rgba(27, 35, 54, 0.4); height: 240px; overflow: hidden; position: relative; }
-        .project-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .portfolio-item-card:hover .project-img-wrapper img { transform: scale(1.04); }
+        .matrix-card:hover { transform: translateY(-5px); border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
         
-        .project-content { padding: 2rem; display: flex; flex-direction: column; flex-grow: 1; }
-        .project-tag { font-size: 0.75rem; text-transform: uppercase; color: var(--accent-neon); font-weight: 700; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        .project-content h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
-        .project-content p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; flex-grow: 1; }
-        .tech-stack-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
-        .tech-stack-row span { background: rgba(255,255,255,0.05); border: 1px solid var(--border-glass); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; color: var(--text-muted); }
-        .project-actions { display: flex; gap: 1rem; }
-
-        /* Integrated Intake Form Frame */
-        .booking-wrapper { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; background: var(--glass-grad); border: 1px solid var(--border-glass); padding: 4rem; border-radius: 12px; }
-        .booking-info-pane h2 { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1.5rem; }
-        .booking-info-pane p { color: var(--text-muted); margin-bottom: 3rem; }
-        .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
-        .method-node { display: flex; align-items: center; gap: 1rem; font-size: 1.1rem; font-weight: 600; text-decoration: none; color: var(--text-pure); }
-        .method-node i { color: var(--accent-neon); }
-
-        .booking-form-pane form { display: flex; flex-direction: column; gap: 1.5rem; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-        .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input, .form-group select, .form-group textarea {
-            background: var(--bg-main); border: 1px solid var(--border-glass); border-radius: 6px; padding: 0.85rem; color: var(--text-pure); font-family: inherit; font-size: 0.95rem; transition: border-color 0.2s ease;
+        .matrix-icon {
+            width: 54px; height: 54px; border-radius: 8px; background: var(--icon-box-bg);
+            display: flex; align-items: center; justify-content: center; margin-bottom: 2rem;
+            color: var(--accent-neon); font-size: 1.4rem; border: 1px solid rgba(0, 212, 255, 0.15);
         }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent-primary); }
+        .matrix-card:nth-child(2) .matrix-icon { color: var(--accent-primary); background: rgba(108, 99, 255, 0.1); border-color: rgba(108, 99, 255, 0.15); }
         
-        /* Direct Embedded Inline Form Feedback State */
-        .form-status-msg { padding: 1rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; display: none; margin-top: 1rem; text-align: center; }
-        .form-status-msg.success { display: block; background: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; color: #10B981; }
-        .form-status-msg.error { display: block; background: rgba(239, 68, 68, 0.15); border: 1px solid #EF4444; color: #EF4444; }
+        .matrix-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .matrix-card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 1.5rem; }
+        .matrix-link { font-size: 0.9rem; font-weight: 700; color: var(--text-pure); display: flex; align-items: center; gap: 0.5rem; transition: gap 0.2s ease; }
+        .matrix-card:hover .matrix-link { gap: 0.75rem; color: var(--accent-neon); }
 
-        /* Lightbox Window Modal Overlays */
-        .lightbox-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 12, 0.85);
-            backdrop-filter: blur(8px); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 2rem;
-        }
-        .lightbox-card {
-            background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 12px;
-            width: 100%; max-width: 800px; padding: 3rem; position: relative; max-height: 90vh; overflow-y: auto;
-        }
-        .close-lightbox { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--text-pure); font-size: 2rem; cursor: pointer; }
+        /* ==========================================================================
+           5. Interactive Pipeline Architecture Section (More Things)
+           ========================================================================== */
+        .pipeline-wrapper { background: var(--glass-grad); border: 1px solid var(--border-glass); border-radius: 16px; padding: 4rem; display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
+        .pipeline-info h3 { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1.25rem; }
+        .pipeline-info p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+        
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .tech-tag { background: var(--bg-main); border: 1px solid var(--border-glass); padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); font-family: monospace; }
+        
+        /* Step Matrix List */
+        .step-list { display: flex; flex-direction: column; gap: 1.5rem; }
+        .step-item { display: flex; gap: 1.5rem; background: var(--bg-main); border: 1px solid var(--border-glass); padding: 1.5rem; border-radius: 8px; transition: border-color 0.2s ease; }
+        .step-item:hover { border-color: var(--accent-primary); }
+        .step-num { font-size: 1.2rem; font-weight: 900; color: var(--accent-neon); font-family: monospace; }
+        .step-content h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .step-content p { color: var(--text-muted); font-size: 0.92rem; }
 
-        /* Global Corporate Structural Footer */
-        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); }
+        /* ==========================================================================
+           6. Global Corporate Structural Footer
+           ========================================================================== */
+        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); position: relative; z-index: 2; }
         .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
         .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
         .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -266,86 +245,48 @@
         }
 
         /* ==========================================================================
-           4. Responsive Media Breakpoints Engine (Refactored Hamburger Overlays)
+           7. Responsive Breakpoints Engine & Fluid Side Menu Drawer
            ========================================================================== */
+        @media(max-width: 1200px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+            .hero-text p { margin: 0 auto 2.5rem; }
+            .btn-group { justify-content: center; }
+            .services-matrix { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+            .pipeline-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+        }
+
         @media(max-width: 1024px) {
-            .hero-headline { font-size: 3rem; }
-            .booking-wrapper { grid-template-columns: 1fr; gap: 3rem; padding: 2.5rem; }
-            .metrics-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+            .hero-text h1 { font-size: 3.4rem; }
             .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
         }
 
         @media(max-width: 768px) {
             .mobile-toggle { display: flex; }
-            
-            .nav-controls-wrapper { 
-                position: static; 
-            }
+            .nav-controls-wrapper { position: relative; }
 
-            /* Fixed Controls on Mobile */
-            .lang-select {
-                position: fixed;
-                top: 21px;
-                right: 130px;
-                z-index: 1010;
-                height: 38px;
-            }
-
-            #themeToggler {
-                position: fixed;
-                top: 21px;
-                right: 80px;
-                z-index: 1010;
-                height: 38px;
-                width: 38px;
-            }
-
-            /* Mobile Side Menu Panel Overlay */
             .nav-links {
-                display: flex; 
-                flex-direction: column; 
-                position: fixed; 
-                top: 0; 
-                right: -100%; 
-                width: 280px; 
-                height: 100vh; 
-                background: var(--bg-card); 
-                border-left: 1px solid var(--border-glass); 
-                padding: 120px 2rem 2rem;
-                gap: 2rem; 
-                align-items: flex-start; 
-                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                box-shadow: -10px 0 30px rgba(0,0,0,0.25); 
-                z-index: 1005;
+                display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 100%;
+                max-width: 300px; height: 100vh; background: rgba(21, 26, 40, 0.96); backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px); border-left: 1px solid var(--border-glass); padding: 120px 2rem 2rem;
+                gap: 2rem; align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -20px 0 40px rgba(0,0,0,0.4); z-index: 1005;
             }
             .nav-links.active { right: 0; }
-            
-            /* Booking Component Scaling Adjustments */
-            .booking-section {
-                padding: 4rem 1rem;
-            }
-            .booking-wrapper {
-                grid-template-columns: 1fr; 
-                gap: 2.5rem; 
-                padding: 2rem 1.25rem;
-                border-radius: 8px;
-            }
-            .booking-info-pane h2 {
-                font-size: 1.85rem;
-                letter-spacing: -0.5px;
-            }
-            .booking-info-pane p {
-                margin-bottom: 2rem;
-                font-size: 0.95rem;
-            }
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
 
-            .hero-headline { font-size: 2.5rem; }
-            .hero-actions { flex-direction: column; }
-            .metrics-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .nav-links .nav-item {
+                font-size: 1.25rem; font-weight: 600; opacity: 0; transform: translateX(15px);
+                transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active .nav-item { opacity: 1; transform: translateX(0); }
+            .nav-links.active .nav-item:nth-child(1) { transition-delay: 0.05s; }
+            .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15s; }
+            .nav-links.active .nav-item:nth-child(4) { transition-delay: 0.2s; }
+
+            .hero-section { padding-top: 140px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .services-matrix { grid-template-columns: 1fr; gap: 2rem; }
+            .pipeline-wrapper { padding: 2rem; }
             .footer-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
         }
@@ -353,646 +294,283 @@
 </head>
 <body>
 
-    <div class="scroll-progress" id="scrollProgress"></div>
-    
-    <!-- Header with SVG Logo and System Settings Dropdowns -->
+    <div class="scroll-progress" id="scrollBar"></div>
+
+    <!-- Global Corporate Header -->
     <header class="main-header">
         <div class="nav-container">
             <a href="#" class="logo">
-                <svg viewBox="0 0 32 32"><path d="M6 18L16 6L26 18L16 22L6 18Z"/><path d="M6 24L16 16L26 24L16 28L6 24Z"/></svg>
-                Sum<span>WebDev</span>
+                <svg viewBox="0 0 32 32">
+                    <path d="M6 22L16 6L26 22H6Z" />
+                </svg>
+                SUM<span>WEBDEV</span>
             </a>
             
+            <nav class="nav-links" id="menuPanel">
+                <a href="#" class="nav-item active">Home</a>
+                <a href="services/" class="nav-item">Services</a>
+                <a href="portfolio/" class="nav-item">Portfolio</a>
+                <a href="booking/" class="nav-item">Book Strategy</a>
+            </nav>
+
             <div class="nav-controls-wrapper">
-                <nav class="nav-links" id="navLinks">
-                    <a href="#home" class="nav-item active" data-lang-key="nav_home">Home</a>
-                    <a href="#services" class="nav-item" data-lang-key="nav_services">Services</a>
-                    <a href="#portfolio" class="nav-item" data-lang-key="nav_portfolio">Portfolio</a>
-                    <a href="booking/index.html" class="nav-item" data-lang-key="nav_intake">Intake</a>
-                </nav>
-
-                <select class="lang-select" id="languageSelector" aria-label="Language Selector">
+                <select class="lang-select" id="langSwitch">
                     <option value="en">EN</option>
-                    <option value="nl">NL</option>
-                    <option value="de">DE</option>
-                    <option value="fr">FR</option>
+                    <option value="es">ES</option>
                 </select>
-
-                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme Layout">
-                    <i class="fas fa-moon"></i>
+                
+                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
                 </button>
-
-                <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
-                    <i class="fas fa-bars"></i>
+                
+                <button class="mobile-toggle" id="hamburgerMenu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Showcase Section -->
-    <section id="home" class="hero-section">
+    <!-- Classic High-Impact Split Hero Section -->
+    <section class="hero-section">
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
+        
         <div class="hero-container">
-            <div class="hero-badge"><i class="fas fa-bolt"></i> Global Operations Live | 2026</div>
-            <h1 class="hero-headline" data-lang-key="hero_title">We Build Fast, Modern Websites That <span>Grow Your Business.</span></h1>
-            <p class="hero-subtext" data-lang-key="hero_desc">Engineered at the intersection of premium visual aesthetics and rock-solid full-stack architecture. Turn your traffic into high-converting revenue streams.</p>
-            
-            <div class="hero-actions">
-                <a href="#booking" class="btn btn-primary" data-lang-key="btn_book">Book a Project <i class="fas fa-arrow-right"></i></a>
-                <a href="#portfolio" class="btn btn-secondary" data-lang-key="btn_work">View Our Work <i class="fas fa-layer-group"></i></a>
+            <div class="hero-text">
+                <h1>High-Performance <span>Digital Architecture</span></h1>
+                <p>We build production-grade web solutions, robust backend microservices, and secure multi-tenant SaaS environments tailored for enterprise scale.</p>
+                <div class="btn-group">
+                    <a href="booking/" class="prime-btn">Initialize Consultation</a>
+                    <a href="portfolio/" class="alt-btn">View Case Profiles</a>
+                </div>
             </div>
-
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-num" data-target="42">0</div>
-                    <div class="metric-label" data-lang-key="metric_1">Platforms Deployed</div>
+            
+            <!-- Technical Live Console Interactive Component -->
+            <div class="console-box">
+                <div class="console-header">
+                    <div class="console-dot"></div>
+                    <div class="console-dot"></div>
+                    <div class="console-dot"></div>
                 </div>
-                <div class="metric-card">
-                    <div class="metric-num" data-target="99">0</div>
-                    <div class="metric-label" data-lang-key="metric_2">% Client Satisfaction</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-num" data-target="5">0</div>
-                    <div class="metric-label" data-lang-key="metric_3">Years Pro Dev Experience</div>
-                </div>
+                <div class="console-line"><span class="accent">&gt;</span> npm init sum-webdev-engine@latest</div>
+                <div class="console-line">[1/3] Resolving workspace dependencies...</div>
+                <div class="console-line">[2/3] Mapping secure cloud instances...</div>
+                <div class="console-line">[3/3] System initialization successful.</div>
+                <div class="console-line"><span class="accent">&gt;</span> structural-status --verify</div>
+                <div class="console-line" style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> Gateway Node: Active</div>
+                <div class="console-line" style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> Theme Engine: Operational</div>
+                <div class="console-line" style="color: var(--accent-neon); margin-top: 1rem;">Ready for structural deployment.</div>
             </div>
         </div>
     </section>
 
-    <!-- Services Infrastructure Matrix -->
-    <section id="services" class="services-section">
+    <!-- Core Pillars Matrix Grid Section -->
+    <section class="section-container">
         <div class="section-header">
-            <span class="sub-title" data-lang-key="services_sub">Expertise Matrix</span>
-            <h2 data-lang-key="services_title">Architectural Services</h2>
-            <p data-lang-key="services_desc">Production-grade solutions optimized for cross-platform utility, raw processing speed, and clean semantic indexing.</p>
+            <h2>Our Architectural Verticals</h2>
+            <p>From component design up through secure decoupled infrastructure layers, we engineer performance at every layer.</p>
         </div>
         
-        <div class="services-grid">
-            <!-- Box 1 -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-store"></i></div>
-                <h3 data-lang-key="s1_title">E-commerce Ecosystems</h3>
-                <p data-lang-key="s1_desc">High-volume digital storefronts complete with dynamic state management, seamless checkout engines, and secure payment pathways.</p>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> <span data-lang-key="s1_f1">Sub-second cart loading loops</span></li>
-                    <li><i class="fas fa-check"></i> <span data-lang-key="s1_f2">Custom dashboard integrations</span></li>
-                </ul>
-                <div class="service-meta">
-                    <span><span data-lang-key="meta_from">From</span> <strong>&euro;1.200</strong></span>
-                    <span>14-21 <span data-lang-key="meta_days">Days</span></span>
-                </div>
-            </div>
+        <div class="services-matrix">
+            <!-- Service Pillar 1 -->
+            <a href="services/" class="matrix-card">
+                <div class="matrix-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h3>Web Frameworks</h3>
+                <p>Developing componentized application layers and fluid responsive interfaces backed by modern routing models.</p>
+                <div class="matrix-link">Explore Frameworks <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <!-- Box 2 -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-brain"></i></div>
-                <h3 data-lang-key="s2_title">Custom Web Platforms</h3>
-                <p data-lang-key="s2_desc">Bespoke software application engines, user administration layers, secure databases, and client portals custom-coded for precise operations.</p>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> <span data-lang-key="s2_f1">Complex internal database logic</span></li>
-                    <li><i class="fas fa-check"></i> <span data-lang-key="s2_f2">Isolated token authentication</span></li>
-                </ul>
-                <div class="service-meta">
-                    <span><span data-lang-key="meta_from">From</span> <strong>&euro;2.500</strong></span>
-                    <span>21-35 <span data-lang-key="meta_days">Days</span></span>
-                </div>
-            </div>
+            <!-- Service Pillar 2 -->
+            <a href="saas-ecosystems/" class="matrix-card">
+                <div class="matrix-icon"><i class="fa-solid fa-cloud"></i></div>
+                <h3>SaaS Ecosystems</h3>
+                <p>Integrating decoupled authentication pipelines, serverless webhooks, and multi-tenant table security rules.</p>
+                <div class="matrix-link">Explore Ecosystems <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <!-- Box 3 -->
-            <div class="service-card">
-                <div class="service-icon"><i class="fas fa-search-dollar"></i></div>
-                <h3 data-lang-key="s3_title">SEO & Speed Optimization</h3>
-                <p data-lang-key="s3_desc">Auditing and refactoring legacy script profiles to establish 100/100 Core Web Vitals rankings, reducing user bounce rates immediately.</p>
-                <ul class="service-features">
-                    <li><i class="fas fa-check"></i> <span data-lang-key="s3_f1">Complete asset compression pipelines</span></li>
-                    <li><i class="fas fa-check"></i> <span data-lang-key="s3_f2">Schema markup data mapping</span></li>
-                </ul>
-                <div class="service-meta">
-                    <span><span data-lang-key="meta_from">From</span> <strong>&euro;600</strong></span>
-                    <span>5-7 <span data-lang-key="meta_days">Days</span></span>
-                </div>
-            </div>
+            <!-- Service Pillar 3 -->
+            <a href="database-integration/" class="matrix-card">
+                <div class="matrix-icon"><i class="fa-solid fa-database"></i></div>
+                <h3>Database Integration</h3>
+                <p>Configuring structured relational schemas, optimized processing queries, and durable object storage pools.</p>
+                <div class="matrix-link">Explore Databases <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
         </div>
     </section>
 
-    <!-- Dynamic Portfolio Engine -->
-    <section id="portfolio" class="portfolio-section">
-        <div class="section-header">
-            <span class="sub-title" data-lang-key="port_sub">Case Studies</span>
-            <h2 data-lang-key="port_title">Live Production Deployments</h2>
-        </div>
-
-        <div class="filter-wrapper">
-            <button class="filter-btn active" data-filter="all">All Architecture</button>
-            <button class="filter-btn" data-filter="marketplace">Marketplaces</button>
-            <button class="filter-btn" data-filter="events">Event Systems</button>
-        </div>
-
-        <div class="portfolio-grid">
-            <!-- Project Node: Audiory -->
-            <div class="portfolio-item-card" data-category="marketplace">
-                <div class="project-img-wrapper">
-                    <img src="audiory.webp" alt="Audiory Platform System Interface Mockup" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="mock-img-placeholder" style="display:none; height:100%; width:100%; align-items:center; justify-content:center;"><i class="fas fa-music"></i> Audiory Frame</div>
-                </div>
-                <div class="project-content">
-                    <span class="project-tag">Music Marketplace</span>
-                    <h3>Audiory Platform</h3>
-                    <p>A specialized storefront architecture scaling licensing loops and distribution mechanisms for independent beat producers globally.</p>
-                    <div class="tech-stack-row">
-                        <span>Node.js</span><span>Firebase Auth</span><span>Tailwind</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://audiory.site" target="_blank" rel="noopener" class="btn btn-sm btn-primary">Live Link <i class="fas fa-external-link-alt"></i></a>
-                        <button class="btn btn-sm btn-secondary open-details" data-target="modal-audiory">System Data</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project Node: Shamba Fest -->
-            <div class="portfolio-item-card" data-category="events">
-                <div class="project-img-wrapper">
-                    <img src="shambafest.webp" alt="Shamba Fest Booking Platform Mockup" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                    <div class="mock-img-placeholder" style="display:none; height:100%; width:100%; align-items:center; justify-content:center;"><i class="fas fa-ticket-alt"></i> Shamba Frame</div>
-                </div>
-                <div class="project-content">
-                    <span class="project-tag">Transactional Engine</span>
-                    <h3>Shamba Fest Ticketing</h3>
-                    <p>High-capacity online processing system running transactional checkout infrastructure for high-attendance regional festivals.</p>
-                    <div class="tech-stack-row">
-                        <span>Next.js</span><span>Supabase DB</span><span>Stripe API</span>
-                    </div>
-                    <div class="project-actions">
-                        <a href="https://shambafestallstars.2bd.net" target="_blank" rel="noopener" class="btn btn-sm btn-primary">Live Link <i class="fas fa-external-link-alt"></i></a>
-                        <button class="btn btn-sm btn-secondary open-details" data-target="modal-shamba">System Data</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Custom Intake Terminal Hooked to Formspree -->
-    <section id="booking" class="booking-section">
-        <div class="booking-wrapper">
-            <div class="booking-info-pane">
-                <h2 data-lang-key="form_title">Initialize Your Platform Architecture</h2>
-                <p data-lang-key="form_desc">Provide your system parameters in the intake terminal. After verification, a structured architectural development timeline will be issued directly to your email.</p>
-                <div class="contact-methods">
-                    <a href="https://wa.me/254700000000" class="method-node" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> <span>Direct Dev WhatsApp Channel</span></a>
-                    <a href="mailto:support@sumwebdev.com" class="method-node"><i class="fas fa-envelope"></i> <span>support@sumwebdev.com</span></a>
+    <!-- Extended Infrastructure Pipeline Section (More Things) -->
+    <section class="section-container" style="padding-top: 0;">
+        <div class="pipeline-wrapper">
+            <div class="pipeline-info">
+                <h3>Built for Elastic Scalability</h3>
+                <p>We build systems using standard, proven architectures that avoid platform dependency. By keeping computation decoupled from the layout render layers, your tools remain lightweight, highly secure, and instantly responsive.</p>
+                
+                <div class="tech-tags">
+                    <span class="tech-tag">Next.js</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                    <span class="tech-tag">Supabase</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">AWS Nodes</span>
                 </div>
             </div>
             
-            <div class="booking-form-pane">
-                <form id="intakeTerminal" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
-                    <div class="form-group">
-                        <label for="projType" data-lang-key="lbl_footprint">Architecture Footprint</label>
-                        <select name="Project Type" id="projType" required>
-                            <option value="">-- Choose Footprint --</option>
-                            <option value="ecommerce">E-commerce Enterprise Ecosystem</option>
-                            <option value="saas">SaaS / Automated App Layer</option>
-                            <option value="business">Premium Corporate Presence</option>
-                        </select>
+            <div class="step-list">
+                <!-- Step 1 -->
+                <div class="step-item">
+                    <div class="step-num">01</div>
+                    <div class="step-content">
+                        <h4>Secure Token Gates</h4>
+                        <p>Identity sessions are parsed strictly using enterprise token arrays, preventing standard credential exposure.</p>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="budget" data-lang-key="lbl_capital">Allocated Capital Allocation</label>
-                            <select name="Budget Range" id="budget" required>
-                                <option value="starter">&euro;1.000 - &euro;2.500</option>
-                                <option value="mid">&euro;2.500 - &euro;5.000</option>
-                                <option value="enterprise">&euro;5.000+</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="timeline" data-lang-key="lbl_timeline">Timeline Scale</label>
-                            <select name="Timeline Target" id="timeline" required>
-                                <option value="expedited">Expedited (Under 2 weeks)</option>
-                                <option value="standard">Standard Execution (3-4 weeks)</option>
-                            </select>
-                        </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="step-item">
+                    <div class="step-num">02</div>
+                    <div class="step-content">
+                        <h4>Partition Isolation</h4>
+                        <p>Row-level authorization metrics guard user environments from multi-tenant crossing leaks.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="details" data-lang-key="lbl_params">System Parameters & Project Breakdown</label>
-                        <textarea name="Project Description" id="details" rows="4" placeholder="Detail any operational workflows, desired integrations, or database dependencies required..." required></textarea>
+                </div>
+                <!-- Step 3 -->
+                <div class="step-item">
+                    <div class="step-num">03</div>
+                    <div class="step-content">
+                        <h4>Global Edge Caching</h4>
+                        <p>Assets and static elements load immediately from nearest Content Network nodes, achieving zero hydration drag.</p>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block" id="submitFormBtn" data-lang-key="btn_transmit">Transmit Project Parameters</button>
-                    
-                    <div id="formStatus" class="form-status-msg"></div>
-                </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Global Interactive Modal Shell -->
-    <div class="lightbox-overlay" id="lightboxOverlay">
-        <div class="lightbox-card">
-            <button class="close-lightbox" id="closeLightbox" aria-label="Close details window">&times;</button>
-            <div id="lightboxDynamicContent"></div>
-        </div>
-    </div>
-
-    <!-- Scroll Navigation Tool -->
-    <button id="backToTop" class="back-to-top" aria-label="Scroll to top"><i class="fas fa-chevron-up"></i></button>
-
-    <!-- Global Corporate Footer Module -->
+    <!-- Global Corporate Architectural Footer -->
     <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="#" class="logo">
-                    <svg viewBox="0 0 32 32"><path d="M6 18L16 6L26 18L16 22L6 18Z"/><path d="M6 24L16 16L26 24L16 28L6 24Z"/></svg>
-                    Sum<span>WebDev</span>
+                    <svg viewBox="0 0 32 32">
+                        <path d="M6 22L16 6L26 22H6Z" />
+                    </svg>
+                    SUM<span>WEBDEV</span>
                 </a>
-                <p>High-performance web architecture designed to scale corporate presence, handle transactional checkouts, and clean up technical debt.</p>
+                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
                 <div class="footer-social-row">
-                    <a href="https://github.com" class="social-link-icon" target="_blank" rel="noopener" aria-label="GitHub Developer Page"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com" class="social-link-icon" target="_blank" rel="noopener" aria-label="LinkedIn Professional Network"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="https://twitter.com" class="social-link-icon" target="_blank" rel="noopener" aria-label="Twitter Profile"><i class="fab fa-x-twitter"></i></a>
+                    <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Solutions</h4>
+                <h4>Engine Structures</h4>
                 <ul>
-                    <li><a href="services/index.html">Web Engineering</a></li>
-                    <li><a href="services/index.html">E-commerce Stores</a></li>
-                    <li><a href="services/index.html">Speed Optimization</a></li>
+                    <li><a href="services/">Web Frameworks</a></li>
+                    <li><a href="saas-ecosystems/">SaaS Ecosystems</a></li>
+                    <li><a href="database-integration/">Database Integration</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Agency</h4>
+                <h4>Resources</h4>
                 <ul>
-                    <li><a href="about/index.html">About Narrative</a></li>
-                    <li><a href="portfolio/index.html">Case Portfolio</a></li>
-                    <li><a href="contact/index.html">Contact Hub</a></li>
+                    <li><a href="portfolio/">Case Profiles</a></li>
+                    <li><a href="system-diagnostics/">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>System Maps</h4>
+                <h4>Corporate</h4>
                 <ul>
-                    <li><a href="sitemap/index.html">HTML Sitemap</a></li>
-                    <li><a href="booking/index.html">Client Intake Terminal</a></li>
+                    <li><a href="booking/">Secure Booking</a></li>
+                    <li><a href="network-framework/">Network Framework</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <div>&copy; 2026 Sum Web Dev. All Engineering Clear.</div>
+            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
             <div class="footer-legal-links">
-                <a href="privacy/index.html">Privacy Policy</a>
-                <a href="terms/index.html">Terms of Service</a>
-                <a href="privacy-settings/index.html">Privacy Settings</a>
+                <a href="security-protocol/">Security Protocol</a>
+                <a href="terms-of-architecture/">Terms of Architecture</a>
             </div>
         </div>
     </footer>
 
-    <!-- ==========================================================================
-       5. Interactive Navigation, Translation Engine & Form Pipeline
-       ========================================================================== */ -->
+    <button class="back-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Engine Control Logic Script Blocks -->
     <script>
-        // Production Translation Storage Dictionary Mapping
-        const translations = {
-            en: {
-                nav_home: "Home", nav_services: "Services", nav_portfolio: "Portfolio", nav_intake: "Intake",
-                hero_title: "I Build Fast, Modern Websites That <span>Grow Your Business.</span>",
-                hero_desc: "Engineered at the intersection of premium visual aesthetics and rock-solid full-stack architecture. Turn your traffic into high-converting revenue streams.",
-                btn_book: "Book a Project <i class='fas fa-arrow-right'></i>",
-                btn_work: "View My Work <i class='fas fa-layer-group'></i>",
-                metric_1: "Platforms Deployed", metric_2: "% Client Satisfaction", metric_3: "Years Pro Dev Experience",
-                services_sub: "Expertise Matrix", services_title: "Architectural Services",
-                services_desc: "Production-grade solutions optimized for cross-platform utility, raw processing speed, and clean semantic indexing.",
-                s1_title: "E-commerce Ecosystems", s1_desc: "High-volume digital storefronts complete with dynamic state management, seamless checkout engines, and secure payment pathways.",
-                s1_f1: "Sub-second cart loading loops", s1_f2: "Custom dashboard integrations",
-                s2_title: "Custom Web Platforms", s2_desc: "Bespoke software application engines, user administration layers, secure databases, and client portals custom-coded for precise operations.",
-                s2_f1: "Complex internal database logic", s2_f2: "Isolated token authentication",
-                s3_title: "SEO & Speed Optimization", s3_desc: "Auditing and refactoring legacy script profiles to establish 100/100 Core Web Vitals rankings, reducing user bounce rates immediately.",
-                s3_f1: "Complete asset compression pipelines", s3_f2: "Schema markup data mapping",
-                meta_from: "From", meta_days: "Days", port_sub: "Case Studies", port_title: "Live Production Deployments",
-                form_title: "Initialize Your Platform Architecture",
-                form_desc: "Provide your system parameters in the intake terminal. After verification, a structured architectural development timeline will be issued directly to your email.",
-                lbl_footprint: "Architecture Footprint", lbl_capital: "Allocated Capital Allocation",
-                lbl_timeline: "Timeline Scale", lbl_params: "System Parameters & Project Breakdown",
-                btn_transmit: "Transmit Project Parameters"
-            },
-            nl: {
-                nav_home: "Home", nav_services: "Diensten", nav_portfolio: "Portfolio", nav_intake: "Intake",
-                hero_title: "Ik Bouw Snelle, Moderne Websites Die <span>Uw Bedrijf Laten Groeien.</span>",
-                hero_desc: "Ontworpen op het snijvlak van premium visuele esthetiek en oerdegelijke full-stack architectuur. Zet uw verkeer om in hoog-converteerbare inkomstenstromen.",
-                btn_book: "Project Boeken <i class='fas fa-arrow-right'></i>",
-                btn_work: "Bekijk Mijn Werk <i class='fas fa-layer-group'></i>",
-                metric_1: "Geoptimaliseerde Platformen", metric_2: "% Klanttevredenheid", metric_3: "Jaren Pro Dev Ervaring",
-                services_sub: "Expertise Matrix", services_title: "Architecturale Diensten",
-                services_desc: "Productiewaardige oplossingen geoptimaliseerd voor cross-platform bruikbaarheid, rauwe verwerkingssnelheid en schone semantische indexering.",
-                s1_title: "E-commerce Ecosystemen", s1_desc: "Digitale etalages met een hoog volume, compleet met dynamisch statusbeheer, naadloze afrekenmodules en veilige betalingspaden.",
-                s1_f1: "Winkelwagenlaadlussen van minder dan een seconde", s1_f2: "Aangepaste dashboard-integraties",
-                s2_title: "Aangepaste Webplatformen", s2_desc: "Op maat gemaakte software-applicaties, gebruikersbeheerlagen, veilige databases en klantenportalen die speciaal zijn gecodeerd voor nauwkeurige operaties.",
-                s2_f1: "Complexiteit in interne databaselogica", s2_f2: "Geïsoleerde tokenauthenticatie",
-                s3_title: "SEO & Snelheidsoptimalisatie", s3_desc: "Auditen en herstructureren van legacy scriptprofielen om 100/100 Core Web Vitals rankings te behalen, waardoor bouncepercentages direct dalen.",
-                s3_f1: "Volledige asset-compressiepijlijnen", s3_f2: "Schema-markup gegevenskoppeling",
-                meta_from: "Vanaf", meta_days: "Dagen", port_sub: "Casestudies", port_title: "Live Productie-implementaties",
-                form_title: "Initialiseer Uw Platformarchitectuur",
-                form_desc: "Voer uw systeemparameters in de intake-terminal in. Na verificatie wordt er direct een gestructureerde tijdlijn voor architectonische ontwikkeling naar uw e-mail verzonden.",
-                lbl_footprint: "Architectuur Voetafdruk", lbl_capital: "Toegewezen Kapitaalallocatie",
-                lbl_timeline: "Tijdlijnschaal", lbl_params: "Systeemparameters & Projectanalyse",
-                btn_transmit: "Verzend Projectparameters"
-            },
-            de: {
-                nav_home: "Startseite", nav_services: "Dienste", nav_portfolio: "Portfolio", nav_intake: "Intake",
-                hero_title: "Ich baue schnelle, moderne Websites, die <span>Ihr Geschäft voranbringen.</span>",
-                hero_desc: "Entwickelt an der Schnittstelle von erstklassiger visueller Ästhetik und solider Full-Stack-Architektur. Verwandeln Sie Ihren Traffic in hochkonvertierende Einnahmen.",
-                btn_book: "Projekt buchen <i class='fas fa-arrow-right'></i>",
-                btn_work: "Meine Arbeit ansehen <i class='fas fa-layer-group'></i>",
-                metric_1: "Plattformen Bereitgestellt", metric_2: "% Kundenzufriedenheit", metric_3: "Jahre Pro Dev Erfahrung",
-                services_sub: "Kompetenzmatrix", services_title: "Architekturdienste",
-                services_desc: "Professionelle Lösungen, optimiert für plattformübergreifende Nutzung, rohe Verarbeitungsgeschwindigkeit und saubere semantische Indizierung.",
-                s1_title: "E-Commerce-Ökosysteme", s1_desc: "Hochvolumige digitale Schaufenster komplett mit dynamischer Zustandsverwaltung, nahtlosen Checkout-Engines und sicheren Zahlungswegen.",
-                s1_f1: "Warenkorb-Ladeschleifen im Subsekundenbereich", s1_f2: "Benutzerdefinierte Dashboard-Integrationen",
-                s2_title: "Maßgeschneiderte Webplattformen", s2_desc: "Maßgeschneiderte Softwareanwendungen, Benutzerverwaltungsebenen, sichere Datenbanken und Kundenportale, die speziell für präzise Abläufe codiert wurden.",
-                s2_f1: "Komplexe interne Datenbanklogik", s2_f2: "Isolierte Token-Authentifizierung",
-                s3_title: "SEO- & Geschwindigkeitsoptimierung", s3_desc: "Überprüfung und Umstrukturierung veralteter Skriptprofile, um 100/100 Core Web Vitals-Rankings zu erreichen und Absprungraten sofort zu senken.",
-                s3_f1: "Komplette Asset-Kompressions-Pipelines", s3_f2: "Schema-Markup-Datenzuordnung",
-                meta_from: "Ab", meta_days: "Tage", port_sub: "Fallstudien", port_title: "Live-Produktionseinsätze",
-                form_title: "Initialisieren Sie Ihre Plattformarchitektur",
-                form_desc: "Geben Sie Ihre Systemparameter in das Eingabeterminal ein. Nach der Überprüfung wird ein strukturierter Zeitplan direkt an Ihre E-Mail gesendet.",
-                lbl_footprint: "Architektur-Fußabdruck", lbl_capital: "Kapitalallokation",
-                lbl_timeline: "Zeitskala", lbl_params: "Systemparameter & Projektstruktur",
-                btn_transmit: "Projektparameter senden"
-            },
-            fr: {
-                nav_home: "Accueil", nav_services: "Services", nav_portfolio: "Portfolio", nav_intake: "Intake",
-                hero_title: "Je construis des sites web rapides et modernes qui <span>développent votre activité.</span>",
-                hero_desc: "Conçu à l'intersection d'une esthétique visuelle haut de gamme et d'une architecture full-stack robuste. Transformez votre trafic en flux de revenus à forte conversion.",
-                btn_book: "Réserver un projet <i class='fas fa-arrow-right'></i>",
-                btn_work: "Voir mon travail <i class='fas fa-layer-group'></i>",
-                metric_1: "Plateformes Déployées", metric_2: "% Satisfaction Client", metric_3: "Années d'expérience Pro Dev",
-                services_sub: "Matrice d'expertise", services_title: "Services d'architecture",
-                services_desc: "Solutions de niveau production optimisées pour une utilité multiplateforme, une vitesse de traitement brute und un indexation sémantique propre.",
-                s1_title: "Écosystèmes E-commerce", s1_desc: "Vitrines numériques à grand volume complètes avec gestion dynamique des états, moteurs de paiement transparents et passerelles de paiement sécurisées.",
-                s1_f1: "Boucles de chargement du panier en moins d'une seconde", s1_f2: "Intégrations de tableaux de bord personnalisés",
-                s2_title: "Plateformes Web Personnalisées", s2_desc: "Moteurs d'applications logicielles sur mesure, couches d'administration des utilisateurs, bases de données sécurisées et portails clients codés pour des opérations précises.",
-                s2_f1: "Logique de base de données interne complexe", s2_f2: "Authentification par jeton isolée",
-                s3_title: "Optimisation SEO & Vitesse", s3_desc: "Audit et refactoring des profils de scripts existants pour établir des classements 100/100 Core Web Vitals, réduisant immédiatement les taux de rebond.",
-                s3_f1: "Pipelines complètes de compression d'actifs", s3_f2: "Mappage des données de balisage de schéma",
-                meta_from: "À partir de", meta_days: "Jours", port_sub: "Études de cas", port_title: "Déploiements de production en direct",
-                form_title: "Initialisez votre architecture de plateforme",
-                form_desc: "Saisissez vos paramètres système dans le terminal d'admission. Après vérification, un calendrier de développement structurel sera envoyé directement à votre adresse e-mail.",
-                lbl_footprint: "Empreinte de l'architecture", lbl_capital: "Allocation de capital",
-                lbl_timeline: "Échelle de temps", lbl_params: "Paramètres du système et décomposition",
-                btn_transmit: "Transmettre les paramètres du projet"
-            }
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- UI Control Elements Initialization ---
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const menuPanel = document.getElementById('menuPanel');
+            const themeToggler = document.getElementById('themeToggler');
+            const langSwitch = document.getElementById('langSwitch');
+            const scrollBar = document.getElementById('scrollBar');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const htmlRoot = document.documentElement;
 
-        document.addEventListener("DOMContentLoaded", () => {
-            initializeNavigationModules();
-            initializeMetricCounters();
-            initializePortfolioFilters();
-            initializeLightboxModules();
-            initializeThemeEngine();
-            initializeFormspreeTerminal();
-            initializeTranslationEngine();
-        });
+            // --- Mobile Drop Drawer Navigation Toggle Rules ---
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                menuPanel.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
 
-        // Sticky Headers & Navigation (Fixed Mobile Drawer Execution)
-        function initializeNavigationModules() {
-            const header = document.querySelector(".main-header");
-            const mobileToggle = document.getElementById("mobileToggle");
-            const navLinks = document.getElementById("navLinks");
-            const backToTop = document.getElementById("backToTop");
-            const sections = document.querySelectorAll("section");
-            const navItems = document.querySelectorAll(".nav-item");
+            document.querySelectorAll('.nav-item').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerMenu.classList.remove('active');
+                    menuPanel.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
 
-            window.addEventListener("scroll", () => {
-                const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-                if (totalScroll > 0) {
-                    const progress = (window.pageYOffset / totalScroll) * 100;
-                    document.getElementById("scrollProgress").style.width = `${progress}%`;
-                }
+            // --- Theme State Toggling Mechanics Engine ---
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            htmlRoot.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
 
-                if (window.scrollY > 100) {
-                    backToTop.style.display = "flex";
+            themeToggler.addEventListener('click', () => {
+                const currentTheme = htmlRoot.getAttribute('data-theme');
+                const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlRoot.setAttribute('data-theme', targetTheme);
+                localStorage.setItem('theme', targetTheme);
+                updateThemeIcon(targetTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                const icon = themeToggler.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fa-solid fa-sun';
                 } else {
-                    backToTop.style.display = "none";
+                    icon.className = 'fa-solid fa-moon';
                 }
-
-                let activeId = "";
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 120;
-                    if (window.scrollY >= sectionTop) {
-                        activeId = section.getAttribute("id");
-                    }
-                });
-
-                navItems.forEach(item => {
-                    item.classList.remove("active");
-                    if (item.getAttribute("href") === `#${activeId}`) {
-                        item.classList.add("active");
-                    }
-                });
-            });
-
-            // Mobile Hamburger Click State Event
-            mobileToggle.addEventListener("click", (e) => {
-                e.stopPropagation();
-                navLinks.classList.toggle("active");
-                const icon = mobileToggle.querySelector("i");
-                icon.classList.toggle("fa-bars");
-                icon.classList.toggle("fa-times");
-            });
-
-            // Close mobile menu when clicking outside or on links
-            document.addEventListener("click", (e) => {
-                if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
-                    navLinks.classList.remove("active");
-                    const icon = mobileToggle.querySelector("i");
-                    icon.className = "fas fa-bars";
-                }
-            });
-
-            navItems.forEach(link => {
-                link.addEventListener("click", () => {
-                    navLinks.classList.remove("active");
-                    const icon = mobileToggle.querySelector("i");
-                    icon.className = "fas fa-bars";
-                });
-            });
-
-            backToTop.addEventListener("click", () => {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            });
-        }
-
-        // Active Structural Translation Swap Interface Engine
-        function initializeTranslationEngine() {
-            const selector = document.getElementById("languageSelector");
-            
-            selector.addEventListener("change", (e) => {
-                const targetLang = e.target.value;
-                const dictionary = translations[targetLang];
-                
-                if (!dictionary) return;
-
-                document.querySelectorAll("[data-lang-key]").forEach(element => {
-                    const key = element.getAttribute("data-lang-key");
-                    if (dictionary[key]) {
-                        element.innerHTML = dictionary[key];
-                    }
-                });
-            });
-        }
-
-        // Native Light/Dark Theme Engine
-        function initializeThemeEngine() {
-            const toggler = document.getElementById("themeToggler");
-            const icon = toggler.querySelector("i");
-            
-            toggler.addEventListener("click", () => {
-                const currentTheme = document.documentElement.getAttribute("data-theme");
-                const targetTheme = currentTheme === "dark" ? "light" : "dark";
-                
-                document.documentElement.setAttribute("data-theme", targetTheme);
-                icon.className = targetTheme === "dark" ? "fas fa-moon" : "fas fa-sun";
-            });
-        }
-
-        // Live Telemetry Incremental Counters
-        function initializeMetricCounters() {
-            const metrics = document.querySelectorAll(".metric-num");
-            
-            const countUp = (metric) => {
-                const target = parseInt(metric.getAttribute("data-target"));
-                let count = 0;
-                const speed = target / 30;
-
-                const updateCount = () => {
-                    count += speed;
-                    if (count < target) {
-                        metric.innerText = Math.floor(count);
-                        setTimeout(updateCount, 30);
-                    } else {
-                        metric.innerText = target;
-                    }
-                };
-                updateCount();
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        countUp(entry.target);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            metrics.forEach(metric => observer.observe(metric));
-        }
-
-        // Client Side Filter Systems
-        function initializePortfolioFilters() {
-            const buttons = document.querySelectorAll(".filter-btn");
-            const cards = document.querySelectorAll(".portfolio-item-card");
-
-            buttons.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    buttons.forEach(b => b.classList.remove("active"));
-                    btn.classList.add("active");
-
-                    const filter = btn.getAttribute("data-filter");
-
-                    cards.forEach(card => {
-                        if (filter === "all" || card.getAttribute("data-category") === filter) {
-                            card.style.display = "flex";
-                        } else {
-                            card.style.display = "none";
-                        }
-                    });
-                });
-            });
-        }
-
-        // Static Lightbox Core Content Hydration Mapping
-        const projectSpecifications = {
-            "modal-audiory": {
-                title: "Audiory Marketplace Framework",
-                clientGoal: "Establish an independent platform enabling beat producers to deploy self-hosted licensing configurations safely.",
-                solution: "Configured a lean Node.js architecture coupled with Firebase Auth, cutting page loads by 40% over legacy stack configurations.",
-                metrics: "Lighthouse Performance: 98% | Interaction Delay: 12ms"
-            },
-            "modal-shamba": {
-                title: "Shamba Fest High-Volume Ticket System",
-                clientGoal: "Prevent transactional checkout drop-offs during massive traffic spikes from target ad groups.",
-                solution: "Engineered isolated multi-page Supabase routes configured with instant webhook routing loops to handle parallel orders safely.",
-                metrics: "Server Up-Time: 100% | Concurrency Limit: 10,000 requests/sec"
             }
-        };
 
-        function initializeLightboxModules() {
-            const overlay = document.getElementById("lightboxOverlay");
-            const dynamicContent = document.getElementById("lightboxDynamicContent");
-            const closeBtn = document.getElementById("closeLightbox");
-            const openBtns = document.querySelectorAll(".open-details");
+            // --- Scrolling Metrics Analytics & Action Toggles ---
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollBar.style.width = scrolled + '%';
 
-            openBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const dataKey = btn.getAttribute("data-target");
-                    const data = projectSpecifications[dataKey];
-
-                    if (data) {
-                        dynamicContent.innerHTML = `
-                            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--accent-neon);">${data.title}</h2>
-                            <h4 style="margin-bottom: 0.5rem; text-transform: uppercase; color: var(--text-muted);">Operational Scope</h4>
-                            <p style="margin-bottom: 1.5rem;">${data.clientGoal}</p>
-                            <h4 style="margin-bottom: 0.5rem; text-transform: uppercase; color: var(--text-muted);">Engineering Execution</h4>
-                            <p style="margin-bottom: 1.5rem;">${data.solution}</p>
-                            <div style="background: rgba(108,99,255,0.08); padding: 1rem; border-radius: 6px; border-left: 4px solid var(--accent-primary); font-family: monospace; color: var(--text-pure);">
-                                <strong>System Telemetry:</strong> ${data.metrics}
-                            </div>
-                        `;
-                        overlay.style.display = "flex";
-                    }
-                });
-            });
-
-            closeBtn.addEventListener("click", () => overlay.style.display = "none");
-            overlay.addEventListener("click", (e) => { if (e.target === overlay) overlay.style.display = "none"; });
-        }
-
-        // Inline Formspree Validation Pipeline (Zero Alert Windows/Popups)
-        function initializeFormspreeTerminal() {
-            const form = document.getElementById("intakeTerminal");
-            const statusBox = document.getElementById("formStatus");
-
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const data = new FormData(form);
-                const submitBtn = document.getElementById("submitFormBtn");
-                
-                submitBtn.disabled = true;
-                submitBtn.innerText = "Transmitting Packet Clear...";
-
-                try {
-                    const response = await fetch(form.action, {
-                        method: form.method,
-                        body: data,
-                        headers: { 'Accept': 'application/json' }
-                    });
-
-                    if (response.ok) {
-                        statusBox.className = "form-status-msg success";
-                        statusBox.innerText = "Data payload received successfully. Your structural engineering analysis is routing now.";
-                        form.reset();
-                    } else {
-                        const errorData = await response.json();
-                        statusBox.className = "form-status-msg error";
-                        statusBox.innerText = errorData.errors ? errorData.errors.map(err => err.message).join(", ") : "Transmission validation loop rejected payload.";
-                    }
-                } catch (error) {
-                    statusBox.className = "form-status-msg error";
-                    statusBox.innerText = "Network transport error. Check routing parameters or firewalls.";
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = "Transmit Project Parameters";
+                if (window.scrollY > 400) {
+                    scrollTopBtn.style.display = 'flex';
+                } else {
+                    scrollTopBtn.style.display = 'none';
                 }
             });
-        }
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- Language Switch Stub Notification Trigger ---
+            langSwitch.addEventListener('change', (e) => {
+                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
+            });
+        });
     </script>
 </body>
 </html>
