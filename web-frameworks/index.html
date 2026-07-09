@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Framework Architecture | Sum Web Dev</title>
+    <meta name="description" content="High-performance modern web framework development. Leveraging Next.js, Node.js, and optimized folder-based routing for robust multi-tenant applications.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. Premium Theme Tokens & Root Variables
+           ========================================================================== */
+        :root[data-theme="dark"] {
+            --bg-main: #0B0F19;
+            --bg-card: #151A28;
+            --accent-primary: #6C63FF;
+            --accent-neon: #00D4FF;
+            --text-pure: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
+            --header-bg: rgba(11, 15, 25, 0.85);
+            --badge-bg: rgba(108, 99, 255, 0.12);
+        }
+
+        :root[data-theme="light"] {
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --accent-primary: #4F46E5;
+            --accent-neon: #0EA5E9;
+            --text-pure: #0F172A;
+            --text-muted: #64748B;
+            --border-glass: rgba(15, 23, 42, 0.08);
+            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
+            --header-bg: rgba(248, 250, 252, 0.9);
+            --badge-bg: rgba(79, 70, 229, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-pure);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.menu-open { overflow: hidden; }
+
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
+            z-index: 9999;
+        }
+
+        /* ==========================================================================
+           2. Header & Navigation Ecosystem
+           ========================================================================== */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--header-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass); z-index: 1000;
+            display: flex; align-items: center; transition: background 0.3s ease;
+        }
+        .nav-container {
+            width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-weight: 900; font-size: 1.5rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
+            z-index: 1010;
+        }
+        .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
+        .logo span { color: var(--accent-neon); }
+
+        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.25rem; z-index: 1010; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        
+        .nav-item {
+            color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
+            transition: color 0.2s ease; position: relative;
+        }
+        .nav-item:hover, .nav-item.active { color: var(--text-pure); }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+            background: var(--accent-neon); border-radius: 2px;
+        }
+        
+        .utility-btn {
+            background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            transition: all 0.2s ease;
+        }
+        .utility-btn:hover { border-color: var(--accent-primary); }
+
+        .lang-select {
+            background: var(--bg-card); border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.4rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none;
+            transition: all 0.2s ease; height: 38px;
+        }
+        .lang-select:focus { border-color: var(--accent-primary); }
+
+        .mobile-toggle {
+            display: none; background: transparent; border: 1px solid var(--border-glass); 
+            color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
+            border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
+            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
+        }
+        .mobile-toggle span {
+            display: block; width: 18px; height: 2px; background-color: var(--text-pure);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .mobile-toggle:hover { border-color: var(--accent-primary); }
+        
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; width: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        /* ==========================================================================
+           3. Web Frameworks Core Content Layout
+           ========================================================================== */
+        .framework-hero {
+            padding: 160px 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; z-index: 0; }
+        .orb-1 { top: 15%; left: 15%; width: 450px; height: 450px; background: var(--accent-primary); }
+        .orb-2 { bottom: 10%; right: 15%; width: 350px; height: 350px; background: var(--accent-neon); }
+
+        .framework-hero-content { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+        .framework-title { font-size: 3.8rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.5rem; }
+        .framework-title span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-primary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .framework-subtext { font-size: 1.25rem; color: var(--text-muted); }
+
+        .framework-container { max-width: 1400px; margin: 0 auto; padding: 2rem 2rem 8rem; position: relative; z-index: 2; }
+
+        /* Split Feature Section */
+        .split-showcase { display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; margin-bottom: 6rem; align-items: center; }
+        .showcase-text h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1.5rem; line-height: 1.2; }
+        .showcase-text p { color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem; }
+        
+        .stack-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+        .stack-item { display: flex; align-items: flex-start; gap: 1rem; }
+        .stack-item i { color: var(--accent-neon); font-size: 1.1rem; marginTop: 0.25rem; }
+        .stack-item h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .stack-item p { font-size: 0.95rem; margin-bottom: 0; }
+
+        /* Code Architecture Visual Card */
+        .architecture-blueprint {
+            background: var(--glass-grad); border: 1px solid var(--border-glass); border-radius: 12px;
+            padding: 3rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        }
+        .blueprint-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem; }
+        .blueprint-title { font-family: monospace; font-size: 0.95rem; color: var(--accent-neon); font-weight: 700; }
+        
+        .folder-tree { font-family: monospace; font-size: 0.9rem; color: var(--text-muted); line-height: 2; }
+        .folder-tree .folder { color: var(--text-pure); font-weight: 600; }
+        .folder-tree .folder i { color: var(--accent-primary); margin-right: 0.5rem; }
+        .folder-tree .file i { color: var(--text-muted); margin-right: 0.5rem; }
+        .indent-1 { padding-left: 1.5rem; }
+        .indent-2 { padding-left: 3rem; }
+
+        /* Framework Technology Matrix Cards */
+        .matrix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; }
+        .matrix-card {
+            background: var(--glass-grad); border: 1px solid var(--border-glass); border-radius: 12px;
+            padding: 3rem 2.5rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .matrix-card:hover { transform: translateY(-4px); border-color: rgba(108, 99, 255, 0.3); }
+        
+        .matrix-badge {
+            display: inline-block; background: var(--badge-bg); color: var(--accent-primary);
+            padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1.5rem;
+        }
+        .matrix-card[data-type="neon"] .matrix-badge { color: var(--accent-neon); background: rgba(0, 212, 255, 0.08); }
+
+        .matrix-card h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
+        .matrix-card p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ==========================================================================
+           4. Global Corporate Structural Footer
+           ========================================================================== */
+        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); position: relative; z-index: 2; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
+        .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
+        .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
+        .footer-col ul a:hover { color: var(--text-pure); }
+        
+        .footer-social-row { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-link-icon {
+            display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            border-radius: 6px; border: 1px solid var(--border-glass); color: var(--text-pure); text-decoration: none; transition: background 0.2s ease;
+        }
+        .social-link-icon:hover { background: var(--accent-primary); color: #FFF; }
+
+        .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-glass); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .footer-legal-links { display: flex; gap: 1.5rem; }
+        .footer-legal-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .footer-legal-links a:hover { color: var(--text-pure); }
+
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
+            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
+        }
+
+        /* ==========================================================================
+           5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
+           ========================================================================== */
+        @media(max-width: 1024px) {
+            .framework-title { font-size: 3rem; }
+            .split-showcase { grid-template-columns: 1fr; gap: 3rem; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        }
+
+        @media(max-width: 768px) {
+            .mobile-toggle { display: flex; }
+            .nav-controls-wrapper { position: relative; }
+
+            .nav-links {
+                display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 100%;
+                max-width: 300px; height: 100vh; background: rgba(21, 26, 40, 0.96); backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px); border-left: 1px solid var(--border-glass); padding: 120px 2rem 2rem;
+                gap: 2rem; align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: -20px 0 40px rgba(0,0,0,0.4); z-index: 1005;
+            }
+            .nav-links.active { right: 0; }
+
+            .nav-links .nav-item {
+                font-size: 1.25rem; font-weight: 600; opacity: 0; transform: translateX(15px);
+                transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active .nav-item { opacity: 1; transform: translateX(0); }
+            .nav-links.active .nav-item:nth-child(1) { transition-delay: 0.05s; }
+            .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
+            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15s; }
+            .nav-links.active .nav-item:nth-child(4) { transition-delay: 0.2s; }
+
+            .framework-hero { padding-top: 130px; }
+            .matrix-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .architecture-blueprint { padding: 2rem 1.5rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="scrollBar"></div>
+
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="../" class="logo">
+                <svg viewBox="0 0 32 32">
+                    <path d="M6 22L16 6L26 22H6Z" />
+                </svg>
+                SUM<span>WEBDEV</span>
+            </a>
+            
+            <nav class="nav-links" id="menuPanel">
+                <a href="../" class="nav-item">Home</a>
+                <a href="../services/" class="nav-item">Services</a>
+                <a href="../portfolio/" class="nav-item">Portfolio</a>
+                <a href="../booking/" class="nav-item">Book Strategy</a>
+            </nav>
+
+            <div class="nav-controls-wrapper">
+                <select class="lang-select" id="langSwitch">
+                    <option value="en">EN</option>
+                    <option value="es">ES</option>
+                </select>
+                
+                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <button class="mobile-toggle" id="hamburgerMenu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="framework-hero">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="framework-hero-content">
+            <h1 class="framework-title">Web Framework <span>Engineering</span></h1>
+            <p class="framework-subtext">Building clean application skeletons. We write maintainable, componentized systems matching modern directory patterns and lightweight footprint demands.</p>
+        </div>
+    </section>
+
+    <section class="framework-container">
+        
+        <div class="split-showcase">
+            <div class="showcase-text">
+                <h2>Structured Folder Layouts Over Spaghetti Formats</h2>
+                <p>Scaling a digital web marketplace requires strict file separation matrices. Our production architectures decouple interface routes, logical handlers, layout wrappers, and API nodes perfectly.</p>
+                
+                <div class="stack-list">
+                    <div class="stack-item">
+                        <i class="fa-solid fa-circle-nodes"></i>
+                        <div>
+                            <h4>Folder-Based Routing</h4>
+                            <p>Routes match your physical layout folders automatically, making deep nesting clean and clear.</p>
+                        </div>
+                    </div>
+                    <div class="stack-item">
+                        <i class="fa-solid fa-cubes"></i>
+                        <div>
+                            <h4>Isomorphic Components</h4>
+                            <p>Decoupled visual pieces re-used globally across event marketplaces or client checkout lines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="architecture-blueprint">
+                <div class="blueprint-header">
+                    <div class="blueprint-title"><i class="fa-solid fa-folder-tree"></i> production-app-structure/</div>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-family: monospace;">ROOT ENGINE</span>
+                </div>
+                <div class="folder-tree">
+                    <div class="folder"><i class="fa-regular fa-folder-open"></i> src/</div>
+                    <div class="folder indent-1"><i class="fa-regular fa-folder"></i> app/</div>
+                    <div class="file indent-2"><i class="fa-regular fa-file-code"></i> layout.js <span style="color:var(--accent-neon)">// Main Blueprint</span></div>
+                    <div class="file indent-2"><i class="fa-regular fa-file-code"></i> page.js <span style="color:var(--text-muted)">// Root Landing Matrix</span></div>
+                    <div class="folder indent-2"><i class="fa-regular fa-folder"></i> events/</div>
+                    <div class="file indent-3"><i class="fa-regular fa-file-code"></i> page.js <span style="color:var(--accent-primary)">// Marketplace Directory</span></div>
+                    <div class="folder indent-1"><i class="fa-regular fa-folder"></i> components/</div>
+                    <div class="file indent-2"><i class="fa-regular fa-file-code"></i> Navbar.jsx</div>
+                    <div class="file indent-2"><i class="fa-regular fa-file-code"></i> Footer.jsx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="matrix-grid">
+            
+            <div class="matrix-card">
+                <div class="matrix-badge">Core Server Engine</div>
+                <h3>Next.js & Node.js Optimization</h3>
+                <p>Deploying server-side rendering systems or static compilation matrices that achieve immediate layout paint clocks and elite SEO profiles.</p>
+            </div>
+
+            <div class="matrix-card" data-type="neon">
+                <div class="matrix-badge">Atomic Styling</div>
+                <h3>Tailwind Utility Integration</h3>
+                <p>Writing responsive, high-fidelity layouts based on isolated hex definitions and strict style constraints that scale without adding design weight.</p>
+            </div>
+
+            <div class="matrix-card">
+                <div class="matrix-badge">Data Mapping</div>
+                <h3>Multi-Part Schema Parsing</h3>
+                <p>Assembling robust validation lines to capture metadata splits, royalty parameters, or client checkouts without triggering type drops.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../" class="logo">
+                    <svg viewBox="0 0 32 32">
+                        <path d="M6 22L16 6L26 22H6Z" />
+                    </svg>
+                    SUM<span>WEBDEV</span>
+                </a>
+                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <div class="footer-social-row">
+                    <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Engine Structures</h4>
+                <ul>
+                    <li><a href="../services/">Web Frameworks</a></li>
+                    <li><a href="../services/">SaaS Ecosystems</a></li>
+                    <li><a href="../database-integration/">Database Integration</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="../portfolio/">Case Profiles</a></li>
+                    <li><a href="../system-diagnostics/">System Diagnostics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Corporate</h4>
+                <ul>
+                    <li><a href="../booking/">Secure Booking</a></li>
+                    <li><a href="../network-framework/">Network Framework</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <div class="footer-legal-links">
+                <a href="#">Security Protocol</a>
+                <a href="#">Terms of Architecture</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- UI Control Elements Initialization ---
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const menuPanel = document.getElementById('menuPanel');
+            const themeToggler = document.getElementById('themeToggler');
+            const langSwitch = document.getElementById('langSwitch');
+            const scrollBar = document.getElementById('scrollBar');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const htmlRoot = document.documentElement;
+
+            // --- Mobile Drop Drawer Navigation Toggle Rules ---
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                menuPanel.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+
+            document.querySelectorAll('.nav-item').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburgerMenu.classList.remove('active');
+                    menuPanel.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+
+            // --- Theme State Toggling Mechanics Engine ---
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            htmlRoot.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            themeToggler.addEventListener('click', () => {
+                const currentTheme = htmlRoot.getAttribute('data-theme');
+                const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                htmlRoot.setAttribute('data-theme', targetTheme);
+                localStorage.setItem('theme', targetTheme);
+                updateThemeIcon(targetTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                const icon = themeToggler.querySelector('i');
+                if (theme === 'dark') {
+                    icon.className = 'fa-solid fa-sun';
+                } else {
+                    icon.className = 'fa-solid fa-moon';
+                }
+            }
+
+            // --- Scrolling Metrics Analytics & Action Toggles ---
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollBar.style.width = scrolled + '%';
+
+                if (window.scrollY > 400) {
+                    scrollTopBtn.style.display = 'flex';
+                } else {
+                    scrollTopBtn.style.display = 'none';
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // --- Language Switch Stub Notification Trigger ---
+            langSwitch.addEventListener('change', (e) => {
+                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
+            });
+        });
+    </script>
+</body>
+</html>
