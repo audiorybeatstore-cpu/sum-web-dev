@@ -307,16 +307,22 @@
             </a>
             
             <nav class="nav-links" id="menuPanel">
-                <a href="#" class="nav-item active">Home</a>
-                <a href="services/" class="nav-item">Services</a>
-                <a href="portfolio/" class="nav-item">Portfolio</a>
-                <a href="booking/" class="nav-item">Book Strategy</a>
+                <a href="#" class="nav-item active" data-tr="nav-home">Home</a>
+                <a href="services/" class="nav-item" data-tr="nav-services">Services</a>
+                <a href="portfolio/" class="nav-item" data-tr="nav-portfolio">Portfolio</a>
+                <a href="booking/" class="nav-item" data-tr="nav-booking">Book Strategy</a>
             </nav>
 
             <div class="nav-controls-wrapper">
                 <select class="lang-select" id="langSwitch">
                     <option value="en">EN</option>
+                    <option value="nl">NL</option>
+                    <option value="fr">FR</option>
+                    <option value="pt">PT</option>
                     <option value="es">ES</option>
+                    <option value="it">IT</option>
+                    <option value="ne">NE</option>
+                    <option value="de">DE</option>
                 </select>
                 
                 <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
@@ -339,11 +345,11 @@
         
         <div class="hero-container">
             <div class="hero-text">
-                <h1>High-Performance <span>Digital Architecture</span></h1>
-                <p>We build production-grade web solutions, robust backend microservices, and secure multi-tenant SaaS environments tailored for enterprise scale.</p>
+                <h1 id="hero-title">High-Performance <span>Digital Architecture</span></h1>
+                <p id="hero-desc">We build production-grade web solutions, robust backend microservices, and secure multi-tenant SaaS environments tailored for enterprise scale.</p>
                 <div class="btn-group">
-                    <a href="booking/" class="prime-btn">Initialize Consultation</a>
-                    <a href="portfolio/" class="alt-btn">View Case Profiles</a>
+                    <a href="booking/" class="prime-btn" id="btn-consult">Initialize Consultation</a>
+                    <a href="portfolio/" class="alt-btn" id="btn-portfolio">View Case Profiles</a>
                 </div>
             </div>
             
@@ -355,13 +361,13 @@
                     <div class="console-dot"></div>
                 </div>
                 <div class="console-line"><span class="accent">&gt;</span> npm init sum-webdev-engine@latest</div>
-                <div class="console-line">[1/3] Resolving workspace dependencies...</div>
-                <div class="console-line">[2/3] Mapping secure cloud instances...</div>
-                <div class="console-line">[3/3] System initialization successful.</div>
+                <div class="console-line" id="console-l1">[1/3] Resolving workspace dependencies...</div>
+                <div class="console-line" id="console-l2">[2/3] Mapping secure cloud instances...</div>
+                <div class="console-line" id="console-l3">[3/3] System initialization successful.</div>
                 <div class="console-line"><span class="accent">&gt;</span> structural-status --verify</div>
-                <div class="console-line" style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> Gateway Node: Active</div>
-                <div class="console-line" style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> Theme Engine: Operational</div>
-                <div class="console-line" style="color: var(--accent-neon); margin-top: 1rem;">Ready for structural deployment.</div>
+                <div class="console-line" style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> <span id="console-g">Gateway Node: Active</span></div>
+                <div class="console-line" style="color: #10B981;"><i class="fa-solid fa-circle-check"></i> <span id="console-t">Theme Engine: Operational</span></div>
+                <div class="console-line" style="color: var(--accent-neon); margin-top: 1rem;" id="console-ready">Ready for structural deployment.</div>
             </div>
         </div>
     </section>
@@ -369,33 +375,33 @@
     <!-- Core Pillars Matrix Grid Section -->
     <section class="section-container">
         <div class="section-header">
-            <h2>Our Architectural Verticals</h2>
-            <p>From component design up through secure decoupled infrastructure layers, we engineer performance at every layer.</p>
+            <h2 id="vert-title">Our Architectural Verticals</h2>
+            <p id="vert-desc">From component design up through secure decoupled infrastructure layers, we engineer performance at every layer.</p>
         </div>
         
         <div class="services-matrix">
             <!-- Service Pillar 1 -->
             <a href="services/" class="matrix-card">
                 <div class="matrix-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <h3>Web Frameworks</h3>
-                <p>Developing componentized application layers and fluid responsive interfaces backed by modern routing models.</p>
-                <div class="matrix-link">Explore Frameworks <i class="fa-solid fa-arrow-right"></i></div>
+                <h3 id="card1-title">Web Frameworks</h3>
+                <p id="card1-desc">Developing componentized application layers and fluid responsive interfaces backed by modern routing models.</p>
+                <div class="matrix-link"><span data-tr="explore-fw">Explore Frameworks</span> <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
             <!-- Service Pillar 2 -->
             <a href="saas-ecosystems/" class="matrix-card">
                 <div class="matrix-icon"><i class="fa-solid fa-cloud"></i></div>
-                <h3>SaaS Ecosystems</h3>
-                <p>Integrating decoupled authentication pipelines, serverless webhooks, and multi-tenant table security rules.</p>
-                <div class="matrix-link">Explore Ecosystems <i class="fa-solid fa-arrow-right"></i></div>
+                <h3 id="card2-title">SaaS Ecosystems</h3>
+                <p id="card2-desc">Integrating decoupled authentication pipelines, serverless webhooks, and multi-tenant table security rules.</p>
+                <div class="matrix-link"><span data-tr="explore-eco">Explore Ecosystems</span> <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
             <!-- Service Pillar 3 -->
             <a href="database-integration/" class="matrix-card">
                 <div class="matrix-icon"><i class="fa-solid fa-database"></i></div>
-                <h3>Database Integration</h3>
-                <p>Configuring structured relational schemas, optimized processing queries, and durable object storage pools.</p>
-                <div class="matrix-link">Explore Databases <i class="fa-solid fa-arrow-right"></i></div>
+                <h3 id="card3-title">Database Integration</h3>
+                <p id="card3-desc">Configuring structured relational schemas, optimized processing queries, and durable object storage pools.</p>
+                <div class="matrix-link"><span data-tr="explore-db">Explore Databases</span> <i class="fa-solid fa-arrow-right"></i></div>
             </a>
         </div>
     </section>
@@ -404,8 +410,8 @@
     <section class="section-container" style="padding-top: 0;">
         <div class="pipeline-wrapper">
             <div class="pipeline-info">
-                <h3>Built for Elastic Scalability</h3>
-                <p>We build systems using standard, proven architectures that avoid platform dependency. By keeping computation decoupled from the layout render layers, your tools remain lightweight, highly secure, and instantly responsive.</p>
+                <h3 id="pipe-title">Built for Elastic Scalability</h3>
+                <p id="pipe-desc">We build systems using standard, proven architectures that avoid platform dependency. By keeping computation decoupled from the layout render layers, your tools remain lightweight, highly secure, and instantly responsive.</p>
                 
                 <div class="tech-tags">
                     <span class="tech-tag">Next.js</span>
@@ -422,24 +428,24 @@
                 <div class="step-item">
                     <div class="step-num">01</div>
                     <div class="step-content">
-                        <h4>Secure Token Gates</h4>
-                        <p>Identity sessions are parsed strictly using enterprise token arrays, preventing standard credential exposure.</p>
+                        <h4 id="step1-title">Secure Token Gates</h4>
+                        <p id="step1-desc">Identity sessions are parsed strictly using enterprise token arrays, preventing standard credential exposure.</p>
                     </div>
                 </div>
                 <!-- Step 2 -->
                 <div class="step-item">
                     <div class="step-num">02</div>
                     <div class="step-content">
-                        <h4>Partition Isolation</h4>
-                        <p>Row-level authorization metrics guard user environments from multi-tenant crossing leaks.</p>
+                        <h4 id="step2-title">Partition Isolation</h4>
+                        <p id="step2-desc">Row-level authorization metrics guard user environments from multi-tenant crossing leaks.</p>
                     </div>
                 </div>
                 <!-- Step 3 -->
                 <div class="step-item">
                     <div class="step-num">03</div>
                     <div class="step-content">
-                        <h4>Global Edge Caching</h4>
-                        <p>Assets and static elements load immediately from nearest Content Network nodes, achieving zero hydration drag.</p>
+                        <h4 id="step3-title">Global Edge Caching</h4>
+                        <p id="step3-desc">Assets and static elements load immediately from nearest Content Network nodes, achieving zero hydration drag.</p>
                     </div>
                 </div>
             </div>
@@ -456,40 +462,40 @@
                     </svg>
                     SUM<span>WEBDEV</span>
                 </a>
-                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <p id="footer-tagline">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
                 <div class="footer-social-row">
                     <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Engine Structures</h4>
+                <h4 data-tr="f-col1">Engine Structures</h4>
                 <ul>
-                    <li><a href="services/">Web Frameworks</a></li>
-                    <li><a href="saas-ecosystems/">SaaS Ecosystems</a></li>
-                    <li><a href="database-integration/">Database Integration</a></li>
+                    <li><a href="services/" id="f-link1">Web Frameworks</a></li>
+                    <li><a href="saas-ecosystems/" id="f-link2">SaaS Ecosystems</a></li>
+                    <li><a href="database-integration/" id="f-link3">Database Integration</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
+                <h4 data-tr="f-col2">Resources</h4>
                 <ul>
-                    <li><a href="portfolio/">Case Profiles</a></li>
-                    <li><a href="system-diagnostics/">System Diagnostics</a></li>
+                    <li><a href="portfolio/" id="f-link4">Case Profiles</a></li>
+                    <li><a href="system-diagnostics/" id="f-link5">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Corporate</h4>
+                <h4 data-tr="f-col3">Corporate</h4>
                 <ul>
-                    <li><a href="booking/">Secure Booking</a></li>
-                    <li><a href="network-framework/">Network Framework</a></li>
+                    <li><a href="booking/" id="f-link6">Secure Booking</a></li>
+                    <li><a href="network-framework/" id="f-link7">Network Framework</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <p id="footer-copy">&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
             <div class="footer-legal-links">
-                <a href="security-protocol/">Security Protocol</a>
-                <a href="terms-of-architecture/">Terms of Architecture</a>
+                <a href="security-protocol/" id="f-link8">Security Protocol</a>
+                <a href="terms-of-architecture/" id="f-link9">Terms of Architecture</a>
             </div>
         </div>
     </footer>
@@ -500,6 +506,170 @@
 
     <!-- Engine Control Logic Script Blocks -->
     <script>
+        // --- Client-Side Global Translation Matrix ---
+        const translations = {
+            en: {
+                "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-booking": "Book Strategy",
+                "hero-title": "High-Performance <span>Digital Architecture</span>",
+                "hero-desc": "We build production-grade web solutions, robust backend microservices, and secure multi-tenant SaaS environments tailored for enterprise scale.",
+                "btn-consult": "Initialize Consultation", "btn-portfolio": "View Case Profiles",
+                "console-l1": "[1/3] Resolving workspace dependencies...", "console-l2": "[2/3] Mapping secure cloud instances...", "console-l3": "[3/3] System initialization successful.",
+                "console-g": "Gateway Node: Active", "console-t": "Theme Engine: Operational", "console-ready": "Ready for structural deployment.",
+                "vert-title": "Our Architectural Verticals", "vert-desc": "From component design up through secure decoupled infrastructure layers, we engineer performance at every layer.",
+                "card1-title": "Web Frameworks", "card1-desc": "Developing componentized application layers and fluid responsive interfaces backed by modern routing models.", "explore-fw": "Explore Frameworks",
+                "card2-title": "SaaS Ecosystems", "card2-desc": "Integrating decoupled authentication pipelines, serverless webhooks, and multi-tenant table security rules.", "explore-eco": "Explore Ecosystems",
+                "card3-title": "Database Integration", "card3-desc": "Configuring structured relational schemas, optimized processing queries, and durable object storage pools.", "explore-db": "Explore Databases",
+                "pipe-title": "Built for Elastic Scalability", "pipe-desc": "We build systems using standard, proven architectures that avoid platform dependency. By keeping computation decoupled from the layout render layers, your tools remain lightweight, highly secure, and instantly responsive.",
+                "step1-title": "Secure Token Gates", "step1-desc": "Identity sessions are parsed strictly using enterprise token arrays, preventing standard credential exposure.",
+                "step2-title": "Partition Isolation", "step2-desc": "Row-level authorization metrics guard user environments from multi-tenant crossing leaks.",
+                "step3-title": "Global Edge Caching", "step3-desc": "Assets and static elements load immediately from nearest Content Network nodes, achieving zero hydration drag.",
+                "footer-tagline": "Architecting next-generation digital performance tools and custom full-stack solutions.",
+                "f-col1": "Engine Structures", "f-col2": "Resources", "f-col3": "Corporate",
+                "f-link1": "Web Frameworks", "f-link2": "SaaS Ecosystems", "f-link3": "Database Integration", "f-link4": "Case Profiles", "f-link5": "System Diagnostics", "f-link6": "Secure Booking", "f-link7": "Network Framework", "f-link8": "Security Protocol", "f-link9": "Terms of Architecture",
+                "footer-copy": "© 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE."
+            },
+            nl: {
+                "nav-home": "Home", "nav-services": "Diensten", "nav-portfolio": "Portfolio", "nav-booking": "Boek Strategie",
+                "hero-title": "Hoogwaardige <span>Digitale Architectuur</span>",
+                "hero-desc": "Wij bouwen weboplossingen van productierang, robuuste backend microservices en veilige multi-tenant SaaS-omgevingen op ondernemingsschaal.",
+                "btn-consult": "Consultatie Initialiseren", "btn-portfolio": "Bekijk Projectprofielen",
+                "console-l1": "[1/3] Werkruimte-afhankelijkheden oplossen...", "console-l2": "[2/3] Veilige cloud-instanties in kaart brengen...", "console-l3": "[3/3] Systeeminitialisatie succesvol.",
+                "console-g": "Gateway-knooppunt: Actief", "console-t": "Thema-engine: Operationeel", "console-ready": "Gereed voor infrastructurele inzet.",
+                "vert-title": "Onze Architectonische Verticalen", "vert-desc": "Van componentontwerp tot veilige ontkoppelde infrastructuurlagen, wij leveren prestaties op elk niveau.",
+                "card1-title": "Web Frameworks", "card1-desc": "Ontwikkelen van gecomponentiseerde applicatielagen en vloeiende responsieve interfaces ondersteund door moderne routering.", "explore-fw": "Ontdek Frameworks",
+                "card2-title": "SaaS Ecosystemen", "card2-desc": "Integratie van ontkoppelde authenticatiepipelines, serverloze webhooks en multi-tenant tabelbeveiliging.", "explore-eco": "Ontdek Ecosystemen",
+                "card3-title": "Database Integratie", "card3-desc": "Configureren van gestructureerde relationele schema's, geoptimaliseerde verwerkingsquery's en duurzame opslag.", "explore-db": "Ontdek Databases",
+                "pipe-title": "Gebouwd voor Elastische Schaalbaarheid", "pipe-desc": "We bouwen systemen met beproefde architecturen die platformafhankelijkheid vermijden, waardoor uw tools licht en direct responsief blijven.",
+                "step1-title": "Veilige Token-poorten", "step1-desc": "Identiteitssessies worden strikt verwerkt met enterprise token-arrays om blootstelling van inloggegevens te voorkomen.",
+                "step2-title": "Partitie-isolatie", "step2-desc": "Autorisatiestatistieken op rijniveau beschermen gebruikersomgevingen tegen datalekken.",
+                "step3-title": "Wereldwijde Edge-caching", "step3-desc": "Elementen laden direct vanaf de dichtstbijzijnde Content Network-nodes zonder vertraging.",
+                "footer-tagline": "Architectuur van de volgende generatie digitale prestatietools en aangepaste full-stack oplossingen.",
+                "f-col1": "Motor Structuren", "f-col2": "Middelen", "f-col3": "Zakelijk",
+                "f-link1": "Web Frameworks", "f-link2": "SaaS Ecosystemen", "f-link3": "Database Integratie", "f-link4": "Projectprofielen", "f-link5": "Systeemdiagnose", "f-link6": "Veilig Boeken", "f-link7": "Netwerk Framework", "f-link8": "Beveiligingsprotocol", "f-link9": "Architectuurvoorwaarden",
+                "footer-copy": "© 2026 Sum Web Dev. Alle rechten voorbehouden. Hub-operaties gevestigd in Mombasa, KE."
+            },
+            fr: {
+                "nav-home": "Accueil", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-booking": "Réserver Stratégie",
+                "hero-title": "Architecture <span>Numérique Haute Performance</span>",
+                "hero-desc": "Nous concevons des solutions web de qualité production, des microservices backend robustes et des environnements SaaS multi-locataires sécurisés.",
+                "btn-consult": "Initialiser la Consultation", "btn-portfolio": "Voir les Profils de Cas",
+                "console-l1": "[1/3] Résolution des dépendances...", "console-l2": "[2/3] Cartographie des instances cloud sécurisées...", "console-l3": "[3/3] Initialisation du système réussie.",
+                "console-g": "Nœud Passerelle: Actif", "console-t": "Moteur de Thème: Opérationnel", "console-ready": "Prêt pour le déploiement structurel.",
+                "vert-title": "Nos Verticales Architecturales", "vert-desc": "De la conception des composants aux couches d'infrastructure découplées, nous développons la performance à tous les niveaux.",
+                "card1-title": "Frameworks Web", "card1-desc": "Développement de couches applicatives composées et d'interfaces réactives fluides basées sur des modèles de routage modernes.", "explore-fw": "Explorer les Frameworks",
+                "card2-title": "Écosystèmes SaaS", "card2-desc": "Intégration de pipelines d'authentification découplés, de webhooks serverless et de règles de sécurité au niveau des lignes.", "explore-eco": "Explorer les Écosystèmes",
+                "card3-title": "Intégration de Bases de Données", "card3-desc": "Configuration de schémas relationnels structurés, de requêtes optimisées et de pools de stockage d'objets durables.", "explore-db": "Explorer les Bases",
+                "pipe-title": "Conçu pour une Évolutivité Élastique", "pipe-desc": "Nous construisons des systèmes en utilisant des architectures standard éprouvées qui évitent la dépendance aux plateformes, garantissant réactivité et légèreté.",
+                "step1-title": "Passerelles de Jetons Sécurisées", "step1-desc": "Les sessions d'identité sont analysées strictement à l'aide de tableaux de jetons d'entreprise, évitant l'exposition des identifiants.",
+                "step2-title": "Isolation des Partitions", "step2-desc": "Les métriques d'autorisation au niveau des lignes protègent les environnements des fuites inter-locataires.",
+                "step3-title": "Mise en Cache Edge Globale", "step3-desc": "Les composants se chargent immédiatement depuis les nœuds de réseau de contenu les plus proches.",
+                "footer-tagline": "Architecture d'outils de performance numérique de nouvelle génération et de solutions full-stack personnalisées.",
+                "f-col1": "Structures Moteur", "f-col2": "Ressources", "f-col3": "Entreprise",
+                "f-link1": "Frameworks Web", "f-link2": "Écosystèmes SaaS", "f-link3": "Bases de Données", "f-link4": "Profils de Cas", "f-link5": "Diagnostics Système", "f-link6": "Réservation Sécurisée", "f-link7": "Cadre Réseau", "f-link8": "Protocole de Sécurité", "f-link9": "Conditions d'Architecture",
+                "footer-copy": "© 2026 Sum Web Dev. Tous droits réservés. Opérations du Hub situées à Mombasa, KE."
+            },
+            pt: {
+                "nav-home": "Início", "nav-services": "Serviços", "nav-portfolio": "Portfólio", "nav-booking": "Agendar Estratégia",
+                "hero-title": "Arquitetura <span>Digital de Alta Performance</span>",
+                "hero-desc": "Construímos soluções web prontas para produção, microsserviços de backend robustos e ambientes SaaS multi-tenant seguros em escala empresarial.",
+                "btn-consult": "Inicializar Consulta", "btn-portfolio": "Ver Perfis de Casos",
+                "console-l1": "[1/3] Resolvendo dependências do espaço de trabalho...", "console-l2": "[2/3] Mapeando instâncias de nuvem seguras...", "console-l3": "[3/3] Inicialização do sistema bem-sucedida.",
+                "console-g": "Nó de Gateway: Ativo", "console-t": "Motor de Tema: Operacional", "console-ready": "Pronto para implantação estrutural.",
+                "vert-title": "Nossas Verticais Arquitetônicas", "vert-desc": "Do design de componentes até as camadas de infraestrutura desacopladas, projetamos desempenho em cada nível.",
+                "card1-title": "Frameworks Web", "card1-desc": "Desenvolvimento de camadas de aplicação componentizadas e interfaces responsivas fluidas apoiadas por modelos modernos de roteamento.", "explore-fw": "Explorar Frameworks",
+                "card2-title": "Ecossistemas SaaS", "card2-desc": "Integração de pipelines de autenticação desacoplados, webhooks serverless e regras de segurança de tabela multi-tenant.", "explore-eco": "Explorar Ecossistemas",
+                "card3-title": "Integração de Bancos de Dados", "card3-desc": "Configuração de esquemas relacionais estruturados, consultas de processamento otimizadas e pools de armazenamento de objetos duráveis.", "explore-db": "Explorar Bancos de Dados",
+                "pipe-title": "Construído para Escalabilidade Elástica", "pipe-desc": "Construímos sistemas usando arquiteturas padrão e comprovadas que evitam a dependência de plataformas, mantendo as ferramentas leves e seguras.",
+                "step1-title": "Portões de Token Seguros", "step1-desc": "As sessões de identidade são analisadas estritamente usando matrizes de tokens corporativos, evitando a exposição de credenciais.",
+                "step2-title": "Isolamento de Partição", "step2-desc": "Métricas de autorização em nível de linha protegem os ambientes dos usuários contra vazamentos entre inquilinos.",
+                "step3-title": "Cache de Borda Global", "step3-desc": "Os ativos e elementos estáticos carregam imediatamente a partir dos nós de rede de conteúdo mais próximos.",
+                "footer-tagline": "Arquitetando ferramentas de desempenho digital de última geração e soluções full-stack personalizadas.",
+                "f-col1": "Estruturas do Motor", "f-col2": "Recursos", "f-col3": "Corporativo",
+                "f-link1": "Frameworks Web", "f-link2": "Ecossistemas SaaS", "f-link3": "Integração de Bancos", "f-link4": "Perfis de Casos", "f-link5": "Diagnósticos de Sistema", "f-link6": "Reserva Segura", "f-link7": "Estrutura de Rede", "f-link8": "Protocolo de Segurança", "f-link9": "Termos de Arquitetura",
+                "footer-copy": "© 2026 Sum Web Dev. Todos os direitos reservados. Operações do Hub localizadas em Mombasa, KE."
+            },
+            es: {
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Portafolio", "nav-booking": "Reservar Estratégia",
+                "hero-title": "Arquitectura <span>Digital de Alto Rendimiento</span>",
+                "hero-desc": "Construimos soluciones web de nivel de producción, microservicios backend robustos y entornos SaaS multiinquilino seguros a escala empresarial.",
+                "btn-consult": "Inicializar Consulta", "btn-portfolio": "Ver Perfiles de Casos",
+                "console-l1": "[1/3] Resolviendo dependencias...", "console-l2": "[2/3] Mapeando instancias seguras en la nube...", "console-l3": "[3/3] Inicialización del sistema exitosa.",
+                "console-g": "Nodo de Pasarela: Activo", "console-t": "Motor de Temas: Operacional", "console-ready": "Listo para el despliegue estructural.",
+                "vert-title": "Nuestras Verticales Arquitectónicas", "vert-desc": "Desde el diseño de componentes hasta capas de infraestructura desacopladas, diseñamos rendimiento en cada capa.",
+                "card1-title": "Frameworks Web", "card1-desc": "Desarrollo de capas de aplicación componentizadas e interfaces fluidas respaldadas por modelos de enrutamiento modernos.", "explore-fw": "Explorar Frameworks",
+                "card2-title": "Ecosistemas SaaS", "card2-desc": "Integración de canalizaciones de autenticación desacopladas, webhooks sin servidor y reglas de seguridad de nivel de fila.", "explore-eco": "Explorar Ecosistemas",
+                "card3-title": "Integración de Bases de Datos", "card3-desc": "Configuración de esquemas relacionales estructurados, consultas de procesamiento optimizadas y pools de almacenamiento duraderos.", "explore-db": "Explorar Bases de Datos",
+                "pipe-title": "Construido para Escalabilidad Elástica", "pipe-desc": "Construimos sistemas utilizando arquitecturas estándar probadas que evitan la dependencia de plataformas, manteniendo las herramientas ligeras y receptivas.",
+                "step1-title": "Puertas de Token Seguras", "step1-desc": "Las sesiones de identidad se analizan estrictamente utilizando matrices de tokens empresariales, evitando la exposición de credenciales.",
+                "step2-title": "Aislamiento de Particiones", "step2-desc": "Las métricas de autorización a nivel de fila protegen los entornos de usuario de filtraciones entre inquilinos.",
+                "step3-title": "Caché de Borde Global", "step3-desc": "Los activos se cargan de inmediato desde los nodos de la red de contenido más cercanos sin arrastre de hidratación.",
+                "footer-tagline": "Arquitectura de herramientas de rendimiento digital de próxima generación y soluciones full-stack personalizadas.",
+                "f-col1": "Estructuras de Motor", "f-col2": "Recursos", "f-col3": "Corporativo",
+                "f-link1": "Frameworks Web", "f-link2": "Ecosistemas SaaS", "f-link3": "Bases de Datos", "f-link4": "Perfiles de Casos", "f-link5": "Diagnósticos del Sistema", "f-link6": "Reserva Segura", "f-link7": "Marco de Red", "f-link8": "Protocolo de Seguridad", "f-link9": "Términos de Arquitectura",
+                "footer-copy": "© 2026 Sum Web Dev. Todos los derechos reservados. Operaciones del Hub ubicadas en Mombasa, KE."
+            },
+            it: {
+                "nav-home": "Home", "nav-services": "Servizi", "nav-portfolio": "Portfolio", "nav-booking": "Prenota Strategia",
+                "hero-title": "Architettura <span>Digitale ad Alte Prestazioni</span>",
+                "hero-desc": "Creiamo soluzioni web di livello production, microservizi backend robusti e ambienti SaaS multi-tenant sicuri per scale aziendali.",
+                "btn-consult": "Inizializza Consulenza", "btn-portfolio": "Visualizza Casi di Studio",
+                "console-l1": "[1/3] Risoluzione delle dipendenze...", "console-l2": "[2/3] Mappatura istanze cloud sicure...", "console-l3": "[3/3] Inizializzazione del sistema completata.",
+                "console-g": "Nodo Gateway: Attivo", "console-t": "Motore di Temi: Operativo", "console-ready": "Pronto per il deployment strutturale.",
+                "vert-title": "I Nostri Verticali Architetturali", "vert-desc": "Dalla progettazione dei componenti fino ai livelli di infrastruttura disaccoppiati, ingegnerizziamo le prestazioni ad ogni livello.",
+                "card1-title": "Framework Web", "card1-desc": "Sviluppo di livelli applicativi a componenti e interfacce responsive fluide supportate da moderni modelli di routing.", "explore-fw": "Esplora i Framework",
+                "card2-title": "Ecosistemi SaaS", "card2-desc": "Integrazione di pipeline di autenticazione disaccoppiate, webhook serverless e regole di sicurezza a livello di riga.", "explore-eco": "Esplora gli Ecosistemi",
+                "card3-title": "Integrazione Database", "card3-desc": "Configurazione di schemi relazionali strutturati, query di elaborazione ottimizzate e pool di archiviazione a oggetti durevoli.", "explore-db": "Esplora i Database",
+                "pipe-title": "Costruito per la Scalabilità Elastica", "pipe-desc": "Costruiamo sistemi utilizzando architetture standard e collaudate che evitano la dipendenza da piattaforme, mantenendo gli strumenti leggeri e reattivi.",
+                "step1-title": "Token Gate Sicuri", "step1-desc": "Le sessioni di identità vengono analizzate rigorosamente utilizzando array di token aziendali, impedendo l'esposizione delle credenziali.",
+                "step2-title": "Isolamento delle Partizioni", "step2-desc": "Le metriche di autorizzazione a livello di riga proteggono gli ambienti utente da fughe di dati multi-tenant.",
+                "step3-title": "Caching Edge Globale", "step3-desc": "Gli asset e gli elementi statici si caricano immediatamente dai nodi della rete di distribuzione dei contenuti più vicini.",
+                "footer-tagline": "Progettazione di strumenti di performance digitale di nuova generazione e soluzioni full-stack personalizzate.",
+                "f-col1": "Strutture Motore", "f-col2": "Risorse", "f-col3": "Corporate",
+                "f-link1": "Framework Web", "f-link2": "Ecosistemi SaaS", "f-link3": "Integrazione Database", "f-link4": "Casi di Studio", "f-link5": "Diagnostica di Sistema", "f-link6": "Prenotazione Sicura", "f-link7": "Framework di Rete", "f-link8": "Protocollo di Sicurezza", "f-link9": "Termini di Architettura",
+                "footer-copy": "© 2026 Sum Web Dev. Tutti i diritti riservati. Operazioni dell'Hub situate a Mombasa, KE."
+            },
+            ne: {
+                "nav-home": "गृहपृष्ठ", "nav-services": "सेवाहरू", "nav-portfolio": "पोर्टफोलियो", "nav-booking": "रणनीति बुक गर्नुहोस्",
+                "hero-title": "उच्च-प्रदर्शन <span>डिजिटल आर्किटेक्चर</span>",
+                "hero-desc": "हामी उद्यम स्तरको लागि उत्पादन-ग्रेड वेब समाधानहरू, बलियो ब्याकइन्ड माइक्रोसर्भिसहरू, र सुरक्षित मल्टि-टेनेन्ट SaaS वातावरणहरू निर्माण गर्छौं।",
+                "btn-consult": "परामर्श सुरु गर्नुहोस्", "btn-portfolio": "केस प्रोफाइलहरू हेर्नुहोस्",
+                "console-l1": "[1/3] कार्यस्थान निर्भरताहरू समाधान गर्दै...", "console-l2": "[2/3] सुरक्षित क्लाउड इन्स्टान्सहरू म्यापिङ गर्दै...", "console-l3": "[3/3] प्रणाली प्रारम्भिकरण सफल भयो।",
+                "console-g": "गेटवे नोड: सक्रिय", "console-t": "थिम इन्जिन: सञ्चालनमा", "console-ready": "संरचनात्मक परिनियोजनका लागि तयार छ।",
+                "vert-title": "हाम्रो आर्किटेक्चरल वर्टिकल्स", "vert-desc": "कम्पोनेन्ट डिजाइनदेखि सुरक्षित डिकपल्ड पूर्वाधार तहहरूसम्म, हामी प्रत्येक तहमा प्रदर्शन इन्जिनियर गर्छौं।",
+                "card1-title": "वेब फ्रेमवर्क", "card1-desc": "आधुनिक राउटिङ मोडेलहरूद्वारा समर्थित कम्पोनेन्टाइज्ड एप्लिकेसन तहहरू र फ्लुइड उत्तरदायी इन्टरफेसहरू विकास गर्दै।", "explore-fw": "फ्रेमवर्कहरू अन्वेषण गर्नुहोस्",
+                "card2-title": "SaaS इकोसिस्टम", "card2-desc": "डिकपल्ड प्रमाणीकरण पाइपलाइनहरू, सर्भररहित वेबहुकहरू, र मल्टि-टेनेन्ट तालिका सुरक्षा नियमहरू एकीकृत गर्दै।", "explore-eco": "इकोसिस्टमहरू अन्वेषण गर्नुहोस्",
+                "card3-title": "डाटाबेस एकीकरण", "card3-desc": "संरचित रिलेसनल स्कीमाहरू, अप्टिमाइज्ड प्रशोधन क्वेरीहरू, र टिकाउ वस्तु भण्डारण पूलहरू कन्फिगर गर्दै।", "explore-db": "डाटाबेस अन्वेषण गर्नुहोस्",
+                "pipe-title": "इलास्टिक स्केलेबिलिटीको लागि निर्मित", "pipe-desc": "हामी मानक, प्रमाणित आर्किटेक्चरहरू प्रयोग गरेर प्रणालीहरू निर्माण गर्छौं जसले प्लेटफर्मको निर्भरतालाई बेवास्ता गर्दछ, तपाईंको उपकरणहरूलाई हल्का र तत्काल उत्तरदायी राख्छ।",
+                "step1-title": "सुरक्षित टोकन गेट्स", "step1-desc": "पहिचान सत्रहरू कडा रूपमा उद्यम टोकन एरेहरू प्रयोग गरेर पार्स गरिन्छ, मानक प्रमाण एक्सपोजर रोक्न।",
+                "step2-title": "विभाजन अलगाव", "step2-desc": "पङ्क्ति-स्तर प्राधिकरण मेट्रिक्सले प्रयोगकर्ताको वातावरणलाई मल्टि-टेनेन्ट क्रसिङ लीकबाट जोगाउँछ।",
+                "step3-title": "ग्लोबल एज क्यासिङ", "step3-desc": "सम्पत्ति र स्थिर तत्वहरू नजिकको सामग्री नेटवर्क नोडहरूबाट तुरुन्तै लोड हुन्छन्।",
+                "footer-tagline": "अर्को पुस्ताको डिजिटल प्रदर्शन उपकरणहरू र अनुकूलन फुल-स्ट्याक समाधानहरू आर्किटेक्ट गर्दै।",
+                "f-col1": "इन्जिन संरचनाहरू", "f-col2": "स्रोतहरू", "f-col3": "कर्पोरेट",
+                "f-link1": "वेब फ्रेमवर्क", "f-link2": "SaaS इकोसिस्टम", "f-link3": "डाटाबेस एकीकरण", "f-link4": "केस प्रोफाइलहरू", "f-link5": "प्रणाली निदान", "f-link6": "सुरक्षित बुकिङ", "f-link7": "नेटवर्क फ्रेमवर्क", "f-link8": "सुरक्षा प्रोटोकल", "f-link9": "आर्किटेक्चरका सर्तहरू",
+                "footer-copy": "© २०२६ Sum Web Dev। सबै अधिकार सुरक्षित। हब सञ्चालन मोम्बासा, KE मा अवस्थित छ।"
+            },
+            de: {
+                "nav-home": "Startseite", "nav-services": "Dienste", "nav-portfolio": "Portfolio", "nav-booking": "Strategie Buchen",
+                "hero-title": "Hochleistungs-<span>Digitalarchitektur</span>",
+                "hero-desc": "Wir bauen produktionsreife Weblösungen, robuste Backend-Mikroservices und sichere mandantenfähige SaaS-Umgebungen für Unternehmensebene.",
+                "btn-consult": "Beratung Initialisieren", "btn-portfolio": "Fallprofile Anzeigen",
+                "console-l1": "[1/3] Workspace-Abhängigkeiten auflösen...", "console-l2": "[2/3] Sichere Cloud-Instanzen zuordnen...", "console-l3": "[3/3] Systeminitialisierung erfolgreich.",
+                "console-g": "Gateway-Knoten: Aktiv", "console-t": "Theme-Engine: Betriebsbereit", "console-ready": "Bereit für den strukturellen Einsatz.",
+                "vert-title": "Unsere Architektur-Vertikalen", "vert-desc": "Vom Komponentendesign bis hin zu sicheren, entkoppelten Infrastaturschichten entwickeln wir Leistung auf jeder Ebene.",
+                "card1-title": "Web-Frameworks", "card1-desc": "Entwicklung komponentenbasierter Anwendungsschichten und flüssiger, responsiver Schnittstellen, unterstützt durch moderne Routing-Modelle.", "explore-fw": "Frameworks Erkunden",
+                "card2-title": "SaaS-Ökosysteme", "card2-desc": "Integration entkoppelter Authentifizierungspipelines, serverloser Webhooks und Sicherheitsregeln auf Zeilenebene.", "explore-eco": "Ökosysteme Erkunden",
+                "card3-title": "Datenbank-Integration", "card3-desc": "Konfigurieren strukturierter relationaler Schemata, optimierter Verarbeitungsabfragen und langlebiger Objektspeicherpools.", "explore-db": "Datenbanken Erkunden",
+                "pipe-title": "Gebaut für Elastische Skalierbarkeit", "pipe-desc": "Wir bauen Systeme auf der Grundlage bewährter Architekturen, die Plattformabhängigkeiten vermeiden, wodurch Ihre Tools leicht und sofort reaktionsschnell bleiben.",
+                "step1-title": "Sichere Token-Gates", "step1-desc": "Identitätssitzungen werden streng über Enterprise-Token-Arrays geparst, was die Offenlegung von Standardanmeldedaten verhindert.",
+                "step2-title": "Partitionsisolation", "step2-desc": "Autorisierungsmetriken auf Zeilenebene schützen Benutzerumgebungen vor mandantenübergreifenden Datenlecks.",
+                "step3-title": "Globales Edge-Caching", "step3-desc": "Assets und statische Elemente werden sofort von den nächstgelegenen Content-Network-Knoten geladen.",
+                "footer-tagline": "Architektur von digitalen Performance-Tools der nächsten Generation und maßgeschneiderten Full-Stack-Lösungen.",
+                "f-col1": "Engine-Strukturen", "f-col2": "Ressourcen", "f-col3": "Unternehmen",
+                "f-link1": "Web-Frameworks", "f-link2": "SaaS-Ökosysteme", "f-link3": "Datenbank-Integration", "f-link4": "Fallprofile", "f-link5": "Systemdiagnose", "f-link6": "Sichere Buchung", "f-link7": "Netzwerk-Framework", "f-link8": "Sicherheitsprotokoll", "f-link9": "Architekturbedingungen",
+                "footer-copy": "© 2026 Sum Web Dev. Alle Rechte vorbehalten. Hub-Operations in Mombasa, KE."
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             // --- UI Control Elements Initialization ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
@@ -509,6 +679,40 @@
             const scrollBar = document.getElementById('scrollBar');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const htmlRoot = document.documentElement;
+
+            // --- Client-Side Multi-Language Implementation Engine ---
+            function applyTranslations(lang) {
+                const dictionary = translations[lang] || translations['en'];
+                
+                // Update elements with direct IDs
+                for (const key in dictionary) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.innerHTML = dictionary[key];
+                    }
+                }
+                
+                // Update navigation and static attributes via attribute mapping data-tr
+                document.querySelectorAll('[data-tr]').forEach(el => {
+                    const token = el.getAttribute('data-tr');
+                    if (dictionary[token]) {
+                        el.textContent = dictionary[token];
+                    }
+                });
+                
+                // Save state to keep chosen language on reload
+                localStorage.setItem('preferred-lang', lang);
+                langSwitch.value = lang;
+            }
+
+            // Bind language switch selector action event
+            langSwitch.addEventListener('change', (e) => {
+                applyTranslations(e.target.value);
+            });
+
+            // Initialize saved language state or fall back to English default
+            const initialLang = localStorage.getItem('preferred-lang') || 'en';
+            applyTranslations(initialLang);
 
             // --- Mobile Drop Drawer Navigation Toggle Rules ---
             hamburgerMenu.addEventListener('click', () => {
@@ -564,11 +768,6 @@
 
             scrollTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // --- Language Switch Stub Notification Trigger ---
-            langSwitch.addEventListener('change', (e) => {
-                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
             });
         });
     </script>
