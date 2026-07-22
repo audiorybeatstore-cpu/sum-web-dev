@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Engineering Services | Sum Web Dev</title>
     <meta name="description" content="Explore our premium full-stack web engineering services designed to scale revenue, automate checkouts, and build digital authority.">
     
+    <!-- Design Assets & Tailwind CSS Play CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['selector', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    colors: {
+                        darkBgMain: '#0B0F19',
+                        darkBgCard: '#151A28',
+                        accentPrimary: '#6C63FF',
+                        accentNeon: '#00D4FF',
+                    }
+                }
+            }
+        }
+    </script>
     
     <style>
-        /* ==========================================================================
-           1. Premium Theme Tokens & Root Variables
-           ========================================================================== */
+        /* Custom Theme Token Variables & Global Transition Overrides */
         :root[data-theme="dark"] {
             --bg-main: #0B0F19;
             --bg-card: #151A28;
@@ -37,379 +52,547 @@
             --header-bg: rgba(248, 250, 252, 0.9);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-
         body {
             background-color: var(--bg-main);
             color: var(--text-pure);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            line-height: 1.6;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body.menu-open { overflow: hidden; }
-
-        .scroll-progress {
-            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
-            z-index: 9999;
-        }
-
-        /* ==========================================================================
-           2. Header & Navigation Ecosystem
-           ========================================================================== */
-        .main-header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
-            background: var(--header-bg); backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-glass); z-index: 1000;
-            display: flex; align-items: center; transition: background 0.3s ease;
-        }
-        .nav-container {
-            width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        
-        .logo {
-            display: flex; align-items: center; gap: 0.75rem;
-            font-weight: 900; font-size: 1.5rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
-            z-index: 1010;
-        }
-        .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
-        .logo span { color: var(--accent-neon); }
-
-        .nav-controls-wrapper { display: flex; align-items: center; gap: 1.25rem; z-index: 1010; }
-        .nav-links { display: flex; align-items: center; gap: 2rem; }
-        
-        .nav-item {
-            color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
-            transition: color 0.2s ease; position: relative;
-        }
-        .nav-item:hover, .nav-item.active { color: var(--text-pure); }
-        .nav-item.active::after {
-            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
-            background: var(--accent-neon); border-radius: 2px;
-        }
-        
-        .utility-btn {
-            background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
-            padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
-            transition: all 0.2s ease;
-        }
-        .utility-btn:hover { border-color: var(--accent-primary); }
-
-        .lang-select {
-            background: var(--bg-card); border: 1px solid var(--border-glass); color: var(--text-pure);
-            padding: 0.4rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none;
-            transition: all 0.2s ease; height: 38px;
-        }
-        .lang-select:focus { border-color: var(--accent-primary); }
-
-        .mobile-toggle {
-            display: none; background: transparent; border: 1px solid var(--border-glass); 
-            color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
-            border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
-            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
-        }
-        .mobile-toggle span {
-            display: block; width: 18px; height: 2px; background-color: var(--text-pure);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-        }
-        .mobile-toggle:hover { border-color: var(--accent-primary); }
-        
-        .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-        .mobile-toggle.active span:nth-child(2) { opacity: 0; width: 0; }
-        .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-        /* Button System */
-        .btn {
-            display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.9rem 2rem;
-            font-weight: 600; font-size: 1rem; border-radius: 6px; text-decoration: none; transition: all 0.2s ease;
-        }
-        .btn-primary { background: var(--accent-primary); color: #FFF; border: none; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(108, 99, 255, 0.25); }
-
-        /* ==========================================================================
-           3. Services Specific Modules
-           ========================================================================== */
-        .services-hero {
-            padding: 160px 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        .glow-orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.12; z-index: 0; }
-        .orb-1 { top: 10%; left: 15%; width: 400px; height: 400px; background: var(--accent-primary); }
-        .orb-2 { bottom: 5%; right: 15%; width: 400px; height: 400px; background: var(--accent-neon); }
-
-        .services-hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
-        .services-title { font-size: 3.8rem; font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.5rem; }
-        .services-title span { background: linear-gradient(135deg, var(--text-pure) 30%, var(--accent-neon) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .services-subtext { font-size: 1.25rem; color: var(--text-muted); }
-
-        .services-section { max-width: 1400px; margin: 0 auto; padding: 2rem 2rem 8rem; position: relative; z-index: 2; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 2.5rem; }
-
-        .service-card {
-            background: var(--glass-grad); border: 1px solid var(--border-glass);
-            border-radius: 12px; padding: 3rem 2.5rem; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
-            display: flex; flex-direction: column;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-        }
-        .service-card:hover { transform: translateY(-5px); border-color: rgba(108, 99, 255, 0.3); }
-
-        .service-icon { font-size: 2.5rem; color: var(--accent-neon); margin-bottom: 1.5rem; }
-        .service-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -0.5px; }
-        .service-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem; flex-grow: 1; }
-        
-        .service-features { list-style: none; margin-bottom: 2.5rem; }
-        .service-features li { font-size: 0.95rem; color: var(--text-pure); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .service-features i { color: var(--accent-primary); font-size: 0.85rem; }
-        
-        .service-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-glass); padding-top: 1.5rem; font-size: 0.95rem; color: var(--text-muted); }
-        .service-meta strong { color: var(--text-pure); font-size: 1.25rem; font-weight: 700; }
-
-        /* ==========================================================================
-           4. Global Corporate Structural Footer
-           ========================================================================== */
-        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); position: relative; z-index: 2; }
-        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
-        .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
-        .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
-        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
-        .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
-        .footer-col ul a:hover { color: var(--text-pure); }
-        
-        .footer-social-row { display: flex; gap: 1rem; margin-top: 1.5rem; }
-        .social-link-icon {
-            display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
-            border-radius: 6px; border: 1px solid var(--border-glass); color: var(--text-pure); text-decoration: none; transition: background 0.2s ease;
-        }
-        .social-link-icon:hover { background: var(--accent-primary); color: #FFF; }
-
-        .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-glass); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-        .footer-legal-links { display: flex; gap: 1.5rem; }
-        .footer-legal-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
-        .footer-legal-links a:hover { color: var(--text-pure); }
-
-        .back-to-top {
-            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
-            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
-        }
-
-        /* ==========================================================================
-           5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
-           ========================================================================== */
-        @media(max-width: 1024px) {
-            .services-title { font-size: 3rem; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
-        }
-
-        @media(max-width: 768px) {
-            .mobile-toggle { display: flex; }
-            
-            /* Structural alignment keeping utilities aligned inside header bounds */
-            .nav-controls-wrapper { position: relative; }
-            .lang-select, #themeToggler { position: relative !important; top: auto !important; right: auto !important; }
-
-            /* Premium backdrop side-drawer layout panel architecture */
-            .nav-links {
-                display: flex; 
-                flex-direction: column; 
-                position: fixed; 
-                top: 0; 
-                right: -100%; 
-                width: 100%;
-                max-width: 300px; 
-                height: 100vh; 
-                background: rgba(21, 26, 40, 0.96);
-                backdrop-filter: blur(20px);
-                -webkit-backdrop-filter: blur(20px);
-                border-left: 1px solid var(--border-glass); 
-                padding: 120px 2rem 2rem;
-                gap: 2rem; 
-                align-items: flex-start; 
-                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                box-shadow: -20px 0 40px rgba(0,0,0,0.4); 
-                z-index: 1005;
-            }
-            .nav-links.active { right: 0; }
-
-            /* Cinematic slide and fade animations for inner menu elements */
-            .nav-links .nav-item {
-                font-size: 1.25rem;
-                font-weight: 600;
-                opacity: 0;
-                transform: translateX(15px);
-                transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-            .nav-links.active .nav-item { opacity: 1; transform: translateX(0); }
-            .nav-links.active .nav-item:nth-child(1) { transition-delay: 0.05s; }
-            .nav-links.active .nav-item:nth-child(2) { transition-delay: 0.1s; }
-            .nav-links.active .nav-item:nth-child(3) { transition-delay: 0.15s; }
-            .nav-links.active .nav-item:nth-child(4) { transition-delay: 0.2s; }
-
-            .services-hero { padding-top: 130px; }
-            .services-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
-        }
     </style>
 </head>
-<body>
+<body class="overflow-x-hidden leading-relaxed">
 
-    <div class="scroll-progress" id="scrollBar"></div>
+    <!-- Scroll Progress Indicator -->
+    <div id="scrollBar" class="fixed top-0 left-0 w-0 h-[3px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-neon)] z-[9999]"></div>
 
-    <header class="main-header">
-        <div class="nav-container">
-            <a href="../" class="logo">
-                <svg viewBox="0 0 32 32">
+    <!-- Global Header -->
+    <header class="fixed top-0 left-0 w-full h-20 bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-glass)] z-[1000] flex items-center transition-colors duration-300">
+        <div class="w-full max-w-[1400px] mx-auto px-8 flex justify-between items-center">
+            <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter z-[1010]">
+                <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
                     <path d="M6 22L16 6L26 22H6Z" />
                 </svg>
-                SUM<span>WEBDEV</span>
+                <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
             </a>
             
-            <nav class="nav-links" id="menuPanel">
-                <a href="../" class="nav-item">Home</a>
-                <a href="./" class="nav-item active">Services</a>
-                <a href="../portfolio/" class="nav-item">Portfolio</a>
-                <a href="../booking/" class="nav-item">Book Strategy</a>
+            <nav id="menuPanel" class="flex items-center gap-8 max-md:fixed max-md:top-0 max-md:-right-full max-md:w-full max-md:max-w-[300px] max-md:h-screen max-md:bg-[#151A28]/96 max-md:backdrop-blur-xl max-md:border-l max-md:border-[var(--border-glass)] max-md:pt-[120px] max-md:px-8 max-md:pb-8 max-md:flex-col max-md:items-start max-md:gap-8 max-md:transition-all max-md:duration-400 max-md:shadow-2xl max-md:z-[1005]">
+                <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-home">Home</a>
+                <a href="./" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm max-md:text-xl max-md:font-semibold" data-tr="nav-services">Services</a>
+                <a href="../portfolio/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-portfolio">Portfolio</a>
+                <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-booking">Book Strategy</a>
             </nav>
 
-            <div class="nav-controls-wrapper">
-                <select class="lang-select" id="langSwitch">
+            <div class="flex items-center gap-5 z-[1010] relative">
+                <select id="langSwitch" class="bg-[var(--bg-card)] border border-[var(--border-glass)] text-[var(--text-pure)] px-2 py-1.5 rounded-md font-semibold text-xs cursor-pointer outline-none transition-all duration-200 h-[38px] focus:border-[var(--accent-primary)]">
                     <option value="en">EN</option>
+                    <option value="nl">NL</option>
+                    <option value="fr">FR</option>
+                    <option value="pt">PT</option>
                     <option value="es">ES</option>
+                    <option value="it">IT</option>
+                    <option value="ne">NE</option>
+                    <option value="de">DE</option>
                 </select>
                 
-                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
+                <button id="themeToggler" class="bg-transparent border border-[var(--border-glass)] text-[var(--text-pure)] p-2 rounded-md cursor-pointer flex items-center justify-center w-[38px] h-[38px] transition-all duration-200 hover:border-[var(--accent-primary)]" aria-label="Toggle Theme">
                     <i class="fa-solid fa-moon"></i>
                 </button>
                 
-                <button class="mobile-toggle" id="hamburgerMenu" aria-label="Toggle Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button id="hamburgerMenu" class="hidden max-md:flex bg-transparent border border-[var(--border-glass)] text-[var(--text-pure)] cursor-pointer w-[38px] h-[38px] rounded-md items-center justify-center transition-all duration-200 flex-col gap-1 p-0 z-[1010]" aria-label="Toggle Menu">
+                    <span class="block w-[18px] h-0.5 bg-[var(--text-pure)] transition-all duration-300"></span>
+                    <span class="block w-[18px] h-0.5 bg-[var(--text-pure)] transition-all duration-300"></span>
+                    <span class="block w-[18px] h-0.5 bg-[var(--text-pure)] transition-all duration-300"></span>
                 </button>
             </div>
         </div>
     </header>
 
-    <section class="services-hero">
-        <div class="glow-orb orb-1"></div>
-        <div class="glow-orb orb-2"></div>
-        <div class="services-hero-content">
-            <h1 class="services-title">Production Engineering <span>Solutions</span></h1>
-            <p class="services-subtext">High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.</p>
+    <!-- Services Hero Section -->
+    <section class="pt-[160px] pb-16 px-8 relative overflow-hidden text-center">
+        <div class="absolute rounded-full blur-[140px] opacity-12 z-0 top-[10%] left-[15%] w-[400px] h-[400px] bg-[var(--accent-primary)]"></div>
+        <div class="absolute rounded-full blur-[140px] opacity-12 z-0 bottom-[5%] right-[15%] w-[400px] h-[400px] bg-[var(--accent-neon)]"></div>
+        
+        <div class="relative z-1 max-w-[800px] mx-auto">
+            <h1 id="services-hero-title" class="text-[3.8rem] max-md:text-[3rem] font-black tracking-tight leading-[1.1] mb-6">Production Engineering <span>Solutions</span></h1>
+            <p id="services-hero-desc" class="text-xl text-[var(--text-muted)]">High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.</p>
         </div>
     </section>
 
-    <section class="services-section">
-        <div class="services-grid">
+    <!-- Extended Services Grid Section -->
+    <section class="max-w-[1400px] mx-auto px-8 pb-32 relative z-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-layer-group"></i></div>
-                <h3>Full-Stack Web Engineering</h3>
-                <p>Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.</p>
-                <ul class="service-features">
-                    <li><i class="fa-solid fa-circle-check"></i> Next.js & Server-Side Systems</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Clean, Adaptive Layout Frameworks</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Custom Node.js & REST API Nodes</li>
+            <!-- Service 1 -->
+            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-layer-group"></i></div>
+                <h3 id="serv1-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Full-Stack Web Engineering</h3>
+                <p id="serv1-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv1-f1">Next.js & Server-Side Systems</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv1-f2">Clean, Adaptive Layout Frameworks</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv1-f3">Custom Node.js & REST API Nodes</span></li>
                 </ul>
-                <div class="service-meta">
-                    <span>Timeline: <strong>2-4 Wks</strong></span>
-                    <a href="../booking/" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Select Framework</a>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv1-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-4 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-fw">Select Framework</a>
                 </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-cubes"></i></div>
-                <h3>SaaS Ecosystem Design</h3>
-                <p>Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.</p>
-                <ul class="service-features">
-                    <li><i class="fa-solid fa-circle-check"></i> Multi-Tenant DB Configurations</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Firebase & Supabase Architecture</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Automated Billing Integrations</li>
+            <!-- Service 2 -->
+            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-cubes"></i></div>
+                <h3 id="serv2-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">SaaS Ecosystem Design</h3>
+                <p id="serv2-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv2-f1">Multi-Tenant DB Configurations</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv2-f2">Firebase & Supabase Architecture</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv2-f3">Automated Billing Integrations</span></li>
                 </ul>
-                <div class="service-meta">
-                    <span>Timeline: <strong>4-6 Wks</strong></span>
-                    <a href="../booking/" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Select Scale</a>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv2-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">4-6 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-scale">Select Scale</a>
                 </div>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon"><i class="fa-solid fa-gauge-high"></i></div>
-                <h3>Performance Audits</h3>
-                <p>Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.</p>
-                <ul class="service-features">
-                    <li><i class="fa-solid fa-circle-check"></i> Zero-Jank Animation Pipelines</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Severe Asset Compression Systems</li>
-                    <li><i class="fa-solid fa-circle-check"></i> Advanced Cache Tuning Logic</li>
+            <!-- Service 3 -->
+            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-gauge-high"></i></div>
+                <h3 id="serv3-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Performance Audits</h3>
+                <p id="serv3-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv3-f1">Zero-Jank Animation Pipelines</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv3-f2">Severe Asset Compression Systems</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv3-f3">Advanced Cache Tuning Logic</span></li>
                 </ul>
-                <div class="service-meta">
-                    <span>Timeline: <strong>1 Wk</strong></span>
-                    <a href="../booking/" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size:0.85rem;">Select Optimization</a>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv3-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">1 Wk</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-opt">Select Optimization</a>
+                </div>
+            </div>
+
+            <!-- Service 4: Cloud Infrastructure & DevOps -->
+            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <h3 id="serv4-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Cloud Infrastructure & DevOps</h3>
+                <p id="serv4-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f1">Docker & Kubernetes Orchestration</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f2">AWS / Vercel Auto-Scaling Nodes</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f3">Automated GitHub Actions CI/CD</span></li>
+                </ul>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv4-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-3 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-devops">Select DevOps</a>
+                </div>
+            </div>
+
+            <!-- Service 5: Secure API & Microservices -->
+            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-network-wired"></i></div>
+                <h3 id="serv5-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Secure API & Microservices</h3>
+                <p id="serv5-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f1">JWT & OAuth2 Security Gates</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f2">GraphQL & REST Endpoints</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f3">DDoS Protection & Rate Limiting</span></li>
+                </ul>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv5-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">3-4 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-apis">Select APIs</a>
+                </div>
+            </div>
+
+            <!-- Service 6: Enterprise AI Integration -->
+            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-brain"></i></div>
+                <h3 id="serv6-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Enterprise AI Integration</h3>
+                <p id="serv6-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f1">OpenAI & Custom LLM Pipelines</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f2">Vector DB & Semantic Search</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f3">Automated Workflow Agents</span></li>
+                </ul>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv6-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-5 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-ai">Select AI Engine</a>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <footer class="main-footer">
-        <div class="footer-grid">
+    <!-- Global Corporate Structural Footer -->
+    <footer class="bg-[var(--bg-card)] border-t border-[var(--border-glass)] pt-20 pb-10 px-8 text-[var(--text-muted)] relative z-2">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-[1.5fr_repeat(3,1fr)] max-lg:grid-cols-2 max-md:grid-cols-1 gap-16 mb-16">
             <div class="footer-brand">
-                <a href="../" class="logo">
-                    <svg viewBox="0 0 32 32">
+                <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter">
+                    <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
                         <path d="M6 22L16 6L26 22H6Z" />
                     </svg>
-                    SUM<span>WEBDEV</span>
+                    <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
                 </a>
-                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
-                <div class="footer-social-row">
-                    <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
+                <p id="footer-tagline" class="mt-4 max-w-[320px] text-[0.95rem]">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <div class="flex gap-4 mt-6">
+                    <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Engine Structures</h4>
-                <ul>
-                    <li><a href="./">Web Frameworks</a></li>
-                    <li><a href="./">SaaS Ecosystems</a></li>
-                    <li><a href="./">Database Integration</a></li>
+                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col1">Engine Structures</h4>
+                <ul class="list-none flex flex-col gap-3">
+                    <li><a href="./" id="f-link1" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Web Frameworks</a></li>
+                    <li><a href="./" id="f-link2" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">SaaS Ecosystems</a></li>
+                    <li><a href="./" id="f-link3" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Database Integration</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
-                <ul>
-                    <li><a href="../portfolio/">Case Profiles</a></li>
-                    <li><a href="#">System Diagnostics</a></li>
+                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col2">Resources</h4>
+                <ul class="list-none flex flex-col gap-3">
+                    <li><a href="../portfolio/" id="f-link4" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Case Profiles</a></li>
+                    <li><a href="#" id="f-link5" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Corporate</h4>
-                <ul>
-                    <li><a href="../booking/">Secure Booking</a></li>
-                    <li><a href="#">Network Framework</a></li>
+                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col3">Corporate</h4>
+                <ul class="list-none flex flex-col gap-3">
+                    <li><a href="../booking/" id="f-link6" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Secure Booking</a></li>
+                    <li><a href="#" id="f-link7" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Network Framework</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
-            <div class="footer-legal-links">
-                <a href="#">Security Protocol</a>
-                <a href="#">Terms of Architecture</a>
+        <div class="max-w-[1400px] mx-auto border-t border-[var(--border-glass)] pt-8 flex max-md:flex-col justify-between items-center text-[0.85rem] gap-6 max-md:text-center">
+            <p id="footer-copy">&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <div class="flex gap-6">
+                <a href="#" id="f-link8" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Security Protocol</a>
+                <a href="#" id="f-link9" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Terms of Architecture</a>
             </div>
         </div>
     </footer>
 
-    <button class="back-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+    <button id="scrollTopBtn" class="fixed bottom-8 right-8 bg-[var(--accent-primary)] text-white border-none w-[50px] h-[50px] rounded-full cursor-pointer hidden items-center justify-center shadow-lg z-[500] transition-all duration-200 hover:scale-105" aria-label="Scroll to top">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
+    <!-- Engine Control Logic Script Blocks -->
     <script>
+        const translations = {
+            en: {
+                "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-booking": "Book Strategy",
+                "services-hero-title": "Production Engineering <span>Solutions</span>",
+                "services-hero-desc": "High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.",
+                "serv1-title": "Full-Stack Web Engineering",
+                "serv1-desc": "Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.",
+                "serv1-f1": "Next.js & Server-Side Systems", "serv1-f2": "Clean, Adaptive Layout Frameworks", "serv1-f3": "Custom Node.js & REST API Nodes",
+                "serv1-time": "Timeline: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Wks</strong>",
+                "btn-select-fw": "Select Framework",
+                "serv2-title": "SaaS Ecosystem Design",
+                "serv2-desc": "Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.",
+                "serv2-f1": "Multi-Tenant DB Configurations", "serv2-f2": "Firebase & Supabase Architecture", "serv2-f3": "Automated Billing Integrations",
+                "serv2-time": "Timeline: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Wks</strong>",
+                "btn-select-scale": "Select Scale",
+                "serv3-title": "Performance Audits",
+                "serv3-desc": "Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.",
+                "serv3-f1": "Zero-Jank Animation Pipelines", "serv3-f2": "Severe Asset Compression Systems", "serv3-f3": "Advanced Cache Tuning Logic",
+                "serv3-time": "Timeline: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Wk</strong>",
+                "btn-select-opt": "Select Optimization",
+                "serv4-title": "Cloud Infrastructure & DevOps",
+                "serv4-desc": "Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.",
+                "serv4-f1": "Docker & Kubernetes Orchestration", "serv4-f2": "AWS / Vercel Auto-Scaling Nodes", "serv4-f3": "Automated GitHub Actions CI/CD",
+                "serv4-time": "Timeline: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Wks</strong>",
+                "btn-select-devops": "Select DevOps",
+                "serv5-title": "Secure API & Microservices",
+                "serv5-desc": "Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.",
+                "serv5-f1": "JWT & OAuth2 Security Gates", "serv5-f2": "GraphQL & REST Endpoints", "serv5-f3": "DDoS Protection & Rate Limiting",
+                "serv5-time": "Timeline: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Wks</strong>",
+                "btn-select-apis": "Select APIs",
+                "serv6-title": "Enterprise AI Integration",
+                "serv6-desc": "Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.",
+                "serv6-f1": "OpenAI & Custom LLM Pipelines", "serv6-f2": "Vector DB & Semantic Search", "serv6-f3": "Automated Workflow Agents",
+                "serv6-time": "Timeline: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Wks</strong>",
+                "btn-select-ai": "Select AI Engine",
+                "footer-tagline": "Architecting next-generation digital performance tools and custom full-stack solutions.",
+                "f-col1": "Engine Structures", "f-col2": "Resources", "f-col3": "Corporate",
+                "f-link1": "Web Frameworks", "f-link2": "SaaS Ecosystems", "f-link3": "Database Integration", "f-link4": "Case Profiles", "f-link5": "System Diagnostics", "f-link6": "Secure Booking", "f-link7": "Network Framework", "f-link8": "Security Protocol", "f-link9": "Terms of Architecture",
+                "footer-copy": "© 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE."
+            },
+            nl: {
+                "nav-home": "Home", "nav-services": "Diensten", "nav-portfolio": "Portfolio", "nav-booking": "Boek Strategie",
+                "services-hero-title": "Productie-Engineering <span>Oplossingen</span>",
+                "services-hero-desc": "Hoogwaardige tech-stacks zorgvuldig gearchitecteerd om wrijving te minimaliseren, conversies te automatiseren en systeemsnelheid te optimaliseren.",
+                "serv1-title": "Full-Stack Web Engineering",
+                "serv1-desc": "Zorgvuldig gestructureerde applicaties met schaalbare frontend-frameworks ondersteund door bliksemsnelle server-runtimes.",
+                "serv1-f1": "Next.js & Server-Side Systemen", "serv1-f2": "Schone, Adaptieve Layout Frameworks", "serv1-f3": "Aangepaste Node.js & REST API Nodes",
+                "serv1-time": "Tijdlijn: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Wkn</strong>",
+                "btn-select-fw": "Selecteer Framework",
+                "serv2-title": "SaaS Ecosysteem Ontwerp",
+                "serv2-desc": "Volledige implementatiepipelines voorzien van aangepaste databaselagen, geïsoleerde gebruikersaccounts en veilige checkouts.",
+                "serv2-f1": "Multi-Tenant DB Configuratie", "serv2-f2": "Firebase & Supabase Architectuur", "serv2-f3": "Geautomatiseerde Facturatie",
+                "serv2-time": "Tijdlijn: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Wkn</strong>",
+                "btn-select-scale": "Selecteer Schaal",
+                "serv3-title": "Prestatieaudits",
+                "serv3-desc": "Transformeer trage setups in geoptimaliseerde engines die hoog scoren op zoeksignalen en bouncepercentages drastisch verlagen.",
+                "serv3-f1": "Zero-Jank Animatie Pipelines", "serv3-f2": "Strenge Asset Compressie", "serv3-f3": "Geavanceerde Cache Logica",
+                "serv3-time": "Tijdlijn: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Wk</strong>",
+                "btn-select-opt": "Selecteer Optimalisatie",
+                "serv4-title": "Cloud Infrastructuur & DevOps",
+                "serv4-desc": "Geautomatiseerde CI/CD-pipelines, gekenterde implementaties en veerkrachtige cloudarchitectuur voor zero downtime.",
+                "serv4-f1": "Docker & Kubernetes Orchestratie", "serv4-f2": "AWS / Vercel Auto-Scaling Nodes", "serv4-f3": "Geautomatiseerde GitHub Actions",
+                "serv4-time": "Tijdlijn: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Wkn</strong>",
+                "btn-select-devops": "Selecteer DevOps",
+                "serv5-title": "Veilige API & Microservices",
+                "serv5-desc": "Ontwerp en integratie van ultra-veilige GraphQL- en REST-microservices met robuuste tokenauthenticatie.",
+                "serv5-f1": "JWT & OAuth2 Beveiligingspoorten", "serv5-f2": "GraphQL & REST Endpoints", "serv5-f3": "DDoS Bescherming & Rate Limiting",
+                "serv5-time": "Tijdlijn: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Wkn</strong>",
+                "btn-select-apis": "Selecteer API's",
+                "serv6-title": "Enterprise AI Integratie",
+                "serv6-desc": "Integreer aangepaste LLM's, geautomatiseerde workflow-agenten en vectordatabases om uw bedrijfslogica te versterken.",
+                "serv6-f1": "OpenAI & Aangepaste LLM Pipelines", "serv6-f2": "Vector DB & Semantisch Zoeken", "serv6-f3": "Geautomatiseerde Workflow Agenten",
+                "serv6-time": "Tijdlijn: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Wkn</strong>",
+                "btn-select-ai": "Selecteer AI Engine",
+                "footer-tagline": "Architectuur van de volgende generatie digitale prestatietools en aangepaste full-stack oplossingen.",
+                "f-col1": "Motor Structuren", "f-col2": "Middelen", "f-col3": "Zakelijk",
+                "f-link1": "Web Frameworks", "f-link2": "SaaS Ecosystemen", "f-link3": "Database Integratie", "f-link4": "Projectprofielen", "f-link5": "Systeemdiagnose", "f-link6": "Veilig Boeken", "f-link7": "Netwerk Framework", "f-link8": "Beveiligingsprotocol", "f-link9": "Architectuurvoorwaarden",
+                "footer-copy": "© 2026 Sum Web Dev. Alle rechten voorbehouden. Hub-operaties gevestigd in Mombasa, KE."
+            },
+            fr: {
+                "nav-home": "Accueil", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-booking": "Réserver Stratégie",
+                "services-hero-title": "Solutions d'Ingénierie de <span>Production</span>",
+                "services-hero-desc": "Des architectures techniques haute performance pour minimiser les frictions, automatiser les conversions et optimiser la vitesse.",
+                "serv1-title": "Ingénierie Web Full-Stack",
+                "serv1-desc": "Applications structurées à l'aide de frameworks frontend évolutifs pris en charge par des runtimes de serveur ultra-rapides.",
+                "serv1-f1": "Next.js & Systèmes Côté Serveur", "serv1-f2": "Frameworks Adaptatifs Propres", "serv1-f3": "Nœuds Node.js & API REST",
+                "serv1-time": "Délai : <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Sem</strong>",
+                "btn-select-fw": "Sélectionner Framework",
+                "serv2-title": "Conception d'Écosystèmes SaaS",
+                "serv2-desc": "Pipelines de déploiement complets dotés de bases de données personnalisées, de comptes isolés et de paiements sécurisés.",
+                "serv2-f1": "Configurations Multi-Locataires", "serv2-f2": "Architecture Firebase & Supabase", "serv2-f3": "Intégrations de Facturation",
+                "serv2-time": "Délai : <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Sem</strong>",
+                "btn-select-scale": "Sélectionner Échelle",
+                "serv3-title": "Audits de Performance",
+                "serv3-desc": "Transformez des configurations lentes en moteurs optimisés obtenant d'excellents scores de recherche et réduisant les rebonds.",
+                "serv3-f1": "Pipelines d'Animation Fluides", "serv3-f2": "Compression Avancée des Actifs", "serv3-f3": "Logique de Cache Avancée",
+                "serv3-time": "Délai : <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Sem</strong>",
+                "btn-select-opt": "Sélectionner Optimisation",
+                "serv4-title": "Infrastructure Cloud & DevOps",
+                "serv4-desc": "Pipelines CI/CD automatisés, déploiements conteneurisés et architecture cloud résiliente conçue pour zéro temps d'arrêt.",
+                "serv4-f1": "Orchestration Docker & Kubernetes", "serv4-f2": "Nœuds Auto-Scaling AWS / Vercel", "serv4-f3": "CI/CD GitHub Actions Automatisé",
+                "serv4-time": "Délai : <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Sem</strong>",
+                "btn-select-devops": "Sélectionner DevOps",
+                "serv5-title": "API Sécurisées & Microservices",
+                "serv5-desc": "Conception et intégration de microservices GraphQL et REST ultra-sécurisés avec authentification par jeton robuste.",
+                "serv5-f1": "Passerelles de Sécurité JWT / OAuth2", "serv5-f2": "Endpoints GraphQL & REST", "serv5-f3": "Protection DDoS & Limitation de Débit",
+                "serv5-time": "Délai : <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Sem</strong>",
+                "btn-select-apis": "Sélectionner API",
+                "serv6-title": "Intégration IA d'Entreprise",
+                "serv6-desc": "Intégrez des LLM personnalisés, des agents de workflow automatisés et des bases de données vectorielles pour dynamiser votre logique.",
+                "serv6-f1": "Pipelines LLM OpenAI & Personnalisés", "serv6-f2": "Vector DB & Recherche Sémantique", "serv6-f3": "Agents de Workflow Automatisés",
+                "serv6-time": "Délai : <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Sem</strong>",
+                "btn-select-ai": "Sélectionner Moteur IA",
+                "footer-tagline": "Architecture d'outils de performance numérique de nouvelle génération et de solutions full-stack personnalisées.",
+                "f-col1": "Structures Moteur", "f-col2": "Ressources", "f-col3": "Entreprise",
+                "f-link1": "Frameworks Web", "f-link2": "Écosystèmes SaaS", "f-link3": "Bases de Données", "f-link4": "Profils de Cas", "f-link5": "Diagnostics Système", "f-link6": "Réservation Sécurisée", "f-link7": "Cadre Réseau", "f-link8": "Protocole de Sécurité", "f-link9": "Conditions d'Architecture",
+                "footer-copy": "© 2026 Sum Web Dev. Tous droits réservés. Opérations du Hub situées à Mombasa, KE."
+            },
+            pt: {
+                "nav-home": "Início", "nav-services": "Serviços", "nav-portfolio": "Portfólio", "nav-booking": "Agendar Estratégia",
+                "services-hero-title": "Soluções de Engenharia de <span>Produção</span>",
+                "services-hero-desc": "Stacks de tecnologia de alto desempenho meticulosamente projetadas para minimizar o atrito, automatizar conversões e otimizar a velocidade.",
+                "serv1-title": "Engenharia Web Full-Stack",
+                "serv1-desc": "Aplicações meticulosamente estruturadas usando frameworks frontend escaláveis apoiados por runtimes de servidor de alto desempenho.",
+                "serv1-f1": "Next.js & Sistemas Server-Side", "serv1-f2": "Frameworks de Layout Adaptativos", "serv1-f3": "Nodes Node.js & REST API Personalizados",
+                "serv1-time": "Prazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Sem</strong>",
+                "btn-select-fw": "Selecionar Framework",
+                "serv2-title": "Design de Ecossistemas SaaS",
+                "serv2-desc": "Pipelines de implantação completos equipados com camadas de banco de dados personalizadas, contas isoladas e checkouts seguros.",
+                "serv2-f1": "Configurações de DB Multi-Tenant", "serv2-f2": "Arquitetura Firebase & Supabase", "serv2-f3": "Integrações de Faturamento",
+                "serv2-time": "Prazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Sem</strong>",
+                "btn-select-scale": "Selecionar Escala",
+                "serv3-title": "Auditorias de Desempenho",
+                "serv3-desc": "Transforme configurações lentas em motores otimizados que pontuam alto em sinais de busca, reduzindo drasticamente as taxas de rejeição.",
+                "serv3-f1": "Pipelines de Animação Fluídos", "serv3-f2": "Sistemas de Compressão de Ativos", "serv3-f3": "Lógica de Cache Avançada",
+                "serv3-time": "Prazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Sem</strong>",
+                "btn-select-opt": "Selecionar Otimização",
+                "serv4-title": "Infraestrutura em Nuvem & DevOps",
+                "serv4-desc": "Pipelines CI/CD automatizados, implantações conteinerizadas e arquitetura em nuvem resiliente projetada para zero tempo de inatividade.",
+                "serv4-f1": "Orquestração Docker & Kubernetes", "serv4-f2": "Nodes Auto-Scaling AWS / Vercel", "serv4-f3": "CI/CD Automatizado com GitHub Actions",
+                "serv4-time": "Prazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Sem</strong>",
+                "btn-select-devops": "Selecionar DevOps",
+                "serv5-title": "API Segura & Microsserviços",
+                "serv5-desc": "Design e integração de microsserviços GraphQL e REST ultra-seguros com autenticação robusta por token e limitação de taxa.",
+                "serv5-f1": "Portões de Segurança JWT & OAuth2", "serv5-f2": "Endpoints GraphQL & REST", "serv5-f3": "Proteção DDoS & Rate Limiting",
+                "serv5-time": "Prazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Sem</strong>",
+                "btn-select-apis": "Selecionar APIs",
+                "serv6-title": "Integração de IA Corporativa",
+                "serv6-desc": "Integre LLMs personalizados, agentes de fluxo de trabalho automatizados e bancos de dados vetoriais para impulsionar sua lógica de negócios.",
+                "serv6-f1": "Pipelines OpenAI & LLM Personalizados", "serv6-f2": "Vector DB & Busca Semântica", "serv6-f3": "Agentes de Fluxo de Trabalho Automatizados",
+                "serv6-time": "Prazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Sem</strong>",
+                "btn-select-ai": "Selecionar Motor de IA",
+                "footer-tagline": "Arquitetando ferramentas de desempenho digital de última geração e soluções full-stack personalizadas.",
+                "f-col1": "Estruturas do Motor", "f-col2": "Recursos", "f-col3": "Corporativo",
+                "f-link1": "Frameworks Web", "f-link2": "Ecossistemas SaaS", "f-link3": "Integração de Bancos", "f-link4": "Perfis de Casos", "f-link5": "Diagnósticos de Sistema", "f-link6": "Reserva Segura", "f-link7": "Estrutura de Rede", "f-link8": "Protocolo de Segurança", "f-link9": "Termos de Arquitetura",
+                "footer-copy": "© 2026 Sum Web Dev. Todos os direitos reservados. Operações do Hub localizadas em Mombasa, KE."
+            },
+            es: {
+                "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Portafolio", "nav-booking": "Reservar Estratégia",
+                "services-hero-title": "Soluciones de Ingeniería de <span>Producción</span>",
+                "services-hero-desc": "Tecnologías de alto rendimiento meticulosamente diseñadas para minimizar la fricción, automatizar conversiones y optimizar la velocidad.",
+                "serv1-title": "Ingeniería Web Full-Stack",
+                "serv1-desc": "Aplicaciones meticulosamente estructuradas utilizando frameworks frontend escalables respaldados por runtimes de servidor de nivel de producción.",
+                "serv1-f1": "Next.js y Sistemas del Lado del Servidor", "serv1-f2": "Frameworks de Diseño Limpios y Adaptativos", "serv1-f3": "Nodos Node.js y API REST Personalizados",
+                "serv1-time": "Plazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Sem</strong>",
+                "btn-select-fw": "Seleccionar Framework",
+                "serv2-title": "Diseño de Ecosistemas SaaS",
+                "serv2-desc": "Pipelines de despliegue completos equipados con capas de bases de datos personalizadas, cuentas de usuario aisladas y pagos seguros.",
+                "serv2-f1": "Configuraciones de BD Multiinquilino", "serv2-f2": "Arquitectura Firebase & Supabase", "serv2-f3": "Integraciones de Facturación Automatizada",
+                "serv2-time": "Plazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Sem</strong>",
+                "btn-select-scale": "Seleccionar Escala",
+                "serv3-title": "Auditorías de Rendimiento",
+                "serv3-desc": "Transforma configuraciones lentas en motores optimizados que puntúan alto en señales de búsqueda y reducen la tasa de rebote.",
+                "serv3-f1": "Pipelines de Animación Fluidos", "serv3-f2": "Sistemas de Compresión de Activos", "serv3-f3": "Lógica de Caché Avanzada",
+                "serv3-time": "Plazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Sem</strong>",
+                "btn-select-opt": "Seleccionar Optimización",
+                "serv4-title": "Infraestructura Cloud y DevOps",
+                "serv4-desc": "Pipelines CI/CD automatizados, despliegues contenerizados y arquitectura cloud resiliente diseñada para un tiempo de inactividad cero.",
+                "serv4-f1": "Orquestación Docker & Kubernetes", "serv4-f2": "Nodos Auto-Scaling AWS / Vercel", "serv4-f3": "CI/CD Automatizado con GitHub Actions",
+                "serv4-time": "Plazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Sem</strong>",
+                "btn-select-devops": "Seleccionar DevOps",
+                "serv5-title": "APIs Seguras y Microservicios",
+                "serv5-desc": "Diseño e integración de microservicios GraphQL y REST ultra seguros con autenticación de tokens robusta y control de velocidad.",
+                "serv5-f1": "Puertas de Seguridad JWT & OAuth2", "serv5-f2": "Endpoints GraphQL & REST", "serv5-f3": "Protección DDoS y Limitación de Tasa",
+                "serv5-time": "Plazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Sem</strong>",
+                "btn-select-apis": "Seleccionar APIs",
+                "serv6-title": "Integración de IA Empresarial",
+                "serv6-desc": "Integra LLMs personalizados, agentes de flujo de trabajo automatizados y bases de datos vectoriales para potenciar tu lógica de negocio.",
+                "serv6-f1": "Pipelines OpenAI & LLM Personalizados", "serv6-f2": "Vector DB & Búsqueda Semántica", "serv6-f3": "Agentes de Flujo de Trabajo Automatizados",
+                "serv6-time": "Plazo: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Sem</strong>",
+                "btn-select-ai": "Seleccionar Motor de IA",
+                "footer-tagline": "Arquitectura de herramientas de rendimiento digital de próxima generación y soluciones full-stack personalizadas.",
+                "f-col1": "Estructuras de Motor", "f-col2": "Recursos", "f-col3": "Corporativo",
+                "f-link1": "Frameworks Web", "f-link2": "Ecosistemas SaaS", "f-link3": "Bases de Datos", "f-link4": "Perfis de Casos", "f-link5": "Diagnósticos del Sistema", "f-link6": "Reserva Segura", "f-link7": "Marco de Red", "f-link8": "Protocolo de Seguridad", "f-link9": "Términos de Arquitectura",
+                "footer-copy": "© 2026 Sum Web Dev. Todos los derechos reservados. Operaciones del Hub ubicadas en Mombasa, KE."
+            },
+            it: {
+                "nav-home": "Home", "nav-services": "Servizi", "nav-portfolio": "Portfolio", "nav-booking": "Prenota Strategia",
+                "services-hero-title": "Soluzioni di Ingegneria di <span>Produzione</span>",
+                "services-hero-desc": "Stack tecnologici ad alte prestazioni meticolosamente progettati per ridurre al minimo gli attriti e ottimizzare la velocità.",
+                "serv1-title": "Ingegneria Web Full-Stack",
+                "serv1-desc": "Applicazioni meticolosamente strutturate utilizzando framework frontend scalabili supportati da runtime server ad alte prestazioni.",
+                "serv1-f1": "Next.js & Sistemi Server-Side", "serv1-f2": "Framework di Layout Adattivi Puliti", "serv1-f3": "Nodi Node.js & REST API Personalizzati",
+                "serv1-time": "Tempistica: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Sett</strong>",
+                "btn-select-fw": "Seleziona Framework",
+                "serv2-title": "Progettazione di Ecosistemi SaaS",
+                "serv2-desc": "Pipeline di distribuzione complete dotate di livelli di database personalizzati, account isolati e checkout sicuri.",
+                "serv2-f1": "Configurazioni DB Multi-Tenant", "serv2-f2": "Architettura Firebase & Supabase", "serv2-f3": "Integrazioni di Fatturazione",
+                "serv2-time": "Tempistica: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Sett</strong>",
+                "btn-select-scale": "Seleziona Scala",
+                "serv3-title": "Audit di Prestazione",
+                "serv3-desc": "Trasmuta configurazioni lente in motori ottimizzati con punteggi elevati sui segnali di ricerca e tassi di rimbalzo ridotti.",
+                "serv3-f1": "Pipeline di Animazione fluide", "serv3-f2": "Sistemi di Compressione Asset", "serv3-f3": "Logica di Cache Avanzata",
+                "serv3-time": "Tempistica: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Sett</strong>",
+                "btn-select-opt": "Seleziona Ottimizzazione",
+                "serv4-title": "Infrastruttura Cloud & DevOps",
+                "serv4-desc": "Pipeline CI/CD automatizzate, distribuzioni containerizzate e architettura cloud resiliente progettata per zero downtime.",
+                "serv4-f1": "Orchestrazione Docker & Kubernetes", "serv4-f2": "Nodi Auto-Scaling AWS / Vercel", "serv4-f3": "CI/CD Automatizzato con GitHub Actions",
+                "serv4-time": "Tempistica: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Sett</strong>",
+                "btn-select-devops": "Seleziona DevOps",
+                "serv5-title": "API Sicure & Microservizi",
+                "serv5-desc": "Progettazione e integrazione di microservizi GraphQL e REST ultra-sicuri con robusta autenticazione tramite token.",
+                "serv5-f1": "Gate di Sicurezza JWT & OAuth2", "serv5-f2": "Endpoint GraphQL & REST", "serv5-f3": "Protezione DDoS & Rate Limiting",
+                "serv5-time": "Tempistica: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Sett</strong>",
+                "btn-select-apis": "Seleziona API",
+                "serv6-title": "Integrazione IA Aziendale",
+                "serv6-desc": "Integra LLM personalizzati, agenti di flusso di lavoro automatizzati e database vettoriali per potenziare la logica aziendale.",
+                "serv6-f1": "Pipeline OpenAI & LLM Personalizzati", "serv6-f2": "Vector DB & Ricerca Semantica", "serv6-f3": "Agenti di Workflow Automatizzati",
+                "serv6-time": "Tempistica: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Sett</strong>",
+                "btn-select-ai": "Seleziona Motore IA",
+                "footer-tagline": "Progettazione di strumenti di performance digitale di nuova generazione e soluzioni full-stack personalizzate.",
+                "f-col1": "Strutture Motore", "f-col2": "Risorse", "f-col3": "Corporate",
+                "f-link1": "Framework Web", "f-link2": "Ecosistemi SaaS", "f-link3": "Integrazione Database", "f-link4": "Casi di Studio", "f-link5": "Diagnostica di Sistema", "f-link6": "Prenotazione Sicura", "f-link7": "Framework di Rete", "f-link8": "Protocollo di Sicurezza", "f-link9": "Termini di Architettura",
+                "footer-copy": "© 2026 Sum Web Dev. Tutti i diritti riservati. Operazioni dell'Hub situate a Mombasa, KE."
+            },
+            ne: {
+                "nav-home": "गृहपृष्ठ", "nav-services": "सेवाहरू", "nav-portfolio": "पोर्टफोलियो", "nav-booking": "रणनीति बुक गर्नुहोस्",
+                "services-hero-title": "उत्पादन इन्जिनियरिङ <span>समाधानहरू</span>",
+                "services-hero-desc": "घर्षण कम गर्न, रूपान्तरण स्वचालन गर्न र प्रणाली गति अनुकूलन गर्न सावधानीपूर्वक तयार पारिएका उच्च-प्रदर्शन tech stacks।",
+                "serv1-title": "फुल-स्ट्याक वेब इन्जिनियरिङ",
+                "serv1-desc": "बिजुलीको गतिमा चल्ने सर्भर रनटाइम्सद्वारा समर्थित स्केलेबल फ्रन्टएन्ड फ्रेमवर्कहरू प्रयोग गरेर सावधानीपूर्वक संरचित अनुप्रयोगहरू।",
+                "serv1-f1": "Next.js र सर्भर-साइड प्रणालीहरू", "serv1-f2": "सफा, अनुकूली लेआउट फ्रेमवर्कहरू", "serv1-f3": "कस्टम Node.js र REST API नोड्स",
+                "serv1-time": "समयसीमा: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">२-४ हप्ता</strong>",
+                "btn-select-fw": "फ्रेमवर्क चयन गर्नुहोस्",
+                "serv2-title": "SaaS इकोसिस्टम डिजाइन",
+                "serv2-desc": "कस्टम डाटाबेस तहहरू, अलग गरिएका प्रयोगकर्ता खाताहरू र सुरक्षित चेकआउटहरूसँग सुसज्जित पूर्ण डिप्लोइमेन्ट पाइपलाइनहरू।",
+                "serv2-f1": "मल्टि-टेनेन्ट DB कन्फिगरेसनहरू", "serv2-f2": "Firebase र Supabase आर्किटेक्चर", "serv2-f3": "स्वचालित बिलिङ एकीकरण",
+                "serv2-time": "समयसीमा: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">४-६ हप्ता</strong>",
+                "btn-select-scale": "स्केल चयन गर्नुहोस्",
+                "serv3-title": "कार्यसम्पादन लेखापरीक्षण",
+                "serv3-desc": "ढिलाइ हुने सेटअपहरूलाई प्रमुख खोज संकेतहरूमा उच्च स्कोर गर्ने र बाउन्श दरहरू नाटकीय रूपमा घटाउने अप्टिमाइज्ड इन्जिनहरूमा रूपान्तरण गर्नुहोस्।",
+                "serv3-f1": "शून्य-ज्यांक एनिमेसन पाइपलाइनहरू", "serv3-f2": "गम्भीर एसेट कम्प्रेसन प्रणालीहरू", "serv3-f3": "उन्नत क्यास ट्युनिंग लजिक",
+                "serv3-time": "समयसीमा: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">१ हप्ता</strong>",
+                "btn-select-opt": "अप्टिमाइजेसन चयन गर्नुहोस्",
+                "serv4-title": "क्लाउड पूर्वाधार र DevOps",
+                "serv4-desc": "स्वचालित CI/CD पाइपलाइनहरू, कन्टेनरयुक्त डिप्लोइमेन्टहरू, र शून्य डाउनटाइमका लागि इन्जिनियर गरिएको लचिलो क्लाउड आर्किटेक्चर।",
+                "serv4-f1": "Docker र Kubernetes अर्केस्ट्रिएशन", "serv4-f2": "AWS / Vercel अटो-स्केलिंग नोड्स", "serv4-f3": "स्वचालित GitHub Actions CI/CD",
+                "serv4-time": "समयसीमा: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">२-३ हप्ता</strong>",
+                "btn-select-devops": "DevOps चयन गर्नुहोस्",
+                "serv5-title": "सुरक्षित API र माइक्रोसर्भिसेस",
+                "serv5-desc": "बलियो टोकन प्रमाणीकरण र दर सीमितताका साथ अति-सुरक्षित GraphQL र REST माइक्रोसर्भिसेसको डिजाइन र एकीकरण।",
+                "serv5-f1": "JWT र OAuth2 सुरक्षा गेट्स", "serv5-f2": "GraphQL र REST इन्डपॉइन्ट्स", "serv5-f3": "DDoS सुरक्षा र दर सीमितता",
+                "serv5-time": "समयसीमा: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">३-४ हप्ता</strong>",
+                "btn-select-apis": "API हरू चयन गर्नुहोस्",
+                "serv6-title": "इन्टरप्राइज AI एकीकरण",
+                "serv6-desc": "तपाईंको व्यापार तर्क र प्रयोगकर्ता अनुभवलाई बढावा दिन कस्टम LLMs, स्वचालित कार्यप्रवाह एजेन्टहरू र भेक्टर डाटाबेसहरू एकीकृत गर्नुहोस्।",
+                "serv6-f1": "OpenAI र कस्टम LLM पाइपलाइनहरू", "serv6-f2": "Vector DB र सिमान्टिक खोज", "serv6-f3": "स्वचालित कार्यप्रवाह एजेन्टहरू",
+                "serv6-time": "समयसीमा: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">२-५ हप्ता</strong>",
+                "btn-select-ai": "AI इन्जिन चयन गर्नुहोस्",
+                "footer-tagline": "अर्को पुस्ताको डिजिटल प्रदर्शन उपकरणहरू र अनुकूलन फुल-स्ट्याक समाधानहरू आर्किटेक्ट गर्दै।",
+                "f-col1": "इन्जिन संरचनाहरू", "f-col2": "स्रोतहरू", "f-col3": "कर्पोरेट",
+                "f-link1": "वेब फ्रेमवर्क", "f-link2": "SaaS इकोसिस्टम", "f-link3": "डाटाबेस एकीकरण", "f-link4": "केस प्रोफाइलहरू", "f-link5": "प्रणाली निदान", "f-link6": "सुरक्षित बुकिङ", "f-link7": "नेटवर्क फ्रेमवर्क", "f-link8": "सुरक्षा प्रोटोकल", "f-link9": "आर्किटेक्चरका सर्तहरू",
+                "footer-copy": "© २०२६ Sum Web Dev। सबै अधिकार सुरक्षित। हब सञ्चालन मोम्बासा, KE मा अवस्थित छ।"
+            },
+            de: {
+                "nav-home": "Startseite", "nav-services": "Dienste", "nav-portfolio": "Portfolio", "nav-booking": "Strategie Buchen",
+                "services-hero-title": "Produktions-Engineering <span>Lösungen</span>",
+                "services-hero-desc": "Leistungsstarke Tech-Stacks, akribisch architektiert, um Reibung zu minimieren, Konversionen zu automatisieren und die Systemgeschwindigkeit zu optimieren.",
+                "serv1-title": "Full-Stack Web Engineering",
+                "serv1-desc": "Akribisch strukturierte Anwendungen unter Verwendung skalierbarer Frontend-Frameworks, unterstützt von blitzschnellen Server-Runtimes.",
+                "serv1-f1": "Next.js & Server-Side Systeme", "serv1-f2": "Saubere, Adaptive Layout-Frameworks", "serv1-f3": "Individuelle Node.js & REST API Nodes",
+                "serv1-time": "Zeitrahmen: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-4 Wch</strong>",
+                "btn-select-fw": "Framework Wählen",
+                "serv2-title": "SaaS-Ökosystem-Design",
+                "serv2-desc": "Vollständige Deployment-Pipelines mit benutzerdefinierten Datenbankschichten, isolierten Benutzerkonten und sicheren Checkouts.",
+                "serv2-f1": "Multi-Tenant DB-Konfigurationen", "serv2-f2": "Firebase & Supabase Architektur", "serv2-f3": "Automatisierte Abrechnungsintegration",
+                "serv2-time": "Zeitrahmen: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">4-6 Wch</strong>",
+                "btn-select-scale": "Skalierung Wählen",
+                "serv3-title": "Performance-Audits",
+                "serv3-desc": "Transformieren Sie träge Setups in optimierte Engines, die bei Suchsignalen hervorragend abschneiden und Absprungraten drastisch senken.",
+                "serv3-f1": "Zero-Jank Animations-Pipelines", "serv3-f2": "Strenge Asset-Komprimierung", "serv3-f3": "Erweiterte Cache-Tuning-Logik",
+                "serv3-time": "Zeitrahmen: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">1 Wch</strong>",
+                "btn-select-opt": "Optimierung Wählen",
+                "serv4-title": "Cloud-Infrastruktur & DevOps",
+                "serv4-desc": "Automatisierte CI/CD-Pipelines, containerisierte Deployments und resiliente Cloud-Architektur für null Ausfallzeiten.",
+                "serv4-f1": "Docker & Kubernetes Orchestrierung", "serv4-f2": "AWS / Vercel Auto-Scaling Nodes", "serv4-f3": "Automatisierte GitHub Actions CI/CD",
+                "serv4-time": "Zeitrahmen: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-3 Wch</strong>",
+                "btn-select-devops": "DevOps Wählen",
+                "serv5-title": "Sichere API & Microservices",
+                "serv5-desc": "Design und Integration ultra-sicherer GraphQL- und REST-Microservices mit robuster Token-Authentifizierung und Ratelimitierung.",
+                "serv5-f1": "JWT & OAuth2 Sicherheits-Gates", "serv5-f2": "GraphQL & REST Endpoints", "serv5-f3": "DDoS-Schutz & Rate Limiting",
+                "serv5-time": "Zeitrahmen: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">3-4 Wch</strong>",
+                "btn-select-apis": "APIs Wählen",
+                "serv6-title": "Enterprise AI Integration",
+                "serv6-desc": "Integrieren Sie benutzerdefinierte LLMs, automatisierte Workflow-Agenten und Vektordatenbanken zur Stärkung Ihrer Geschäftslogik.",
+                "serv6-f1": "OpenAI & Benutzerdefinierte LLM Pipelines", "serv6-f2": "Vector DB & Semantische Suche", "serv6-f3": "Automatisierte Workflow-Agenten",
+                "serv6-time": "Zeitrahmen: <strong class=\"text-[var(--text-pure)] text-lg font-bold\">2-5 Wch</strong>",
+                "btn-select-ai": "AI-Engine Wählen",
+                "footer-tagline": "Architektur von digitalen Performance-Tools der nächsten Generation und maßgeschneiderten Full-Stack-Lösungen.",
+                "f-col1": "Engine-Strukturen", "f-col2": "Ressourcen", "f-col3": "Unternehmen",
+                "f-link1": "Web-Frameworks", "f-link2": "SaaS-Ökosysteme", "f-link3": "Datenbank-Integration", "f-link4": "Fallprofile", "f-link5": "Systemdiagnose", "f-link6": "Sichere Buchung", "f-link7": "Netzwerk-Framework", "f-link8": "Sicherheitsprotokoll", "f-link9": "Architekturbedingungen",
+                "footer-copy": "© 2026 Sum Web Dev. Alle Rechte vorbehalten. Hub-Operations in Mombasa, KE."
+            }
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
-            // --- UI Control Elements Initialization ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
             const menuPanel = document.getElementById('menuPanel');
             const themeToggler = document.getElementById('themeToggler');
@@ -418,15 +601,38 @@
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const htmlRoot = document.documentElement;
 
-            // --- Mobile Drop Drawer Navigation Toggle Rules ---
+            function applyTranslations(lang) {
+                const dictionary = translations[lang] || translations['en'];
+                for (const key in dictionary) {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.innerHTML = dictionary[key];
+                    }
+                }
+                document.querySelectorAll('[data-tr]').forEach(el => {
+                    const token = el.getAttribute('data-tr');
+                    if (dictionary[token]) {
+                        el.textContent = dictionary[token];
+                    }
+                });
+                localStorage.setItem('preferred-lang', lang);
+                langSwitch.value = lang;
+            }
+
+            langSwitch.addEventListener('change', (e) => {
+                applyTranslations(e.target.value);
+            });
+
+            const initialLang = localStorage.getItem('preferred-lang') || 'en';
+            applyTranslations(initialLang);
+
             hamburgerMenu.addEventListener('click', () => {
                 hamburgerMenu.classList.toggle('active');
                 menuPanel.classList.toggle('active');
                 document.body.classList.toggle('menu-open');
             });
 
-            // Close responsive drawer layout upon clicking link targets
-            document.querySelectorAll('.nav-item').forEach(link => {
+            document.querySelectorAll('#menuPanel a').forEach(link => {
                 link.addEventListener('click', () => {
                     hamburgerMenu.classList.remove('active');
                     menuPanel.classList.remove('active');
@@ -434,7 +640,6 @@
                 });
             });
 
-            // --- Theme State Toggling Mechanics Engine ---
             const savedTheme = localStorage.getItem('theme') || 'dark';
             htmlRoot.setAttribute('data-theme', savedTheme);
             updateThemeIcon(savedTheme);
@@ -442,7 +647,6 @@
             themeToggler.addEventListener('click', () => {
                 const currentTheme = htmlRoot.getAttribute('data-theme');
                 const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
                 htmlRoot.setAttribute('data-theme', targetTheme);
                 localStorage.setItem('theme', targetTheme);
                 updateThemeIcon(targetTheme);
@@ -457,9 +661,8 @@
                 }
             }
 
-            // --- Scrolling Metrics Analytics & Action Toggles ---
             window.addEventListener('scroll', () => {
-                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const winScroll = document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = (winScroll / height) * 100;
                 scrollBar.style.width = scrolled + '%';
@@ -473,11 +676,6 @@
 
             scrollTopBtn.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // --- Language Switch Stub Notification Trigger ---
-            langSwitch.addEventListener('change', (e) => {
-                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
             });
         });
     </script>
