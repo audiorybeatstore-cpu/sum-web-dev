@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sum Web Dev | Premium Full-Stack Architectural Engineering</title>
-    <meta name="description" content="Engineering high-performance full-stack web platforms, multi-tenant SaaS ecosystems, and secure cloud infrastructure. Powered by modern decoupled systems.">
+    <title>Our Architecture Portfolio | Sum Web Dev</title>
+    <meta name="description" content="Explore our proven case histories of full-stack production systems, SaaS platforms, and performance optimizations.">
     
-    <!-- Design Assets & Tailwind CSS Play CDN -->
+    <!-- Design Assets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -27,7 +27,6 @@
     </script>
     
     <style>
-        /* Custom Theme Token Variables & Global Transition Overrides */
         :root[data-theme="dark"] {
             --bg-main: #0B0F19;
             --bg-card: #151A28;
@@ -38,7 +37,7 @@
             --border-glass: rgba(255, 255, 255, 0.08);
             --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
             --header-bg: rgba(11, 15, 25, 0.85);
-            --icon-box-bg: rgba(0, 212, 255, 0.1);
+            --tag-bg: rgba(108, 99, 255, 0.15);
         }
 
         :root[data-theme="light"] {
@@ -51,7 +50,7 @@
             --border-glass: rgba(15, 23, 42, 0.08);
             --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
             --header-bg: rgba(248, 250, 252, 0.9);
-            --icon-box-bg: rgba(14, 165, 233, 0.08);
+            --tag-bg: rgba(79, 70, 229, 0.1);
         }
 
         body {
@@ -72,7 +71,7 @@
     <!-- Global Corporate Header -->
     <header class="fixed top-0 left-0 w-full h-20 bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-glass)] z-[1000] flex items-center transition-colors duration-300">
         <div class="w-full max-w-[1400px] mx-auto px-8 flex justify-between items-center">
-            <a href="#" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter z-[1010]">
+            <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter z-[1010]">
                 <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
                     <path d="M6 22L16 6L26 22H6Z" />
                 </svg>
@@ -80,10 +79,10 @@
             </a>
             
             <nav id="menuPanel" class="flex items-center gap-8 max-md:fixed max-md:top-0 max-md:-right-full max-md:w-full max-md:max-w-[300px] max-md:h-screen max-md:bg-[#151A28]/96 max-md:backdrop-blur-xl max-md:border-l max-md:border-[var(--border-glass)] max-md:pt-[120px] max-md:px-8 max-md:pb-8 max-md:flex-col max-md:items-start max-md:gap-8 max-md:transition-all max-md:duration-400 max-md:shadow-2xl max-md:z-[1005]">
-                <a href="#" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95krem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm max-md:text-xl max-md:font-semibold" data-tr="nav-home">Home</a>
-                <a href="services/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-services">Services</a>
-                <a href="portfolio/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-portfolio">Portfolio</a>
-                <a href="booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-booking">Book Strategy</a>
+                <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-home">Home</a>
+                <a href="../services/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-services">Services</a>
+                <a href="./" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm max-md:text-xl max-md:font-semibold" data-tr="nav-portfolio">Portfolio</a>
+                <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-xl max-md:font-semibold" data-tr="nav-booking">Book Strategy</a>
             </nav>
 
             <div class="flex items-center gap-5 z-[1010] relative">
@@ -111,125 +110,134 @@
         </div>
     </header>
 
-    <!-- Classic High-Impact Split Hero Section -->
-    <section class="pt-[180px] pb-24 px-8 relative overflow-hidden">
-        <div class="absolute rounded-full blur-[130px] opacity-15 z-0 top-[15%] left-[5%] w-[500px] h-[500px] bg-[var(--accent-primary)]"></div>
-        <div class="absolute rounded-full blur-[130px] opacity-15 z-0 bottom-[10%] right-[10%] w-[400px] h-[400px] bg-[var(--accent-neon)]"></div>
-        
-        <div class="max-w-[1400px] mx-auto grid grid-cols-[1.1fr_0.9fr] max-xl:grid-cols-1 max-xl:text-center max-xl:gap-12 items-center relative z-2">
-            <div class="hero-text">
-                <h1 id="hero-title" class="text-[4.2rem] max-lg:text-[3.4rem] max-md:text-[2.8rem] font-black tracking-[-2.5px] leading-[1.05] mb-6">High-Performance <span class="bg-gradient-to-br from-[var(--text-pure)] via-[var(--text-pure)] to-[var(--accent-neon)] bg-clip-text text-transparent">Digital Architecture</span></h1>
-                <p id="hero-desc" class="text-xl text-[var(--text-muted)] mb-10 max-w-[680px] max-xl:mx-auto">We build production-grade web solutions, robust backend microservices, and secure multi-tenant SaaS environments tailored for enterprise scale.</p>
-                <div class="flex gap-5 max-xl:justify-center">
-                    <a href="booking/" id="btn-consult" class="bg-gradient-to-br from-[var(--accent-primary)] to-[#5B52E5] text-white no-underline px-8 py-3.5 rounded-lg font-semibold text-base transition-all duration-200 hover:-translate-y-0.5 shadow-[0_4px_20px_rgba(108,99,255,0.25)] hover:shadow-[0_6px_24px_rgba(108,99,255,0.4)]">Initialize Consultation</a>
-                    <a href="portfolio/" id="btn-portfolio" class="bg-transparent text-[var(--text-pure)] no-underline px-8 py-3.5 rounded-lg font-semibold text-base border border-[var(--border-glass)] transition-all duration-200 hover:border-[var(--text-pure)] hover:bg-white/[0.02]">View Case Profiles</a>
-                </div>
-            </div>
-            
-            <!-- Technical Live Console Interactive Component -->
-            <div class="bg-[#080C14] border border-[var(--border-glass)] rounded-xl p-8 font-mono shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] relative text-left">
-                <div class="flex gap-1.5 mb-6 border-b border-white/[0.05] pb-3">
-                    <div class="w-[11px] h-[11px] rounded-full bg-[#EF4444]"></div>
-                    <div class="w-[11px] h-[11px] rounded-full bg-[#F59E0B]"></div>
-                    <div class="w-[11px] h-[11px] rounded-full bg-[#10B981]"></div>
-                </div>
-                <div class="mb-2 text-sm text-[#94A3B8]"><span class="text-[var(--accent-neon)]">&gt;</span> npm init sum-webdev-engine@latest</div>
-                <div id="console-l1" class="mb-2 text-sm text-[#94A3B8]">[1/3] Resolving workspace dependencies...</div>
-                <div id="console-l2" class="mb-2 text-sm text-[#94A3B8]">[2/3] Mapping secure cloud instances...</div>
-                <div id="console-l3" class="mb-2 text-sm text-[#94A3B8]">[3/3] System initialization successful.</div>
-                <div class="mb-2 text-sm text-[#94A3B8]"><span class="text-[var(--accent-neon)]">&gt;</span> structural-status --verify</div>
-                <div class="mb-2 text-sm text-[#10B981] flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> <span id="console-g">Gateway Node: Active</span></div>
-                <div class="mb-2 text-sm text-[#10B981] flex items-center gap-2"><i class="fa-solid fa-circle-check"></i> <span id="console-t">Theme Engine: Operational</span></div>
-                <div id="console-ready" class="text-sm text-[var(--accent-neon)] mt-4">Ready for structural deployment.</div>
-            </div>
+    <!-- Portfolio Hero Engine -->
+    <section class="pt-[160px] pb-12 px-8 relative overflow-hidden text-center">
+        <div class="absolute rounded-full blur-[140px] opacity-12 z-0 top-[10%] left-[15%] w-[400px] h-[400px] bg-[var(--accent-primary)]"></div>
+        <div class="absolute rounded-full blur-[140px] opacity-12 z-0 bottom-[5%] right-[15%] w-[400px] h-[400px] bg-[var(--accent-neon)]"></div>
+        <div class="relative z-1 max-w-[800px] mx-auto">
+            <h1 id="port-hero-title" class="text-[3.8rem] max-md:text-[3rem] font-black tracking-tight leading-[1.1] mb-6">Production <span>Case Profiles</span></h1>
+            <p id="port-hero-desc" class="text-xl text-[var(--text-muted)] mb-12">Deep-dives into scalable digital platforms engineered for performance and secure system deployment.</p>
         </div>
     </section>
 
-    <!-- Core Pillars Matrix Grid Section -->
-    <section class="max-w-[1400px] mx-auto py-24 px-8 relative z-2">
-        <div class="mb-16 max-w-[700px]">
-            <h2 id="vert-title" class="text-[2.5rem] font-extrabold tracking-tight mb-4">Our Architectural Verticals</h2>
-            <p id="vert-desc" class="text-[var(--text-muted)] text-lg">From component design up through secure decoupled infrastructure layers, we engineer performance at every layer.</p>
-        </div>
-        
-        <div class="grid grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-10">
-            <!-- Service Pillar 1 -->
-            <a href="services/" class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-14 max-md:p-8 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)] hover:shadow-xl no-underline text-inherit block">
-                <div class="w-[54px] h-[54px] rounded-lg bg-[var(--icon-box-bg)] flex items-center justify-center mb-8 text-[var(--accent-neon)] text-xl border border-[rgba(0,212,255,0.15)]"><i class="fa-solid fa-layer-group"></i></div>
-                <h3 id="card1-title" class="text-[1.4rem] font-extrabold mb-4 tracking-tight">Web Frameworks</h3>
-                <p id="card1-desc" class="text-[var(--text-muted)] text-[0.98rem] mb-6">Developing componentized application layers and fluid responsive interfaces backed by modern routing models.</p>
-                <div class="matrix-link text-sm font-bold text-[var(--text-pure)] flex items-center gap-2 transition-all duration-200"><span data-tr="explore-fw">Explore Frameworks</span> <i class="fa-solid fa-arrow-right"></i></div>
-            </a>
+    <!-- Dynamic Filter Infrastructure Control Row -->
+    <div class="flex justify-center gap-3 flex-wrap mb-16 relative z-10 px-8">
+        <button class="filter-btn active bg-[var(--glass-grad)] border border-[var(--border-glass)] text-[var(--text-muted)] py-2.5 px-6 rounded-full font-semibold text-sm cursor-pointer transition-all duration-200 hover:border-[var(--accent-primary)] hover:text-[var(--text-pure)]" data-filter="all" data-tr="filter-all">All Architecture</button>
+        <button class="filter-btn bg-[var(--glass-grad)] border border-[var(--border-glass)] text-[var(--text-muted)] py-2.5 px-6 rounded-full font-semibold text-sm cursor-pointer transition-all duration-200 hover:border-[var(--accent-primary)] hover:text-[var(--text-pure)]" data-filter="fullstack" data-tr="filter-fullstack">Full-Stack</button>
+        <button class="filter-btn bg-[var(--glass-grad)] border border-[var(--border-glass)] text-[var(--text-muted)] py-2.5 px-6 rounded-full font-semibold text-sm cursor-pointer transition-all duration-200 hover:border-[var(--accent-primary)] hover:text-[var(--text-pure)]" data-filter="saas" data-tr="filter-saas">SaaS Ecosystems</button>
+        <button class="filter-btn bg-[var(--glass-grad)] border border-[var(--border-glass)] text-[var(--text-muted)] py-2.5 px-6 rounded-full font-semibold text-sm cursor-pointer transition-all duration-200 hover:border-[var(--accent-primary)] hover:text-[var(--text-pure)]" data-filter="performance" data-tr="filter-perf">Optimization</button>
+    </div>
 
-            <!-- Service Pillar 2 -->
-            <a href="saas-ecosystems/" class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-14 max-md:p-8 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)] hover:shadow-xl no-underline text-inherit block">
-                <div class="w-[54px] h-[54px] rounded-lg bg-[rgba(108,99,255,0.1)] flex items-center justify-center mb-8 text-[var(--accent-primary)] text-xl border border-[rgba(108,99,255,0.15)]"><i class="fa-solid fa-cloud"></i></div>
-                <h3 id="card2-title" class="text-[1.4rem] font-extrabold mb-4 tracking-tight">SaaS Ecosystems</h3>
-                <p id="card2-desc" class="text-[var(--text-muted)] text-[0.98rem] mb-6">Integrating decoupled authentication pipelines, serverless webhooks, and multi-tenant table security rules.</p>
-                <div class="matrix-link text-sm font-bold text-[var(--text-pure)] flex items-center gap-2 transition-all duration-200"><span data-tr="explore-eco">Explore Ecosystems</span> <i class="fa-solid fa-arrow-right"></i></div>
-            </a>
-
-            <!-- Service Pillar 3 -->
-            <a href="database-integration/" class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-14 max-md:p-8 backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)] hover:shadow-xl no-underline text-inherit block">
-                <div class="w-[54px] h-[54px] rounded-lg bg-[var(--icon-box-bg)] flex items-center justify-center mb-8 text-[var(--accent-neon)] text-xl border border-[rgba(0,212,255,0.15)]"><i class="fa-solid fa-database"></i></div>
-                <h3 id="card3-title" class="text-[1.4rem] font-extrabold mb-4 tracking-tight">Database Integration</h3>
-                <p id="card3-desc" class="text-[var(--text-muted)] text-[0.98rem] mb-6">Configuring structured relational schemas, optimized processing queries, and durable object storage pools.</p>
-                <div class="matrix-link text-sm font-bold text-[var(--text-pure)] flex items-center gap-2 transition-all duration-200"><span data-tr="explore-db">Explore Databases</span> <i class="fa-solid fa-arrow-right"></i></div>
-            </a>
-        </div>
-    </section>
-
-    <!-- Extended Infrastructure Pipeline Section (More Things) -->
-    <section class="max-w-[1400px] mx-auto px-8 pb-24 relative z-2">
-        <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-2xl p-16 max-md:p-8 grid grid-cols-[1fr_1.2fr] max-xl:grid-cols-1 gap-16 items-center">
-            <div class="pipeline-info">
-                <h3 id="pipe-title" class="text-[2rem] font-extrabold tracking-tight mb-5">Built for Elastic Scalability</h3>
-                <p id="pipe-desc" class="text-[var(--text-muted)] mb-8 text-[1.05rem]">We build systems using standard, proven architectures that avoid platform dependency. By keeping computation decoupled from the layout render layers, your tools remain lightweight, highly secure, and instantly responsive.</p>
-                
-                <div class="flex flex-wrap gap-3">
-                    <span class="bg-[var(--bg-main)] border border-[var(--border-glass)] px-4 py-2 rounded-md text-xs font-semibold text-[var(--text-muted)] font-mono">Next.js</span>
-                    <span class="bg-[var(--bg-main)] border border-[var(--border-glass)] px-4 py-2 rounded-md text-xs font-semibold text-[var(--text-muted)] font-mono">Node.js</span>
-                    <span class="bg-[var(--bg-main)] border border-[var(--border-glass)] px-4 py-2 rounded-md text-xs font-semibold text-[var(--text-muted)] font-mono">Tailwind CSS</span>
-                    <span class="bg-[var(--bg-main)] border border-[var(--border-glass)] px-4 py-2 rounded-md text-xs font-semibold text-[var(--text-muted)] font-mono">Supabase</span>
-                    <span class="bg-[var(--bg-main)] border border-[var(--border-glass)] px-4 py-2 rounded-md text-xs font-semibold text-[var(--text-muted)] font-mono">Firebase</span>
-                    <span class="bg-[var(--bg-main)] border border-[var(--border-glass)] px-4 py-2 rounded-md text-xs font-semibold text-[var(--text-muted)] font-mono">AWS Nodes</span>
-                </div>
-            </div>
+    <!-- Projects Grid Display Module -->
+    <section class="max-w-[1400px] mx-auto px-8 pb-32 relative z-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10" id="portfolioGrid">
             
-            <div class="flex flex-col gap-6">
-                <!-- Step 1 -->
-                <div class="flex gap-6 bg-[var(--bg-main)] border border-[var(--border-glass)] p-6 rounded-lg transition-colors duration-200 hover:border-[var(--accent-primary)]">
-                    <div class="text-[1.2rem] font-black text-[var(--accent-neon)] font-mono">01</div>
-                    <div>
-                        <h4 id="step1-title" class="text-[1.1rem] font-bold mb-1">Secure Token Gates</h4>
-                        <p id="step1-desc" class="text-[var(--text-muted)] text-[0.92rem]">Identity sessions are parsed strictly using enterprise token arrays, preventing standard credential exposure.</p>
-                    </div>
+            <!-- Project 1: Audiory Web (Using user sample screenshot) -->
+            <div class="project-card bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl overflow-hidden flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)]" data-category="fullstack">
+                <div class="w-full h-[280px] bg-[#0F1420] border-b border-[var(--border-glass)] overflow-hidden relative group">
+                    <img src="audioryweb.webp" alt="Audiory Web Architecture" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80';">
                 </div>
-                <!-- Step 2 -->
-                <div class="flex gap-6 bg-[var(--bg-main)] border border-[var(--border-glass)] p-6 rounded-lg transition-colors duration-200 hover:border-[var(--accent-primary)]">
-                    <div class="text-[1.2rem] font-black text-[var(--accent-neon)] font-mono">02</div>
-                    <div>
-                        <h4 id="step2-title" class="text-[1.1rem] font-bold mb-1">Partition Isolation</h4>
-                        <p id="step2-desc" class="text-[var(--text-muted)] text-[0.92rem]">Row-level authorization metrics guard user environments from multi-tenant crossing leaks.</p>
+                <div class="p-10 flex-grow flex flex-col">
+                    <div class="flex gap-2 flex-wrap mb-4">
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Next.js</span>
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Tailwind CSS</span>
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Node.js</span>
                     </div>
-                </div>
-                <!-- Step 3 -->
-                <div class="flex gap-6 bg-[var(--bg-main)] border border-[var(--border-glass)] p-6 rounded-lg transition-colors duration-200 hover:border-[var(--accent-primary)]">
-                    <div class="text-[1.2rem] font-black text-[var(--accent-neon)] font-mono">03</div>
-                    <div>
-                        <h4 id="step3-title" class="text-[1.1rem] font-bold mb-1">Global Edge Caching</h4>
-                        <p id="step3-desc" class="text-[var(--text-muted)] text-[0.92rem]">Assets and static elements load immediately from nearest Content Network nodes, achieving zero hydration drag.</p>
+                    <h3 class="text-2xl font-extrabold mb-3 tracking-tight">Audiory Web Platform</h3>
+                    <p class="text-[var(--text-muted)] text-base mb-8 flex-grow">Classic production-ready streaming and audio engine featuring robust token auth, user login/signup workflows, and instant asset synchronization.</p>
+                    <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase text-[var(--text-muted)] font-semibold tracking-wider">Server Latency</span>
+                            <span class="text-lg font-bold text-[var(--text-pure)]">&lt; 38ms</span>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-neon)] no-underline font-semibold text-sm flex items-center gap-2 transition-all duration-200 hover:text-[var(--accent-primary)] hover:gap-3">
+                            <span data-tr="examine-core">Examine Core</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
+
+            <!-- Project 2 -->
+            <div class="project-card bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl overflow-hidden flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)]" data-category="saas">
+                <div class="w-full h-[280px] bg-[#0F1420] border-b border-[var(--border-glass)] overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Ticket Automation Dashboard" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-10 flex-grow flex flex-col">
+                    <div class="flex gap-2 flex-wrap mb-4">
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Supabase</span>
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Tailwind CSS</span>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-3 tracking-tight">Ticket Automation Dashboard</h3>
+                    <p class="text-[var(--text-muted)] text-base mb-8 flex-grow">Developed a secure user checkout engine backed by deep blue aesthetic layouts, real-time ticket inventory streams, and programmatic gateway hooks.</p>
+                    <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase text-[var(--text-muted)] font-semibold tracking-wider">Scale Capacity</span>
+                            <span class="text-lg font-bold text-[var(--text-pure)]">150k / min</span>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-neon)] no-underline font-semibold text-sm flex items-center gap-2 transition-all duration-200 hover:text-[var(--accent-primary)] hover:gap-3">
+                            <span data-tr="examine-core">Examine Core</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl overflow-hidden flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)]" data-category="performance">
+                <div class="w-full h-[280px] bg-[#0F1420] border-b border-[var(--border-glass)] overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="E-Commerce Core Vital Audit" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-10 flex-grow flex flex-col">
+                    <div class="flex gap-2 flex-wrap mb-4">
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Caching</span>
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Tailwind CSS</span>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-3 tracking-tight">E-Commerce Core Vital Audit</h3>
+                    <p class="text-[var(--text-muted)] text-base mb-8 flex-grow">Eliminated layout shifts and component rendering friction layers across major customer registration funnels, heavily securing overall page performance scores.</p>
+                    <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase text-[var(--text-muted)] font-semibold tracking-wider">Conversion Boost</span>
+                            <span class="text-lg font-bold text-[var(--text-pure)]">+24.8%</span>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-neon)] no-underline font-semibold text-sm flex items-center gap-2 transition-all duration-200 hover:text-[var(--accent-primary)] hover:gap-3">
+                            <span data-tr="examine-core">Examine Core</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl overflow-hidden flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(0,212,255,0.3)]" data-category="fullstack">
+                <div class="w-full h-[280px] bg-[#0F1420] border-b border-[var(--border-glass)] overflow-hidden relative group">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Vibesphere Live Streaming" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                </div>
+                <div class="p-10 flex-grow flex flex-col">
+                    <div class="flex gap-2 flex-wrap mb-4">
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">React / Vite</span>
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Socket.io</span>
+                        <span class="bg-[var(--tag-bg)] text-[var(--accent-neon)] text-xs font-bold py-1 px-3 rounded uppercase tracking-wider">Tailwind CSS</span>
+                    </div>
+                    <h3 class="text-2xl font-extrabold mb-3 tracking-tight">Vibesphere Streaming Hub</h3>
+                    <p class="text-[var(--text-muted)] text-base mb-8 flex-grow">Production-ready live-streaming ecosystem with login/signup authentication, real-time gift broadcasting via Socket.io, and interactive chat feeds.</p>
+                    <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6">
+                        <div class="flex flex-col">
+                            <span class="text-xs uppercase text-[var(--text-muted)] font-semibold tracking-wider">Socket Sync</span>
+                            <span class="text-lg font-bold text-[var(--text-pure)]">Real-Time</span>
+                        </div>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-[var(--accent-neon)] no-underline font-semibold text-sm flex items-center gap-2 transition-all duration-200 hover:text-[var(--accent-primary)] hover:gap-3">
+                            <span data-tr="examine-core">Examine Core</span> <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Global Corporate Architectural Footer -->
     <footer class="bg-[var(--bg-card)] border-t border-[var(--border-glass)] pt-20 pb-10 px-8 text-[var(--text-muted)] relative z-2">
         <div class="max-w-[1400px] mx-auto grid grid-cols-[1.5fr_repeat(3,1fr)] max-lg:grid-cols-2 max-md:grid-cols-1 gap-16 mb-16">
-            <div class="footer-brand">
-                <a href="#" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter">
+            <div>
+                <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter">
                     <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
                         <path d="M6 22L16 6L26 22H6Z" />
                     </svg>
@@ -241,34 +249,34 @@
                     <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
-            <div class="footer-col">
+            <div>
                 <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col1">Engine Structures</h4>
                 <ul class="list-none flex flex-col gap-3">
-                    <li><a href="services/" id="f-link1" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Web Frameworks</a></li>
-                    <li><a href="saas-ecosystems/" id="f-link2" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">SaaS Ecosystems</a></li>
-                    <li><a href="database-integration/" id="f-link3" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Database Integration</a></li>
+                    <li><a href="../services/" id="f-link1" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Web Frameworks</a></li>
+                    <li><a href="../services/" id="f-link2" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">SaaS Ecosystems</a></li>
+                    <li><a href="../services/" id="f-link3" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Database Integration</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            <div>
                 <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col2">Resources</h4>
                 <ul class="list-none flex flex-col gap-3">
-                    <li><a href="portfolio/" id="f-link4" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Case Profiles</a></li>
-                    <li><a href="system-diagnostics/" id="f-link5" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">System Diagnostics</a></li>
+                    <li><a href="./" id="f-link4" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Case Profiles</a></li>
+                    <li><a href="#" id="f-link5" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">System Diagnostics</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
+            <div>
                 <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col3">Corporate</h4>
                 <ul class="list-none flex flex-col gap-3">
-                    <li><a href="booking/" id="f-link6" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Secure Booking</a></li>
-                    <li><a href="network-framework/" id="f-link7" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Network Framework</a></li>
+                    <li><a href="../booking/" id="f-link6" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Secure Booking</a></li>
+                    <li><a href="#" id="f-link7" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Network Framework</a></li>
                 </ul>
             </div>
         </div>
         <div class="max-w-[1400px] mx-auto border-t border-[var(--border-glass)] pt-8 flex max-md:flex-col justify-between items-center text-[0.85rem] gap-6 max-md:text-center">
             <p id="footer-copy">&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
             <div class="flex gap-6">
-                <a href="security-protocol/" id="f-link8" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Security Protocol</a>
-                <a href="terms-of-architecture/" id="f-link9" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Terms of Architecture</a>
+                <a href="#" id="f-link8" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Security Protocol</a>
+                <a href="#" id="f-link9" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Terms of Architecture</a>
             </div>
         </div>
     </footer>
@@ -282,19 +290,10 @@
         const translations = {
             en: {
                 "nav-home": "Home", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-booking": "Book Strategy",
-                "hero-title": "High-Performance <span>Digital Architecture</span>",
-                "hero-desc": "We build production-grade web solutions, robust backend microservices, and secure multi-tenant SaaS environments tailored for enterprise scale.",
-                "btn-consult": "Initialize Consultation", "btn-portfolio": "View Case Profiles",
-                "console-l1": "[1/3] Resolving workspace dependencies...", "console-l2": "[2/3] Mapping secure cloud instances...", "console-l3": "[3/3] System initialization successful.",
-                "console-g": "Gateway Node: Active", "console-t": "Theme Engine: Operational", "console-ready": "Ready for structural deployment.",
-                "vert-title": "Our Architectural Verticals", "vert-desc": "From component design up through secure decoupled infrastructure layers, we engineer performance at every layer.",
-                "card1-title": "Web Frameworks", "card1-desc": "Developing componentized application layers and fluid responsive interfaces backed by modern routing models.", "explore-fw": "Explore Frameworks",
-                "card2-title": "SaaS Ecosystems", "card2-desc": "Integrating decoupled authentication pipelines, serverless webhooks, and multi-tenant table security rules.", "explore-eco": "Explore Ecosystems",
-                "card3-title": "Database Integration", "card3-desc": "Configuring structured relational schemas, optimized processing queries, and durable object storage pools.", "explore-db": "Explore Databases",
-                "pipe-title": "Built for Elastic Scalability", "pipe-desc": "We build systems using standard, proven architectures that avoid platform dependency. By keeping computation decoupled from the layout render layers, your tools remain lightweight, highly secure, and instantly responsive.",
-                "step1-title": "Secure Token Gates", "step1-desc": "Identity sessions are parsed strictly using enterprise token arrays, preventing standard credential exposure.",
-                "step2-title": "Partition Isolation", "step2-desc": "Row-level authorization metrics guard user environments from multi-tenant crossing leaks.",
-                "step3-title": "Global Edge Caching", "step3-desc": "Assets and static elements load immediately from nearest Content Network nodes, achieving zero hydration drag.",
+                "port-hero-title": "Production <span>Case Profiles</span>",
+                "port-hero-desc": "Deep-dives into scalable digital platforms engineered for performance and secure system deployment.",
+                "filter-all": "All Architecture", "filter-fullstack": "Full-Stack", "filter-saas": "SaaS Ecosystems", "filter-perf": "Optimization",
+                "examine-core": "Examine Core",
                 "footer-tagline": "Architecting next-generation digital performance tools and custom full-stack solutions.",
                 "f-col1": "Engine Structures", "f-col2": "Resources", "f-col3": "Corporate",
                 "f-link1": "Web Frameworks", "f-link2": "SaaS Ecosystems", "f-link3": "Database Integration", "f-link4": "Case Profiles", "f-link5": "System Diagnostics", "f-link6": "Secure Booking", "f-link7": "Network Framework", "f-link8": "Security Protocol", "f-link9": "Terms of Architecture",
@@ -302,19 +301,10 @@
             },
             nl: {
                 "nav-home": "Home", "nav-services": "Diensten", "nav-portfolio": "Portfolio", "nav-booking": "Boek Strategie",
-                "hero-title": "Hoogwaardige <span>Digitale Architectuur</span>",
-                "hero-desc": "Wij bouwen weboplossingen van productierang, robuuste backend microservices en veilige multi-tenant SaaS-omgevingen op ondernemingsschaal.",
-                "btn-consult": "Consultatie Initialiseren", "btn-portfolio": "Bekijk Projectprofielen",
-                "console-l1": "[1/3] Werkruimte-afhankelijkheden oplossen...", "console-l2": "[2/3] Veilige cloud-instanties in kaart brengen...", "console-l3": "[3/3] Systeeminitialisatie succesvol.",
-                "console-g": "Gateway-knooppunt: Actief", "console-t": "Thema-engine: Operationeel", "console-ready": "Gereed voor infrastructurele inzet.",
-                "vert-title": "Onze Architectonische Verticalen", "vert-desc": "Van componentontwerp tot veilige ontkoppelde infrastructuurlagen, wij leveren prestaties op elk niveau.",
-                "card1-title": "Web Frameworks", "card1-desc": "Ontwikkelen van gecomponentiseerde applicatielagen en vloeiende responsieve interfaces ondersteund door moderne routering.", "explore-fw": "Ontdek Frameworks",
-                "card2-title": "SaaS Ecosystemen", "card2-desc": "Integratie van ontkoppelde authenticatiepipelines, serverloze webhooks en multi-tenant tabelbeveiliging.", "explore-eco": "Ontdek Ecosystemen",
-                "card3-title": "Database Integratie", "card3-desc": "Configureren van gestructureerde relationele schema's, geoptimaliseerde verwerkingsquery's en duurzame opslag.", "explore-db": "Ontdek Databases",
-                "pipe-title": "Gebouwd voor Elastische Schaalbaarheid", "pipe-desc": "We bouwen systemen met beproefde architecturen die platformafhankelijkheid vermijden, waardoor uw tools licht en direct responsief blijven.",
-                "step1-title": "Veilige Token-poorten", "step1-desc": "Identiteitssessies worden strikt verwerkt met enterprise token-arrays om blootstelling van inloggegevens te voorkomen.",
-                "step2-title": "Partitie-isolatie", "step2-desc": "Autorisatiestatistieken op rijniveau beschermen gebruikersomgevingen tegen datalekken.",
-                "step3-title": "Wereldwijde Edge-caching", "step3-desc": "Elementen laden direct vanaf de dichtstbijzijnde Content Network-nodes zonder vertraging.",
+                "port-hero-title": "Productie <span>Casusprofielen</span>",
+                "port-hero-desc": "Diepgaande analyses van schaalbare digitale platforms ontworpen voor prestaties en veilige implementatie.",
+                "filter-all": "Alle Architectuur", "filter-fullstack": "Full-Stack", "filter-saas": "SaaS Ecosystemen", "filter-perf": "Optimalisatie",
+                "examine-core": "Bekijk Kern",
                 "footer-tagline": "Architectuur van de volgende generatie digitale prestatietools en aangepaste full-stack oplossingen.",
                 "f-col1": "Motor Structuren", "f-col2": "Middelen", "f-col3": "Zakelijk",
                 "f-link1": "Web Frameworks", "f-link2": "SaaS Ecosystemen", "f-link3": "Database Integratie", "f-link4": "Projectprofielen", "f-link5": "Systeemdiagnose", "f-link6": "Veilig Boeken", "f-link7": "Netwerk Framework", "f-link8": "Beveiligingsprotocol", "f-link9": "Architectuurvoorwaarden",
@@ -322,19 +312,10 @@
             },
             fr: {
                 "nav-home": "Accueil", "nav-services": "Services", "nav-portfolio": "Portfolio", "nav-booking": "Réserver Stratégie",
-                "hero-title": "Architecture <span>Numérique Haute Performance</span>",
-                "hero-desc": "Nous concevons des solutions web de qualité production, des microservices backend robustes et des environnements SaaS multi-locataires sécurisés.",
-                "btn-consult": "Initialiser la Consultation", "btn-portfolio": "Voir les Profils de Cas",
-                "console-l1": "[1/3] Résolution des dépendances...", "console-l2": "[2/3] Cartographie des instances cloud sécurisées...", "console-l3": "[3/3] Initialisation du système réussie.",
-                "console-g": "Nœud Passerelle: Actif", "console-t": "Moteur de Thème: Opérationnel", "console-ready": "Prêt pour le déploiement structurel.",
-                "vert-title": "Nos Verticales Architecturales", "vert-desc": "De la conception des composants aux couches d'infrastructure découplées, nous développons la performance à tous les niveaux.",
-                "card1-title": "Frameworks Web", "card1-desc": "Développement de couches applicatives composées et d'interfaces réactives fluides basées sur des modèles de routage modernes.", "explore-fw": "Explorer les Frameworks",
-                "card2-title": "Écosystèmes SaaS", "card2-desc": "Intégration de pipelines d'authentification découplés, de webhooks serverless et de règles de sécurité au niveau des lignes.", "explore-eco": "Explorer les Écosystèmes",
-                "card3-title": "Intégration de Bases de Données", "card3-desc": "Configuration de schémas relationnels structurés, de requêtes optimisées et de pools de stockage d'objets durables.", "explore-db": "Explorer les Bases",
-                "pipe-title": "Conçu pour une Évolutivité Élastique", "pipe-desc": "Nous construisons des systèmes en utilisant des architectures standard éprouvées qui évitent la dépendance aux plateformes, garantissant réactivité et légèreté.",
-                "step1-title": "Passerelles de Jetons Sécurisées", "step1-desc": "Les sessions d'identité sont analysées strictement à l'aide de tableaux de jetons d'entreprise, évitant l'exposition des identifiants.",
-                "step2-title": "Isolation des Partitions", "step2-desc": "Les métriques d'autorisation au niveau des lignes protègent les environnements des fuites inter-locataires.",
-                "step3-title": "Mise en Cache Edge Globale", "step3-desc": "Les composants se chargent immédiatement depuis les nœuds de réseau de contenu les plus proches.",
+                "port-hero-title": "Profils de Cas de <span>Production</span>",
+                "port-hero-desc": "Analyses approfondies de plateformes numériques évolutives conçues pour la performance.",
+                "filter-all": "Toute l'Architecture", "filter-fullstack": "Full-Stack", "filter-saas": "Écosystèmes SaaS", "filter-perf": "Optimisation",
+                "examine-core": "Examiner le Noyau",
                 "footer-tagline": "Architecture d'outils de performance numérique de nouvelle génération et de solutions full-stack personnalisées.",
                 "f-col1": "Structures Moteur", "f-col2": "Ressources", "f-col3": "Entreprise",
                 "f-link1": "Frameworks Web", "f-link2": "Écosystèmes SaaS", "f-link3": "Bases de Données", "f-link4": "Profils de Cas", "f-link5": "Diagnostics Système", "f-link6": "Réservation Sécurisée", "f-link7": "Cadre Réseau", "f-link8": "Protocole de Sécurité", "f-link9": "Conditions d'Architecture",
@@ -342,19 +323,10 @@
             },
             pt: {
                 "nav-home": "Início", "nav-services": "Serviços", "nav-portfolio": "Portfólio", "nav-booking": "Agendar Estratégia",
-                "hero-title": "Arquitetura <span>Digital de Alta Performance</span>",
-                "hero-desc": "Construímos soluções web prontas para produção, microsserviços de backend robustos e ambientes SaaS multi-tenant seguros em escala empresarial.",
-                "btn-consult": "Inicializar Consulta", "btn-portfolio": "Ver Perfis de Casos",
-                "console-l1": "[1/3] Resolvendo dependências do espaço de trabalho...", "console-l2": "[2/3] Mapeando instâncias de nuvem seguras...", "console-l3": "[3/3] Inicialização do sistema bem-sucedida.",
-                "console-g": "Nó de Gateway: Ativo", "console-t": "Motor de Tema: Operacional", "console-ready": "Pronto para implantação estrutural.",
-                "vert-title": "Nossas Verticais Arquitetônicas", "vert-desc": "Do design de componentes até as camadas de infraestrutura desacopladas, projetamos desempenho em cada nível.",
-                "card1-title": "Frameworks Web", "card1-desc": "Desenvolvimento de camadas de aplicação componentizadas e interfaces responsivas fluidas apoiadas por modelos modernos de roteamento.", "explore-fw": "Explorar Frameworks",
-                "card2-title": "Ecossistemas SaaS", "card2-desc": "Integração de pipelines de autenticação desacoplados, webhooks serverless e regras de segurança de tabela multi-tenant.", "explore-eco": "Explorar Ecossistemas",
-                "card3-title": "Integração de Bancos de Dados", "card3-desc": "Configuração de esquemas relacionais estruturados, consultas de processamento otimizadas e pools de armazenamento de objetos duráveis.", "explore-db": "Explorar Bancos de Dados",
-                "pipe-title": "Construído para Escalabilidade Elástica", "pipe-desc": "Construímos sistemas usando arquiteturas padrão e comprovadas que evitam a dependência de plataformas, mantendo as ferramentas leves e seguras.",
-                "step1-title": "Portões de Token Seguros", "step1-desc": "As sessões de identidade são analisadas estritamente usando matrizes de tokens corporativos, evitando a exposição de credenciais.",
-                "step2-title": "Isolamento de Partição", "step2-desc": "Métricas de autorização em nível de linha protegem os ambientes dos usuários contra vazamentos entre inquilinos.",
-                "step3-title": "Cache de Borda Global", "step3-desc": "Os ativos e elementos estáticos carregam imediatamente a partir dos nós de rede de conteúdo mais próximos.",
+                "port-hero-title": "Perfis de Casos de <span>Produção</span>",
+                "port-hero-desc": "Análises profundas de plataformas digitais escaláveis projetadas para desempenho e segurança.",
+                "filter-all": "Toda a Arquitetura", "filter-fullstack": "Full-Stack", "filter-saas": "Ecossistemas SaaS", "filter-perf": "Otimização",
+                "examine-core": "Examinar Núcleo",
                 "footer-tagline": "Arquitetando ferramentas de desempenho digital de última geração e soluções full-stack personalizadas.",
                 "f-col1": "Estruturas do Motor", "f-col2": "Recursos", "f-col3": "Corporativo",
                 "f-link1": "Frameworks Web", "f-link2": "Ecossistemas SaaS", "f-link3": "Integração de Bancos", "f-link4": "Perfis de Casos", "f-link5": "Diagnósticos de Sistema", "f-link6": "Reserva Segura", "f-link7": "Estrutura de Rede", "f-link8": "Protocolo de Segurança", "f-link9": "Termos de Arquitetura",
@@ -362,39 +334,21 @@
             },
             es: {
                 "nav-home": "Inicio", "nav-services": "Servicios", "nav-portfolio": "Portafolio", "nav-booking": "Reservar Estratégia",
-                "hero-title": "Arquitectura <span>Digital de Alto Rendimiento</span>",
-                "hero-desc": "Construimos soluciones web de nivel de producción, microservicios backend robustos y entornos SaaS multiinquilino seguros a escala empresarial.",
-                "btn-consult": "Inicializar Consulta", "btn-portfolio": "Ver Perfiles de Casos",
-                "console-l1": "[1/3] Resolviendo dependencias...", "console-l2": "[2/3] Mapeando instancias seguras en la nube...", "console-l3": "[3/3] Inicialización del sistema exitosa.",
-                "console-g": "Nodo de Pasarela: Activo", "console-t": "Motor de Temas: Operacional", "console-ready": "Listo para el despliegue estructural.",
-                "vert-title": "Nuestras Verticales Arquitectónicas", "vert-desc": "Desde el diseño de componentes hasta capas de infraestructura desacopladas, diseñamos rendimiento en cada capa.",
-                "card1-title": "Frameworks Web", "card1-desc": "Desarrollo de capas de aplicación componentizadas e interfaces fluidas respaldadas por modelos de enrutamiento modernos.", "explore-fw": "Explorar Frameworks",
-                "card2-title": "Ecosistemas SaaS", "card2-desc": "Integración de canalizaciones de autenticación desacopladas, webhooks sin servidor y reglas de seguridad de nivel de fila.", "explore-eco": "Explorar Ecosistemas",
-                "card3-title": "Integración de Bases de Datos", "card3-desc": "Configuración de esquemas relacionales estructurados, consultas de procesamiento optimizadas y pools de almacenamiento duraderos.", "explore-db": "Explorar Bases de Datos",
-                "pipe-title": "Construido para Escalabilidad Elástica", "pipe-desc": "Construimos sistemas utilizando arquitecturas estándar probadas que evitan la dependencia de plataformas, manteniendo las herramientas ligeras y receptivas.",
-                "step1-title": "Puertas de Token Seguras", "step1-desc": "Las sesiones de identidad se analizan estrictamente utilizando matrices de tokens empresariales, evitando la exposición de credenciales.",
-                "step2-title": "Aislamiento de Particiones", "step2-desc": "Las métricas de autorización a nivel de fila protegen los entornos de usuario de filtraciones entre inquilinos.",
-                "step3-title": "Caché de Borde Global", "step3-desc": "Los activos se cargan de inmediato desde los nodos de la red de contenido más cercanos sin arrastre de hidratación.",
+                "port-hero-title": "Perfiles de Casos de <span>Producción</span>",
+                "port-hero-desc": "Análisis profundos de plataformas digitales escalables diseñadas para el rendimiento y despliegue seguro.",
+                "filter-all": "Toda la Arquitectura", "filter-fullstack": "Full-Stack", "filter-saas": "Ecosistemas SaaS", "filter-perf": "Optimización",
+                "examine-core": "Examinar Núcleo",
                 "footer-tagline": "Arquitectura de herramientas de rendimiento digital de próxima generación y soluciones full-stack personalizadas.",
                 "f-col1": "Estructuras de Motor", "f-col2": "Recursos", "f-col3": "Corporativo",
-                "f-link1": "Frameworks Web", "f-link2": "Ecosistemas SaaS", "f-link3": "Bases de Datos", "f-link4": "Perfis de Casos", "f-link5": "Diagnósticos del Sistema", "f-link6": "Reserva Segura", "f-link7": "Marco de Red", "f-link8": "Protocolo de Seguridad", "f-link9": "Términos de Arquitectura",
+                "f-link1": "Frameworks Web", "f-link2": "Ecosistemas SaaS", "f-link3": "Bases de Datos", "f-link4": "Perfiles de Casos", "f-link5": "Diagnósticos del Sistema", "f-link6": "Reserva Segura", "f-link7": "Marco de Red", "f-link8": "Protocolo de Seguridad", "f-link9": "Términos de Arquitectura",
                 "footer-copy": "© 2026 Sum Web Dev. Todos los derechos reservados. Operaciones del Hub ubicadas en Mombasa, KE."
             },
             it: {
                 "nav-home": "Home", "nav-services": "Servizi", "nav-portfolio": "Portfolio", "nav-booking": "Prenota Strategia",
-                "hero-title": "Architettura <span>Digitale ad Alte Prestazioni</span>",
-                "hero-desc": "Creiamo soluzioni web di livello production, microservizi backend robusti e ambienti SaaS multi-tenant sicuri per scale aziendali.",
-                "btn-consult": "Inizializza Consulenza", "btn-portfolio": "Visualizza Casi di Studio",
-                "console-l1": "[1/3] Risoluzione delle dipendenze...", "console-l2": "[2/3] Mappatura istanze cloud sicure...", "console-l3": "[3/3] Inizializzazione del sistema completata.",
-                "console-g": "Nodo Gateway: Attivo", "console-t": "Motore di Temi: Operativo", "console-ready": "Pronto per il deployment strutturale.",
-                "vert-title": "I Nostri Verticali Architetturali", "vert-desc": "Dalla progettazione dei componenti fino ai livelli di infrastruttura disaccoppiati, ingegnerizziamo le prestazioni ad ogni livello.",
-                "card1-title": "Framework Web", "card1-desc": "Sviluppo di livelli applicativi a componenti e interfacce responsive fluide supportate da moderni modelli di routing.", "explore-fw": "Esplora i Framework",
-                "card2-title": "Ecosistemi SaaS", "card2-desc": "Integrazione di pipeline di autenticazione disaccoppiate, webhook serverless e regole di sicurezza a livello di riga.", "explore-eco": "Esplora gli Ecosistemi",
-                "card3-title": "Integrazione Database", "card3-desc": "Configurazione di schemi relazionali strutturati, query di elaborazione ottimizzate e pool di archiviazione a oggetti durevoli.", "explore-db": "Esplora i Database",
-                "pipe-title": "Costruito per la Scalabilità Elastica", "pipe-desc": "Costruiamo sistemi utilizzando architetture standard e collaudate che evitano la dipendenza da piattaforme, mantenendo gli strumenti leggeri e reattivi.",
-                "step1-title": "Token Gate Sicuri", "step1-desc": "Le sessioni di identità vengono analizzate rigorosamente utilizzando array di token aziendali, impedendo l'esposizione delle credenziali.",
-                "step2-title": "Isolamento delle Partizioni", "step2-desc": "Le metriche di autorizzazione a livello di riga proteggono gli ambienti utente da fughe di dati multi-tenant.",
-                "step3-title": "Caching Edge Globale", "step3-desc": "Gli asset e gli elementi statici si caricano immediatamente dai nodi della rete di distribuzione dei contenuti più vicini.",
+                "port-hero-title": "Profili di Casi di <span>Produzione</span>",
+                "port-hero-desc": "Analisi approfondite di piattaforme digitali scalabili progettate per prestazioni e sicurezza.",
+                "filter-all": "Tutta l'Architettura", "filter-fullstack": "Full-Stack", "filter-saas": "Ecosistemi SaaS", "filter-perf": "Ottimizzazione",
+                "examine-core": "Esamina Nucleo",
                 "footer-tagline": "Progettazione di strumenti di performance digitale di nuova generazione e soluzioni full-stack personalizzate.",
                 "f-col1": "Strutture Motore", "f-col2": "Risorse", "f-col3": "Corporate",
                 "f-link1": "Framework Web", "f-link2": "Ecosistemi SaaS", "f-link3": "Integrazione Database", "f-link4": "Casi di Studio", "f-link5": "Diagnostica di Sistema", "f-link6": "Prenotazione Sicura", "f-link7": "Framework di Rete", "f-link8": "Protocollo di Sicurezza", "f-link9": "Termini di Architettura",
@@ -402,19 +356,10 @@
             },
             ne: {
                 "nav-home": "गृहपृष्ठ", "nav-services": "सेवाहरू", "nav-portfolio": "पोर्टफोलियो", "nav-booking": "रणनीति बुक गर्नुहोस्",
-                "hero-title": "उच्च-प्रदर्शन <span>डिजिटल आर्किटेक्चर</span>",
-                "hero-desc": "हामी उद्यम स्तरको लागि उत्पादन-ग्रेड वेब समाधानहरू, बलियो ब्याकइन्ड माइक्रोसर्भिसहरू, र सुरक्षित मल्टि-टेनेन्ट SaaS वातावरणहरू निर्माण गर्छौं।",
-                "btn-consult": "परामर्श सुरु गर्नुहोस्", "btn-portfolio": "केस प्रोफाइलहरू हेर्नुहोस्",
-                "console-l1": "[1/3] कार्यस्थान निर्भरताहरू समाधान गर्दै...", "console-l2": "[2/3] सुरक्षित क्लाउड इन्स्टान्सहरू म्यापिङ गर्दै...", "console-l3": "[3/3] प्रणाली प्रारम्भिकरण सफल भयो।",
-                "console-g": "गेटवे नोड: सक्रिय", "console-t": "थिम इन्जिन: सञ्चालनमा", "console-ready": "संरचनात्मक परिनियोजनका लागि तयार छ।",
-                "vert-title": "हाम्रो आर्किटेक्चरल वर्टिकल्स", "vert-desc": "कम्पोनेन्ट डिजाइनदेखि सुरक्षित डिकपल्ड पूर्वाधार तहहरूसम्म, हामी प्रत्येक तहमा प्रदर्शन इन्जिनियर गर्छौं।",
-                "card1-title": "वेब फ्रेमवर्क", "card1-desc": "आधुनिक राउटिङ मोडेलहरूद्वारा समर्थित कम्पोनेन्टाइज्ड एप्लिकेसन तहहरू र फ्लुइड उत्तरदायी इन्टरफेसहरू विकास गर्दै।", "explore-fw": "फ्रेमवर्कहरू अन्वेषण गर्नुहोस्",
-                "card2-title": "SaaS इकोसिस्टम", "card2-desc": "डिकपल्ड प्रमाणीकरण पाइपलाइनहरू, सर्भररहित वेबहुकहरू, र मल्टि-टेनेन्ट तालिका सुरक्षा नियमहरू एकीकृत गर्दै।", "explore-eco": "इकोसिस्टमहरू अन्वेषण गर्नुहोस्",
-                "card3-title": "डाटाबेस एकीकरण", "card3-desc": "संरचित रिलेसनल स्कीमाहरू, अप्टिमाइज्ड प्रशोधन क्वेरीहरू, र टिकाउ वस्तु भण्डारण पूलहरू कन्फिगर गर्दै।", "explore-db": "डाटाबेस अन्वेषण गर्नुहोस्",
-                "pipe-title": "इलास्टिक स्केलेबिलिटीको लागि निर्मित", "pipe-desc": "हामी मानक, प्रमाणित आर्किटेक्चरहरू प्रयोग गरेर प्रणालीहरू निर्माण गर्छौं जसले प्लेटफर्मको निर्भरतालाई बेवास्ता गर्दछ, तपाईंको उपकरणहरूलाई हल्का र तत्काल उत्तरदायी राख्छ।",
-                "step1-title": "सुरक्षित टोकन गेट्स", "step1-desc": "पहिचान सत्रहरू कडा रूपमा उद्यम टोकन एरेहरू प्रयोग गरेर पार्स गरिन्छ, मानक प्रमाण एक्सपोजर रोक्न।",
-                "step2-title": "विभाजन अलगाव", "step2-desc": "पङ्क्ति-स्तर प्राधिकरण मेट्रिक्सले प्रयोगकर्ताको वातावरणलाई मल्टि-टेनेन्ट क्रसिङ लीकबाट جوगाउँछ।",
-                "step3-title": "ग्लोबल एज क्यासिङ", "step3-desc": "सम्पत्ति र स्थिर तत्वहरू नजिकको सामग्री नेटवर्क नोडहरूबाट तुरुन्तै लोड हुन्छन्।",
+                "port-hero-title": "उत्पादन <span>केस प्रोफाइलहरू</span>",
+                "port-hero-desc": "कार्यसम्पादन र सुरक्षित प्रणाली डिप्लोइमेन्टको लागि इन्जिनियर गरिएका स्केलेबल डिजिटल प्लेटफर्महरूको गहिरो अध्ययन।",
+                "filter-all": "सबै आर्किटेक्चर", "filter-fullstack": "फुल-स्ट्याक", "filter-saas": "SaaS इकोसिस्टमहरू", "filter-perf": "अप्टिमाइजेसन",
+                "examine-core": "कोर जाँच गर्नुहोस्",
                 "footer-tagline": "अर्को पुस्ताको डिजिटल प्रदर्शन उपकरणहरू र अनुकूलन फुल-स्ट्याक समाधानहरू आर्किटेक्ट गर्दै।",
                 "f-col1": "इन्जिन संरचनाहरू", "f-col2": "स्रोतहरू", "f-col3": "कर्पोरेट",
                 "f-link1": "वेब फ्रेमवर्क", "f-link2": "SaaS इकोसिस्टम", "f-link3": "डाटाबेस एकीकरण", "f-link4": "केस प्रोफाइलहरू", "f-link5": "प्रणाली निदान", "f-link6": "सुरक्षित बुकिङ", "f-link7": "नेटवर्क फ्रेमवर्क", "f-link8": "सुरक्षा प्रोटोकल", "f-link9": "आर्किटेक्चरका सर्तहरू",
@@ -422,19 +367,10 @@
             },
             de: {
                 "nav-home": "Startseite", "nav-services": "Dienste", "nav-portfolio": "Portfolio", "nav-booking": "Strategie Buchen",
-                "hero-title": "Hochleistungs-<span>Digitalarchitektur</span>",
-                "hero-desc": "Wir bauen produktionsreife Weblösungen, robuste Backend-Mikroservices und sichere mandantenfähige SaaS-Umgebungen für Unternehmensebene.",
-                "btn-consult": "Beratung Initialisieren", "btn-portfolio": "Fallprofile Anzeigen",
-                "console-l1": "[1/3] Workspace-Abhängigkeiten auflösen...", "console-l2": "[2/3] Sichere Cloud-Instanzen zuordnen...", "console-l3": "[3/3] Systeminitialisierung erfolgreich.",
-                "console-g": "Gateway-Knoten: Aktiv", "console-t": "Theme-Engine: Betriebsbereit", "console-ready": "Bereit für den strukturellen Einsatz.",
-                "vert-title": "Unsere Architektur-Vertikalen", "vert-desc": "Vom Komponentendesign bis hin zu sicheren, entkoppelten Infrastaturschichten entwickeln wir Leistung auf jeder Ebene.",
-                "card1-title": "Web-Frameworks", "card1-desc": "Entwicklung komponentenbasierter Anwendungsschichten und flüssiger, responsiver Schnittstellen, unterstützt durch moderne Routing-Modelle.", "explore-fw": "Frameworks Erkunden",
-                "card2-title": "SaaS-Ökosysteme", "card2-desc": "Integration entkoppelter Authentifizierungspipelines, serverloser Webhooks und Sicherheitsregeln auf Zeilenebene.", "explore-eco": "Ökosysteme Erkunden",
-                "card3-title": "Datenbank-Integration", "card3-desc": "Konfigurieren strukturierter relationaler Schemata, optimierter Verarbeitungsabfragen und langlebiger Objektspeicherpools.", "explore-db": "Datenbanken Erkunden",
-                "pipe-title": "Gebaut für Elastische Skalierbarkeit", "pipe-desc": "Wir bauen Systeme auf der Grundlage bewährter Architekturen, die Plattformabhängigkeiten vermeiden, wodurch Ihre Tools leicht und sofort reaktionsschnell bleiben.",
-                "step1-title": "Sichere Token-Gates", "step1-desc": "Identitätssitzungen werden streng über Enterprise-Token-Arrays geparst, was die Offenlegung von Standardanmeldedaten verhindert.",
-                "step2-title": "Partitionsisolation", "step2-desc": "Autorisierungsmetriken auf Zeilenebene schützen Benutzerumgebungen vor mandantenübergreifenden Datenlecks.",
-                "step3-title": "Globales Edge-Caching", "step3-desc": "Assets und statische Elemente werden sofort von den nächstgelegenen Content-Network-Knoten geladen.",
+                "port-hero-title": "Produktions-<span>Fallprofile</span>",
+                "port-hero-desc": "Detaillierte Einblicke in skalierbare digitale Plattformen, die für Leistung und sichere Bereitstellung entwickelt wurden.",
+                "filter-all": "Gesamte Architektur", "filter-fullstack": "Full-Stack", "filter-saas": "SaaS-Ökosysteme", "filter-perf": "Optimierung",
+                "examine-core": "Kern Untersuchen",
                 "footer-tagline": "Architektur von digitalen Performance-Tools der nächsten Generation und maßgeschneiderten Full-Stack-Lösungen.",
                 "f-col1": "Engine-Strukturen", "f-col2": "Ressourcen", "f-col3": "Unternehmen",
                 "f-link1": "Web-Frameworks", "f-link2": "SaaS-Ökosysteme", "f-link3": "Datenbank-Integration", "f-link4": "Fallprofile", "f-link5": "Systemdiagnose", "f-link6": "Sichere Buchung", "f-link7": "Netzwerk-Framework", "f-link8": "Sicherheitsprotokoll", "f-link9": "Architekturbedingungen",
@@ -450,6 +386,9 @@
             const scrollBar = document.getElementById('scrollBar');
             const scrollTopBtn = document.getElementById('scrollTopBtn');
             const htmlRoot = document.documentElement;
+
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
 
             function applyTranslations(lang) {
                 const dictionary = translations[lang] || translations['en'];
@@ -490,6 +429,23 @@
                 });
             });
 
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const targetFilter = button.getAttribute('data-filter');
+
+                    projectCards.forEach(card => {
+                        if (targetFilter === 'all' || card.getAttribute('data-category') === targetFilter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
             const savedTheme = localStorage.getItem('theme') || 'dark';
             htmlRoot.setAttribute('data-theme', savedTheme);
             updateThemeIcon(savedTheme);
@@ -497,6 +453,7 @@
             themeToggler.addEventListener('click', () => {
                 const currentTheme = htmlRoot.getAttribute('data-theme');
                 const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
                 htmlRoot.setAttribute('data-theme', targetTheme);
                 localStorage.setItem('theme', targetTheme);
                 updateThemeIcon(targetTheme);
@@ -512,7 +469,7 @@
             }
 
             window.addEventListener('scroll', () => {
-                const winScroll = document.documentElement.scrollTop;
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
                 const scrolled = (winScroll / height) * 100;
                 scrollBar.style.width = scrolled + '%';
