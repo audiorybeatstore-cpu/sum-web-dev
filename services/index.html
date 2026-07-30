@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Engineering Services | Sum Web Dev</title>
-    <meta name="description" content="Explore our premium full-stack web engineering services.">
+    <meta name="description" content="Explore our premium full-stack web engineering services designed to scale revenue, automate checkouts, and build digital authority.">
     
     <!-- Design Assets & Tailwind CSS Play CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -141,7 +141,7 @@
             </nav>
 
             <!-- Top Header Controls -->
-            <div class="flex items-center gap-3 md:gap-5">
+            <div class="flex items-center gap-3 md:gap-5 z-[1070] relative">
                 <select id="langSwitch" class="bg-[var(--bg-card)] border border-[var(--border-glass)] text-[var(--text-pure)] px-2 py-1.5 rounded-md font-semibold text-xs cursor-pointer outline-none transition-all duration-200 h-[38px] focus:border-[var(--accent-primary)]">
                     <option value="en">EN</option>
                     <option value="nl">NL</option>
@@ -189,7 +189,7 @@
                 </ul>
                 <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
                     <span id="serv1-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-4 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5">Select Framework</a>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-fw">Select Framework</a>
                 </div>
             </div>
 
@@ -205,7 +205,7 @@
                 </ul>
                 <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
                     <span id="serv2-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">4-6 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5">Select Scale</a>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-scale">Select Scale</a>
                 </div>
             </div>
 
@@ -221,7 +221,55 @@
                 </ul>
                 <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
                     <span id="serv3-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">1 Wk</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5">Select Optimization</a>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-opt">Select Optimization</a>
+                </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                <h3 id="serv4-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Cloud Infrastructure & DevOps</h3>
+                <p id="serv4-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f1">Docker & Kubernetes Orchestration</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f2">AWS / Vercel Auto-Scaling Nodes</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f3">Automated GitHub Actions CI/CD</span></li>
+                </ul>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv4-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-3 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-devops">Select DevOps</a>
+                </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-network-wired"></i></div>
+                <h3 id="serv5-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Secure API & Microservices</h3>
+                <p id="serv5-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f1">JWT & OAuth2 Security Gates</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f2">GraphQL & REST Endpoints</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f3">DDoS Protection & Rate Limiting</span></li>
+                </ul>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv5-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">3-4 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-apis">Select APIs</a>
+                </div>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-brain"></i></div>
+                <h3 id="serv6-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Enterprise AI Integration</h3>
+                <p id="serv6-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.</p>
+                <ul class="list-none mb-10 flex flex-col gap-3">
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f1">OpenAI & Custom LLM Pipelines</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f2">Vector DB & Semantic Search</span></li>
+                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f3">Automated Workflow Agents</span></li>
+                </ul>
+                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
+                    <span id="serv6-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-5 Wks</strong></span>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-ai">Select AI Engine</a>
                 </div>
             </div>
 
@@ -230,16 +278,53 @@
 
     <!-- Footer -->
     <footer class="bg-[var(--bg-card)] border-t border-[var(--border-glass)] pt-20 pb-10 px-8 text-[var(--text-muted)] relative z-2">
-        <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center text-[0.85rem] gap-6 text-center md:text-left">
-            <p>&copy; 2026 Sum Web Dev. All rights reserved.</p>
+        <div class="max-w-[1400px] mx-auto grid grid-cols-[1.5fr_repeat(3,1fr)] max-lg:grid-cols-2 max-md:grid-cols-1 gap-16 mb-16">
+            <div class="footer-brand">
+                <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter">
+                    <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
+                        <path d="M6 22L16 6L26 22H6Z" />
+                    </svg>
+                    <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
+                </a>
+                <p id="footer-tagline" class="mt-4 max-w-[320px] text-[0.95rem]">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <div class="flex gap-4 mt-6">
+                    <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col1">Engine Structures</h4>
+                <ul class="list-none flex flex-col gap-3">
+                    <li><a href="../web-frameworks/" id="f-link1" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Web Frameworks</a></li>
+                    <li><a href="../saas-ecosystems/" id="f-link2" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">SaaS Ecosystems</a></li>
+                    <li><a href="../database-Integration/" id="f-link3" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Database Integration</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col2">Resources</h4>
+                <ul class="list-none flex flex-col gap-3">
+                    <li><a href="../case-profiles/" id="f-link4" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Case Profiles</a></li>
+                    <li><a href="../system-diagnostics/" id="f-link5" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">System Diagnostics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col3">Corporate</h4>
+                <ul class="list-none flex flex-col gap-3">
+                    <li><a href="../booking/" id="f-link6" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Secure Booking</a></li>
+                    <li><a href="../network-framework" id="f-link7" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Network Framework</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-[1400px] mx-auto border-t border-[var(--border-glass)] pt-8 flex max-md:flex-col justify-between items-center text-[0.85rem] gap-6 max-md:text-center">
+            <p id="footer-copy">&copy; 2026 Sum Web Dev. All rights reserved.</p>
             <div class="flex gap-6">
-                <a href="../security-protocol" class="hover:text-white transition-colors">Security Protocol</a>
-                <a href="../terms-of-architecture" class="hover:text-white transition-colors">Terms of Architecture</a>
+                <a href="../security-protocol" id="f-link8" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Security Protocol</a>
+                <a href="../terms-of-architecture" id="f-link9" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Terms of Architecture</a>
             </div>
         </div>
     </footer>
 
-    <!-- Simple, Bulletproof Drawer JavaScript -->
+    <!-- Menu Control Script -->
     <script>
         const translations = {
             en: {
