@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Engineering Services | Sum Web Dev</title>
-    <meta name="description" content="Explore our premium full-stack web engineering services designed to scale revenue, automate checkouts, and build digital authority.">
+    <meta name="description" content="Explore our premium full-stack web engineering services.">
     
     <!-- Design Assets & Tailwind CSS Play CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,7 +27,6 @@
     </script>
     
     <style>
-        /* Custom Theme Token Variables */
         :root[data-theme="dark"] {
             --bg-main: #0B0F19;
             --bg-card: #151A28;
@@ -59,112 +58,90 @@
 
         body.menu-open { overflow: hidden; }
 
-        /* Mobile Drawer (Max-Width 767px) */
-        @media (max-width: 767px) {
-            #menuPanel {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 80vw;
-                max-width: 300px;
-                height: 100vh;
-                background-color: #111625 !important;
-                box-shadow: -8px 0 24px rgba(0, 0, 0, 0.6);
-                transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 1050;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                padding-top: 6rem;
-                padding-left: 2rem;
-                padding-right: 2rem;
-                gap: 1.75rem;
-            }
-
-            #menuPanel.active {
-                right: 0 !important;
-            }
-
-            #menuOverlay {
-                position: fixed;
-                inset: 0;
-                background: rgba(0, 0, 0, 0.6);
-                z-index: 1040;
-                opacity: 0;
-                pointer-events: none;
-                transition: opacity 0.3s ease;
-            }
-
-            #menuOverlay.active {
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-            #menuPanel a {
-                color: #94A3B8 !important;
-                font-size: 1.125rem;
-                font-weight: 700;
-                position: relative;
-                z-index: 1051;
-            }
-
-            #menuPanel a:hover, #menuPanel a.active {
-                color: #FFFFFF !important;
-            }
+        /* Mobile Drawer Specific Styling */
+        #mobileDrawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80vw;
+            max-width: 300px;
+            height: 100vh;
+            background-color: #111625;
+            box-shadow: -8px 0 24px rgba(0, 0, 0, 0.6);
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 10000;
         }
 
-        /* Desktop Mode Reset (Min-Width 768px) */
-        @media (min-width: 768px) {
-            #menuPanel {
-                position: static !important;
-                width: auto !important;
-                height: auto !important;
-                background-color: transparent !important;
-                box-shadow: none !important;
-                display: flex !important;
-                flex-direction: row !important;
-                align-items: center !important;
-                gap: 2rem !important;
-                padding: 0 !important;
-                z-index: auto !important;
-            }
+        #mobileDrawer.active {
+            right: 0;
+        }
 
-            #menuOverlay {
-                display: none !important;
-            }
+        /* Overlay Styling */
+        #menuOverlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #menuOverlay.active {
+            opacity: 1;
+            pointer-events: auto;
         }
     </style>
 </head>
 <body class="overflow-x-hidden leading-relaxed">
 
     <!-- Scroll Progress Bar -->
-    <div id="scrollBar" class="fixed top-0 left-0 w-0 h-[3px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-neon)] z-[9999]"></div>
+    <div id="scrollBar" class="fixed top-0 left-0 w-0 h-[3px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-neon)] z-[10001]"></div>
 
     <!-- Mobile Backdrop Dimming Overlay -->
     <div id="menuOverlay"></div>
+
+    <!-- Mobile Drawer Side Panel -->
+    <aside id="mobileDrawer" class="flex flex-col p-8 md:hidden">
+        <!-- Close Button Inside Drawer -->
+        <div class="flex justify-between items-center mb-10 pb-4 border-b border-[var(--border-glass)]">
+            <span class="font-bold text-lg text-[var(--text-pure)]">Menu</span>
+            <button id="closeDrawer" class="text-[var(--text-muted)] hover:text-white text-2xl p-2 cursor-pointer focus:outline-none" aria-label="Close Menu">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Links -->
+        <nav class="flex flex-col gap-6">
+            <a href="../" class="text-xl font-bold text-[var(--text-muted)] hover:text-white transition-colors">Home</a>
+            <a href="./" class="text-xl font-bold text-white transition-colors">Services</a>
+            <a href="../portfolio/" class="text-xl font-bold text-[var(--text-muted)] hover:text-white transition-colors">Portfolio</a>
+            <a href="../booking/" class="text-xl font-bold text-[var(--text-muted)] hover:text-white transition-colors">Book Strategy</a>
+        </nav>
+    </aside>
 
     <!-- Global Header -->
     <header class="fixed top-0 left-0 w-full h-20 bg-[var(--header-bg)] border-b border-[var(--border-glass)] z-[1000] flex items-center transition-colors duration-300">
         <div class="w-full max-w-[1400px] mx-auto px-6 md:px-8 flex justify-between items-center">
             
             <!-- Brand Logo -->
-            <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter z-[1010]">
+            <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter">
                 <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
                     <path d="M6 22L16 6L26 22H6Z" />
                 </svg>
-                <span class="text-[var(--text-pure)]">SUM <span class="text-[var(--accent-neon)]">WEBDEV</span></span>
+                <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
             </a>
 
-            <!-- Navigation Bar (Inline on Desktop, Slide-Drawer on Mobile) -->
-            <nav id="menuPanel">
-                <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200" data-tr="nav-home">Home</a>
-                <a href="./" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm" data-tr="nav-services">Services</a>
-                <a href="../portfolio/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200" data-tr="nav-portfolio">Portfolio</a>
-                <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200" data-tr="nav-booking">Book Strategy</a>
+            <!-- DESKTOP NAVIGATION (Hidden on mobile, visible on md and up) -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200">Home</a>
+                <a href="./" class="text-[var(--text-pure)] font-medium text-[0.95rem] relative active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm">Services</a>
+                <a href="../portfolio/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200">Portfolio</a>
+                <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200">Book Strategy</a>
             </nav>
 
             <!-- Top Header Controls -->
-            <div class="flex items-center gap-3 md:gap-5 z-[1070] relative">
+            <div class="flex items-center gap-3 md:gap-5">
                 <select id="langSwitch" class="bg-[var(--bg-card)] border border-[var(--border-glass)] text-[var(--text-pure)] px-2 py-1.5 rounded-md font-semibold text-xs cursor-pointer outline-none transition-all duration-200 h-[38px] focus:border-[var(--accent-primary)]">
                     <option value="en">EN</option>
                     <option value="nl">NL</option>
@@ -180,9 +157,9 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
                 
-                <!-- Hamburger / Close Toggle Button -->
-                <button id="hamburgerMenu" class="md:hidden text-[var(--text-pure)] text-lg cursor-pointer focus:outline-none flex items-center justify-center w-[38px] h-[38px] border border-[var(--border-glass)] rounded-md hover:border-[var(--accent-primary)] transition-all duration-200" aria-label="Toggle Menu">
-                    <i id="hamburgerIcon" class="fa-solid fa-bars"></i>
+                <!-- Hamburger Button (Mobile Only) -->
+                <button id="openDrawer" class="md:hidden text-[var(--text-pure)] text-lg cursor-pointer focus:outline-none flex items-center justify-center w-[38px] h-[38px] border border-[var(--border-glass)] rounded-md hover:border-[var(--accent-primary)] transition-all duration-200" aria-label="Open Menu">
+                    <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
@@ -212,7 +189,7 @@
                 </ul>
                 <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
                     <span id="serv1-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-4 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-fw">Select Framework</a>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5">Select Framework</a>
                 </div>
             </div>
 
@@ -228,7 +205,7 @@
                 </ul>
                 <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
                     <span id="serv2-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">4-6 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-scale">Select Scale</a>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5">Select Scale</a>
                 </div>
             </div>
 
@@ -244,55 +221,7 @@
                 </ul>
                 <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
                     <span id="serv3-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">1 Wk</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-opt">Select Optimization</a>
-                </div>
-            </div>
-
-            <!-- Service 4 -->
-            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
-                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-                <h3 id="serv4-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Cloud Infrastructure & DevOps</h3>
-                <p id="serv4-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.</p>
-                <ul class="list-none mb-10 flex flex-col gap-3">
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f1">Docker & Kubernetes Orchestration</span></li>
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f2">AWS / Vercel Auto-Scaling Nodes</span></li>
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv4-f3">Automated GitHub Actions CI/CD</span></li>
-                </ul>
-                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
-                    <span id="serv4-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-3 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-devops">Select DevOps</a>
-                </div>
-            </div>
-
-            <!-- Service 5 -->
-            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
-                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-network-wired"></i></div>
-                <h3 id="serv5-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Secure API & Microservices</h3>
-                <p id="serv5-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.</p>
-                <ul class="list-none mb-10 flex flex-col gap-3">
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f1">JWT & OAuth2 Security Gates</span></li>
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f2">GraphQL & REST Endpoints</span></li>
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv5-f3">DDoS Protection & Rate Limiting</span></li>
-                </ul>
-                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
-                    <span id="serv5-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">3-4 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-apis">Select APIs</a>
-                </div>
-            </div>
-
-            <!-- Service 6 -->
-            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
-                <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-brain"></i></div>
-                <h3 id="serv6-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Enterprise AI Integration</h3>
-                <p id="serv6-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.</p>
-                <ul class="list-none mb-10 flex flex-col gap-3">
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f1">OpenAI & Custom LLM Pipelines</span></li>
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f2">Vector DB & Semantic Search</span></li>
-                    <li class="text-sm text-[var(--text-pure)] flex items-center gap-3"><i class="fa-solid fa-circle-check text-[var(--accent-primary)] text-xs"></i> <span id="serv6-f3">Automated Workflow Agents</span></li>
-                </ul>
-                <div class="flex justify-between items-center border-t border-[var(--border-glass)] pt-6 text-sm text-[var(--text-muted)]">
-                    <span id="serv6-time">Timeline: <strong class="text-[var(--text-pure)] text-lg font-bold">2-5 Wks</strong></span>
-                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5" data-tr="btn-select-ai">Select AI Engine</a>
+                    <a href="../booking/" class="bg-[var(--accent-primary)] text-white no-underline font-semibold rounded-md py-2 px-4 text-xs transition-transform duration-200 hover:-translate-y-0.5">Select Optimization</a>
                 </div>
             </div>
 
@@ -301,53 +230,16 @@
 
     <!-- Footer -->
     <footer class="bg-[var(--bg-card)] border-t border-[var(--border-glass)] pt-20 pb-10 px-8 text-[var(--text-muted)] relative z-2">
-        <div class="max-w-[1400px] mx-auto grid grid-cols-[1.5fr_repeat(3,1fr)] max-lg:grid-cols-2 max-md:grid-cols-1 gap-16 mb-16">
-            <div class="footer-brand">
-                <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter">
-                    <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
-                        <path d="M6 22L16 6L26 22H6Z" />
-                    </svg>
-                    <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
-                </a>
-                <p id="footer-tagline" class="mt-4 max-w-[320px] text-[0.95rem]">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
-                <div class="flex gap-4 mt-6">
-                    <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="inline-flex items-center justify-center w-[38px] h-[38px] rounded-md border border-[var(--border-glass)] text-[var(--text-pure)] no-underline transition-colors duration-200 hover:bg-[var(--accent-primary)] hover:text-white"><i class="fa-brands fa-linkedin"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col1">Engine Structures</h4>
-                <ul class="list-none flex flex-col gap-3">
-                    <li><a href="../web-frameworks/" id="f-link1" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Web Frameworks</a></li>
-                    <li><a href="../saas-ecosystems/" id="f-link2" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">SaaS Ecosystems</a></li>
-                    <li><a href="../database-Integration/" id="f-link3" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Database Integration</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col2">Resources</h4>
-                <ul class="list-none flex flex-col gap-3">
-                    <li><a href="../case-profiles/" id="f-link4" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Case Profiles</a></li>
-                    <li><a href="../system-diagnostics/" id="f-link5" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">System Diagnostics</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4 class="text-[var(--text-pure)] text-base font-bold mb-6 uppercase tracking-wider" data-tr="f-col3">Corporate</h4>
-                <ul class="list-none flex flex-col gap-3">
-                    <li><a href="../booking/" id="f-link6" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Secure Booking</a></li>
-                    <li><a href="../network-framework" id="f-link7" class="text-[var(--text-muted)] no-underline text-[0.95rem] transition-colors duration-200 hover:text-[var(--text-pure)]">Network Framework</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="max-w-[1400px] mx-auto border-t border-[var(--border-glass)] pt-8 flex max-md:flex-col justify-between items-center text-[0.85rem] gap-6 max-md:text-center">
-            <p id="footer-copy">&copy; 2026 Sum Web Dev. All rights reserved.</p>
+        <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center text-[0.85rem] gap-6 text-center md:text-left">
+            <p>&copy; 2026 Sum Web Dev. All rights reserved.</p>
             <div class="flex gap-6">
-                <a href="../security-protocol" id="f-link8" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Security Protocol</a>
-                <a href="../terms-of-architecture" id="f-link9" class="text-[var(--text-muted)] no-underline transition-colors duration-200 hover:text-[var(--text-pure)]">Terms of Architecture</a>
+                <a href="../security-protocol" class="hover:text-white transition-colors">Security Protocol</a>
+                <a href="../terms-of-architecture" class="hover:text-white transition-colors">Terms of Architecture</a>
             </div>
         </div>
     </footer>
 
-    <!-- Menu Control Script -->
+    <!-- Simple, Bulletproof Drawer JavaScript -->
     <script>
         const translations = {
             en: {
@@ -664,40 +556,30 @@
             }
         };
 
-        const hamburgerBtn = document.getElementById('hamburgerMenu');
-        const hamburgerIcon = document.getElementById('hamburgerIcon');
-        const menuPanel = document.getElementById('menuPanel');
-        const menuOverlay = document.getElementById('menuOverlay');
+        const openBtn = document.getElementById('openDrawer');
+        const closeBtn = document.getElementById('closeDrawer');
+        const drawer = document.getElementById('mobileDrawer');
+        const overlay = document.getElementById('menuOverlay');
 
-        function toggleMenu() {
-            const isActive = menuPanel.classList.toggle('active');
-            if (menuOverlay) menuOverlay.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-            
-            // Switch icon between Hamburger bars and Close X
-            if (isActive) {
-                hamburgerIcon.className = 'fa-solid fa-xmark';
-            } else {
-                hamburgerIcon.className = 'fa-solid fa-bars';
-            }
+        function openMenu() {
+            drawer.classList.add('active');
+            overlay.classList.add('active');
+            document.body.classList.add('menu-open');
         }
 
-        if (hamburgerBtn) {
-            hamburgerBtn.addEventListener('click', toggleMenu);
+        function closeMenu() {
+            drawer.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
         }
 
-        if (menuOverlay) {
-            menuOverlay.addEventListener('click', toggleMenu);
-        }
+        if (openBtn) openBtn.addEventListener('click', openMenu);
+        if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+        if (overlay) overlay.addEventListener('click', closeMenu);
 
-        // Close drawer on mobile when clicking links
-        const menuLinks = menuPanel.querySelectorAll('a');
-        menuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768 && menuPanel.classList.contains('active')) {
-                    toggleMenu();
-                }
-            });
+        // Close drawer when clicking any mobile link
+        drawer.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
         });
         
         document.addEventListener('DOMContentLoaded', () => {
