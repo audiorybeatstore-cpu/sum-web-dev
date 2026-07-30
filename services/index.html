@@ -100,10 +100,10 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
                 
-                <button id="hamburgerMenu" class="hidden max-md:flex bg-transparent border border-[var(--border-glass)] text-[var(--text-pure)] cursor-pointer w-[38px] h-[38px] rounded-md items-center justify-center transition-all duration-200 flex-col gap-1 p-0 z-[1010]" aria-label="Toggle Menu">
-                    <span class="block w-[18px] h-0.5 bg-[var(--text-pure)] transition-all duration-300"></span>
-                    <span class="block w-[18px] h-0.5 bg-[var(--text-pure)] transition-all duration-300"></span>
-                    <span class="block w-[18px] h-0.5 bg-[var(--text-pure)] transition-all duration-300"></span>
+                <button class="mobile-toggle" id="hamburgerMenu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
             </div>
         </div>
@@ -626,6 +626,7 @@
             const initialLang = localStorage.getItem('preferred-lang') || 'en';
             applyTranslations(initialLang);
 
+            // --- Mobile Drop Drawer Navigation Toggle Rules ---
             hamburgerMenu.addEventListener('click', () => {
                 hamburgerMenu.classList.toggle('active');
                 menuPanel.classList.toggle('active');
