@@ -68,17 +68,17 @@
                 width: 80vw;
                 max-width: 300px;
                 height: 100vh;
-                background-color: #111625 !important; /* Solid dark background, zero blur */
+                background-color: #111625 !important;
                 box-shadow: -8px 0 24px rgba(0, 0, 0, 0.6);
                 transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 1050;
+                z-index: 1050; /* Above overlay (1040) */
             }
 
             #menuPanel.active {
                 right: 0 !important;
             }
 
-            /* Clean dimming overlay behind drawer without blur */
+            /* Clean dimming overlay behind drawer */
             #menuOverlay {
                 position: fixed;
                 inset: 0;
@@ -97,6 +97,9 @@
             /* Explicit Link Styling */
             #menuPanel a {
                 color: #94A3B8 !important;
+                pointer-events: auto !important;
+                position: relative;
+                z-index: 1051;
             }
             #menuPanel a:hover, #menuPanel a.active {
                 color: #FFFFFF !important;
@@ -112,6 +115,14 @@
     <!-- Solid Dim Overlay -->
     <div id="menuOverlay"></div>
 
+    <!-- Mobile Navigation Drawer (Moved Outside Header for Clean Layering) -->
+    <nav id="menuPanel" class="flex items-center gap-8 max-md:pt-28 max-md:px-8 max-md:pb-8 max-md:flex-col max-md:items-start max-md:gap-7">
+        <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-home">Home</a>
+        <a href="./" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm max-md:text-lg max-md:font-bold" data-tr="nav-services">Services</a>
+        <a href="../portfolio/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-portfolio">Portfolio</a>
+        <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-booking">Book Strategy</a>
+    </nav>
+
     <!-- Global Header -->
     <header class="fixed top-0 left-0 w-full h-20 bg-[var(--header-bg)] border-b border-[var(--border-glass)] z-[1000] flex items-center transition-colors duration-300">
         <div class="w-full max-w-[1400px] mx-auto px-6 md:px-8 flex justify-between items-center">
@@ -121,16 +132,8 @@
                 </svg>
                 <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
             </a>
-            
-            <!-- Mobile Menu Panel -->
-            <nav id="menuPanel" class="flex items-center gap-8 max-md:pt-28 max-md:px-8 max-md:pb-8 max-md:flex-col max-md:items-start max-md:gap-7">
-                <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-home">Home</a>
-                <a href="./" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm max-md:text-lg max-md:font-bold" data-tr="nav-services">Services</a>
-                <a href="../portfolio/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-portfolio">Portfolio</a>
-                <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-booking">Book Strategy</a>
-            </nav>
 
-            <!-- Controls -->
+            <!-- Header Controls -->
             <div class="flex items-center gap-3 md:gap-5 z-[1060] relative">
                 <select id="langSwitch" class="bg-[var(--bg-card)] border border-[var(--border-glass)] text-[var(--text-pure)] px-2 py-1.5 rounded-md font-semibold text-xs cursor-pointer outline-none transition-all duration-200 h-[38px] focus:border-[var(--accent-primary)]">
                     <option value="en">EN</option>
@@ -657,6 +660,16 @@
             menuOverlay.addEventListener('click', toggleMenu);
         }
 
+        // Close drawer automatically when clicking any link
+        const menuLinks = menuPanel.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (menuPanel.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
+        
         document.addEventListener('DOMContentLoaded', () => {
             const themeToggler = document.getElementById('themeToggler');
             const langSwitch = document.getElementById('langSwitch');
