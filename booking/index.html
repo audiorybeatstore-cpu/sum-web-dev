@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Secure Consultation Booking | Sum Web Dev</title>
-    <meta name="description" content="Schedule a strategy session with Sum Web Dev. Let us engineering premium web architectures that drive conversion and revenue growth.">
+    <meta name="description" content="Schedule a strategy session with Sum Web Dev. Let us engineer premium web architectures that drive conversion and revenue growth.">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -153,7 +153,7 @@
             z-index: 10;
         }
         
-        .booking-info-pane display: flex; flex-direction: column; justify-content: space-between; }
+        .booking-info-pane { display: flex; flex-direction: column; justify-content: space-between; }
         .booking-badge {
             display: inline-flex; align-items: center; gap: 0.5rem;
             background: rgba(0, 212, 255, 0.1); border: 1px solid rgba(0, 212, 255, 0.2);
@@ -222,7 +222,7 @@
         }
 
         /* ==========================================================================
-           5. Responsive Breakpoints Engine & Fluid Side Drawer Fixes
+           5. Responsive Breakpoints Engine
            ========================================================================== */
         @media(max-width: 1024px) {
             .booking-wrapper { grid-template-columns: 1fr; gap: 4rem; padding: 3rem; }
@@ -232,11 +232,9 @@
         @media(max-width: 768px) {
             .mobile-toggle { display: flex; }
             
-            /* Keeps UI utility components safely in flow bounds layout-wise */
             .nav-controls-wrapper { position: relative; }
             .lang-select, #themeToggler { position: relative !important; top: auto !important; right: auto !important; }
 
-            /* Premium side-drawer layout implementation */
             .nav-links {
                 display: flex; 
                 flex-direction: column; 
@@ -259,7 +257,6 @@
             }
             .nav-links.active { right: 0; }
 
-            /* Staggered cinematic cascade style motions */
             .nav-links .nav-item {
                 font-size: 1.25rem;
                 font-weight: 600;
@@ -297,16 +294,19 @@
             </a>
             
             <nav class="nav-links" id="menuPanel">
-                <a href="../" class="nav-item">Home</a>
-                <a href="../services/" class="nav-item">Services</a>
-                <a href="../portfolio/" class="nav-item">Portfolio</a>
-                <a href="./" class="nav-item active">Book Strategy</a>
+                <a href="../" class="nav-item" data-i18n="nav_home">Home</a>
+                <a href="../services/" class="nav-item" data-i18n="nav_services">Services</a>
+                <a href="../portfolio/" class="nav-item" data-i18n="nav_portfolio">Portfolio</a>
+                <a href="./" class="nav-item active" data-i18n="nav_book">Book Strategy</a>
             </nav>
 
             <div class="nav-controls-wrapper">
-                <select class="lang-select" id="langSwitch">
+                <select class="lang-select" id="langSwitch" aria-label="Select Language">
                     <option value="en">EN</option>
                     <option value="es">ES</option>
+                    <option value="fr">FR</option>
+                    <option value="de">DE</option>
+                    <option value="sw">SW</option>
                 </select>
                 
                 <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
@@ -330,10 +330,10 @@
             <div class="booking-info-pane">
                 <div>
                     <div class="booking-badge">
-                        <i class="fa-solid fa-calendar-check"></i> Available Systems Open
+                        <i class="fa-solid fa-calendar-check"></i> <span data-i18n="badge_text">Available Systems Open</span>
                     </div>
-                    <h2>Secure Your <span>Growth Strategy</span> Session</h2>
-                    <p>Let's map out a custom engineered framework built specifically around your operations. No generic pitches—just direct architectural logic designed to expand your digital performance scale.</p>
+                    <h2 data-i18n="heading_main">Secure Your <span>Growth Strategy</span> Session</h2>
+                    <p data-i18n="subheading_desc">Let's map out a custom engineered framework built specifically around your operations. No generic pitches—just direct architectural logic designed to expand your digital performance scale.</p>
                 </div>
 
                 <div class="contact-methods">
@@ -343,49 +343,50 @@
                     </div>
                     <div class="method-node">
                         <i class="fa-solid fa-location-dot"></i>
-                        <span>Netherlands (Global Deliveries)</span>
+                        <span data-i18n="location_text">Netherlands (Global Deliveries)</span>
                     </div>
                 </div>
             </div>
 
             <div class="booking-form-pane">
-                <form id="consultationForm" novalidate>
+                <!-- Formspree Integration Endpoint -->
+                <form id="consultationForm" action="https://formspree.io/f/mzdnqpqb" method="POST" novalidate>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="clientName">Full Name</label>
-                            <input type="text" id="clientName" required placeholder="Alex Mercer">
+                            <label for="clientName" data-i18n="lbl_name">Full Name</label>
+                            <input type="text" id="clientName" name="name" required placeholder="Alex Mercer">
                         </div>
                         <div class="form-group">
-                            <label for="clientEmail">Corporate Email</label>
-                            <input type="email" id="clientEmail" required placeholder="alex@company.com">
+                            <label for="clientEmail" data-i18n="lbl_email">Corporate Email</label>
+                            <input type="email" id="clientEmail" name="email" required placeholder="alex@company.com">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="projectScale">Estimated Budget Tier</label>
-                            <select id="projectScale">
-                                <option value="tier1">Full-Stack Web Engineering</option>
-                                <option value="tier2">SaaS Ecosystem Design</option>
-                                <option value="tier3">Performance Audits</option>
-                                <option value="tier3">Cloud Infrastructure & DevOps</option>
-                                <option value="tier3">Secure API & Microservices</option>
-                                <option value="tier3">Enterprise AI Integration</option>
+                            <label for="projectScale" data-i18n="lbl_service">Estimated Service Tier</label>
+                            <select id="projectScale" name="service_tier">
+                                <option value="Full-Stack Web Engineering" data-i18n="opt_tier1">Full-Stack Web Engineering</option>
+                                <option value="SaaS Ecosystem Design" data-i18n="opt_tier2">SaaS Ecosystem Design</option>
+                                <option value="Performance Audits" data-i18n="opt_tier3">Performance Audits</option>
+                                <option value="Cloud Infrastructure & DevOps" data-i18n="opt_tier4">Cloud Infrastructure & DevOps</option>
+                                <option value="Secure API & Microservices" data-i18n="opt_tier5">Secure API & Microservices</option>
+                                <option value="Enterprise AI Integration" data-i18n="opt_tier6">Enterprise AI Integration</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="targetDate">Target Launch</label>
-                            <input type="date" id="targetDate" required>
+                            <label for="targetDate" data-i18n="lbl_date">Target Launch</label>
+                            <input type="date" id="targetDate" name="target_date" required>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="projectBrief">Structural Architecture Brief</label>
-                        <textarea id="projectBrief" rows="5" required placeholder="Outline core system scope, processing requirements, and scaling issues..."></textarea>
+                        <label for="projectBrief" data-i18n="lbl_brief">Structural Architecture Brief</label>
+                        <textarea id="projectBrief" name="message" rows="5" required placeholder="Outline core system scope, processing requirements, and scaling issues..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Submit Request <i class="fa-solid fa-arrow-right"></i>
+                    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                        <span data-i18n="btn_submit">Submit Request</span> <i class="fa-solid fa-arrow-right"></i>
                     </button>
                     
                     <div class="form-status-msg" id="formStatus"></div>
@@ -403,40 +404,40 @@
                     </svg>
                     SUM<span>WEBDEV</span>
                 </a>
-                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <p data-i18n="footer_brand_desc">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
                 <div class="footer-social-row">
-                    <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
-                    <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="social-link-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-link-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Engine Structures</h4>
+                <h4 data-i18n="footer_col1_title">Engine Structures</h4>
                 <ul>
-                    <li><a href="../web-frameworks/">Web Frameworks</a></li>
-                    <li><a href="../saas-ecosystems/">SaaS Ecosystems</a></li>
-                    <li><a href="../database-Integration/">Database Integration</a></li>
+                    <li><a href="../web-frameworks/" data-i18n="footer_link_1">Web Frameworks</a></li>
+                    <li><a href="../saas-ecosystems/" data-i18n="footer_link_2">SaaS Ecosystems</a></li>
+                    <li><a href="../database-Integration/" data-i18n="footer_link_3">Database Integration</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
+                <h4 data-i18n="footer_col2_title">Resources</h4>
                 <ul>
-                    <li><a href="../case-profiles/">Case Profiles</a></li>
-                    <li><a href="../system-diagnostics/">System Diagnostics</a></li>
+                    <li><a href="../case-profiles/" data-i18n="footer_link_4">Case Profiles</a></li>
+                    <li><a href="../system-diagnostics/" data-i18n="footer_link_5">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Corporate</h4>
+                <h4 data-i18n="footer_col3_title">Corporate</h4>
                 <ul>
-                    <li><a href="../booking/">Secure Booking</a></li>
-                    <li><a href="../network-framework/">Network Framework</a></li>
+                    <li><a href="../booking/" data-i18n="footer_link_6">Secure Booking</a></li>
+                    <li><a href="../network-framework/" data-i18n="footer_link_7">Network Framework</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Sum Web Dev. All rights reserved.</p>
             <div class="footer-legal-links">
-                <a href="../security-protocol/">Security Protocol</a>
-                <a href="../terms-of-architecture/">Terms of Architecture</a>
+                <a href="../security-protocol/" data-i18n="footer_link_8">Security Protocol</a>
+                <a href="../terms-of-architecture/" data-i18n="footer_link_9">Terms of Architecture</a>
             </div>
         </div>
     </footer>
@@ -447,6 +448,225 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Translations Dictionary (Multi-language Support) ---
+            const translations = {
+                en: {
+                    nav_home: "Home",
+                    nav_services: "Services",
+                    nav_portfolio: "Portfolio",
+                    nav_book: "Book Strategy",
+                    badge_text: "Available Systems Open",
+                    heading_main: "Secure Your Growth Strategy Session",
+                    subheading_desc: "Let's map out a custom engineered framework built specifically around your operations. No generic pitches—just direct architectural logic designed to expand your digital performance scale.",
+                    location_text: "Netherlands (Global Deliveries)",
+                    lbl_name: "Full Name",
+                    lbl_email: "Corporate Email",
+                    lbl_service: "Estimated Service Tier",
+                    opt_tier1: "Full-Stack Web Engineering",
+                    opt_tier2: "SaaS Ecosystem Design",
+                    opt_tier3: "Performance Audits",
+                    opt_tier4: "Cloud Infrastructure & DevOps",
+                    opt_tier5: "Secure API & Microservices",
+                    opt_tier6: "Enterprise AI Integration",
+                    lbl_date: "Target Launch",
+                    lbl_brief: "Structural Architecture Brief",
+                    btn_submit: "Submit Request",
+                    ph_name: "Alex Mercer",
+                    ph_email: "alex@company.com",
+                    ph_brief: "Outline core system scope, processing requirements, and scaling issues...",
+                    err_fields: "Error: All pipeline structural fields are required to process compilation architecture rules.",
+                    err_email: "Error: Specified corporate entry fails syntax verification protocols.",
+                    submitting: "Deploying Payload...",
+                    success_msg: "Deployment Success: Strategy initialization data payload synchronized successfully via Formspree.",
+                    err_server: "Submission Failed: Network pipeline rejected payload transmission.",
+                    footer_brand_desc: "Architecting next-generation digital performance tools and custom full-stack solutions.",
+                    footer_col1_title: "Engine Structures",
+                    footer_col2_title: "Resources",
+                    footer_col3_title: "Corporate",
+                    footer_link_1: "Web Frameworks",
+                    footer_link_2: "SaaS Ecosystems",
+                    footer_link_3: "Database Integration",
+                    footer_link_4: "Case Profiles",
+                    footer_link_5: "System Diagnostics",
+                    footer_link_6: "Secure Booking",
+                    footer_link_7: "Network Framework",
+                    footer_link_8: "Security Protocol",
+                    footer_link_9: "Terms of Architecture"
+                },
+                es: {
+                    nav_home: "Inicio",
+                    nav_services: "Servicios",
+                    nav_portfolio: "Portafolio",
+                    nav_book: "Reservar Estrategia",
+                    badge_text: "Sistemas Disponibles",
+                    heading_main: "Asegure su Sesión de Estrategia de Crecimiento",
+                    subheading_desc: "Diseñemos una estructura personalizada basada específicamente en sus operaciones. Sin discursos genéricos, solo lógica arquitectónica para escalar su rendimiento digital.",
+                    location_text: "Países Bajos (Envíos Globales)",
+                    lbl_name: "Nombre Completo",
+                    lbl_email: "Correo Corporativo",
+                    lbl_service: "Nivel de Servicio Estimado",
+                    opt_tier1: "Ingeniería Web Full-Stack",
+                    opt_tier2: "Diseño de Ecosistemas SaaS",
+                    opt_tier3: "Auditorías de Rendimiento",
+                    opt_tier4: "Infraestructura Cloud y DevOps",
+                    opt_tier5: "API Seguras y Microservicios",
+                    opt_tier6: "Integración de IA Empresarial",
+                    lbl_date: "Lanzamiento Objetivo",
+                    lbl_brief: "Resumen de Arquitectura Estructural",
+                    btn_submit: "Enviar Solicitud",
+                    ph_name: "Alejandro López",
+                    ph_email: "alejandro@empresa.com",
+                    ph_brief: "Describa el alcance del sistema, requisitos de procesamiento y escalabilidad...",
+                    err_fields: "Error: Todos los campos del flujo son requeridos para procesar las reglas.",
+                    err_email: "Error: El correo especificado no cumple con los protocolos de sintaxis.",
+                    submitting: "Enviando datos...",
+                    success_msg: "Éxito: Los datos de inicialización de la estrategia se enviaron correctamente vía Formspree.",
+                    err_server: "Fallo en el envío: El servidor rechazó la transmisión.",
+                    footer_brand_desc: "Diseñando herramientas de rendimiento digital de última generación y soluciones full-stack.",
+                    footer_col1_title: "Estructuras de Motor",
+                    footer_col2_title: "Recursos",
+                    footer_col3_title: "Corporativo",
+                    footer_link_1: "Frameworks Web",
+                    footer_link_2: "Ecosistemas SaaS",
+                    footer_link_3: "Integración de Bases de Datos",
+                    footer_link_4: "Perfiles de Casos",
+                    footer_link_5: "Diagnóstico de Sistemas",
+                    footer_link_6: "Reserva Segura",
+                    footer_link_7: "Red de Trabajo",
+                    footer_link_8: "Protocolo de Seguridad",
+                    footer_link_9: "Términos de Arquitectura"
+                },
+                fr: {
+                    nav_home: "Accueil",
+                    nav_services: "Services",
+                    nav_portfolio: "Portfolio",
+                    nav_book: "Réserver",
+                    badge_text: "Systèmes Disponibles",
+                    heading_main: "Réservez Votre Session de Stratégie de Croissance",
+                    subheading_desc: "Définissons une architecture sur mesure adaptée à vos opérations. Pas de discours génériques, uniquement de la logique architecturale axée sur la performance.",
+                    location_text: "Pays-Bas (Livrables Internationaux)",
+                    lbl_name: "Nom Complet",
+                    lbl_email: "E-mail Professionnel",
+                    lbl_service: "Niveau de Service Estimé",
+                    opt_tier1: "Ingénierie Web Full-Stack",
+                    opt_tier2: "Conception d'Écosystème SaaS",
+                    opt_tier3: "Audits de Performance",
+                    opt_tier4: "Infrastructure Cloud & DevOps",
+                    opt_tier5: "API Sécurisées & Microservices",
+                    opt_tier6: "Intégration d'IA d'Entreprise",
+                    lbl_date: "Lancement Cible",
+                    lbl_brief: "Cahier des Charges Architectural",
+                    btn_submit: "Soumettre la Demande",
+                    ph_name: "Jean Dupont",
+                    ph_email: "jean@entreprise.com",
+                    ph_brief: "Décrivez la portée du système, les besoins de traitement et d'échelle...",
+                    err_fields: "Erreur : Tous les champs requis doivent être remplis.",
+                    err_email: "Erreur : Format d'e-mail invalide.",
+                    submitting: "Transmission en cours...",
+                    success_msg: "Succès : Données de stratégie transmises avec succès via Formspree.",
+                    err_server: "Échec : La transmission des données a été rejetée.",
+                    footer_brand_desc: "Conception d'outils digitaux haute performance et de solutions full-stack sur mesure.",
+                    footer_col1_title: "Moteurs d'Ingénierie",
+                    footer_col2_title: "Ressources",
+                    footer_col3_title: "Entreprise",
+                    footer_link_1: "Frameworks Web",
+                    footer_link_2: "Écosystèmes SaaS",
+                    footer_link_3: "Intégration de Bases de Données",
+                    footer_link_4: "Études de Cas",
+                    footer_link_5: "Diagnostics Système",
+                    footer_link_6: "Réservation Sécurisée",
+                    footer_link_7: "Infrastructure Réseau",
+                    footer_link_8: "Protocole de Sécurité",
+                    footer_link_9: "Conditions d'Architecture"
+                },
+                de: {
+                    nav_home: "Startseite",
+                    nav_services: "Leistungen",
+                    nav_portfolio: "Portfolio",
+                    nav_book: "Strategie Buchen",
+                    badge_text: "Verfügbare Systeme Offen",
+                    heading_main: "Sichern Sie Ihre Wachstumsstrategie-Session",
+                    subheading_desc: "Lassen Sie uns eine maßgeschneiderte Entwicklungsstruktur für Ihre Prozesse erstellen. Keine Standardangebote—nur direkte Architekturlogik zur Leistungssteigerung.",
+                    location_text: "Niederlande (Globale Abwicklung)",
+                    lbl_name: "Vollständiger Name",
+                    lbl_email: "Geschäftliche E-Mail",
+                    lbl_service: "Geschätzte Service-Stufe",
+                    opt_tier1: "Full-Stack Web-Engineering",
+                    opt_tier2: "SaaS-Ökosystem-Design",
+                    opt_tier3: "Performance-Audits",
+                    opt_tier4: "Cloud-Infrastruktur & DevOps",
+                    opt_tier5: "Sichere APIs & Mikroservices",
+                    opt_tier6: "Enterprise-KI-Integration",
+                    lbl_date: "Ziel-Startdatum",
+                    lbl_brief: "Strukturelles Architektur-Briefing",
+                    btn_submit: "Anfrage Absenden",
+                    ph_name: "Max Mustermann",
+                    ph_email: "max@firma.de",
+                    ph_brief: "Beschreiben Sie Systemumfang, Verarbeitungsanforderungen und Skalierungsfragen...",
+                    err_fields: "Fehler: Alle Pflichtfelder müssen ausgefüllt werden.",
+                    err_email: "Fehler: Ungültiges E-Mail-Format.",
+                    submitting: "Daten werden übermittelt...",
+                    success_msg: "Erfolg: Strategie-Initialisierungsdaten erfolgreich via Formspree übermittelt.",
+                    err_server: "Übermittlung fehlgeschlagen: Der Server hat die Daten abgelehnt.",
+                    footer_brand_desc: "Entwicklung hochmoderner digitaler Performance-Tools und maßgeschneiderter Full-Stack-Lösungen.",
+                    footer_col1_title: "Engine-Strukturen",
+                    footer_col2_title: "Ressourcen",
+                    footer_col3_title: "Unternehmen",
+                    footer_link_1: "Web-Frameworks",
+                    footer_link_2: "SaaS-Ökosysteme",
+                    footer_link_3: "Datenbank-Integration",
+                    footer_link_4: "Fallstudien",
+                    footer_link_5: "Systemdiagnose",
+                    footer_link_6: "Sichere Buchung",
+                    footer_link_7: "Netzwerk-Framework",
+                    footer_link_8: "Sicherheitsprotokoll",
+                    footer_link_9: "Architektur-Bedingungen"
+                },
+                sw: {
+                    nav_home: "Nyumbani",
+                    nav_services: "Huduma",
+                    nav_portfolio: "Kazi Wetu",
+                    nav_book: "Weka Miadi",
+                    badge_text: "Mifumo Iko Wazi",
+                    heading_main: "Hifadhi Kikao Chako cha Mbinu za Ukuaji",
+                    subheading_desc: "Tengeneza mfumo maalum uliotengenezwa mahususi kwa shughuli zako. Hakuna maelezo ya jumla—ni mantiki ya moja kwa moja ya usanifu iliyoundwa kuongeza utendaji wako wa kidijitali.",
+                    location_text: "Uholanzi (Huduma za Ulimwenguni)",
+                    lbl_name: "Jina Kamili",
+                    lbl_email: "Barua Pepe ya Kampuni",
+                    lbl_service: "Kiwango cha Huduma",
+                    opt_tier1: "Uhandisi wa Web Full-Stack",
+                    opt_tier2: "Usanifu wa Mfumo wa SaaS",
+                    opt_tier3: "Uchunguzi wa Utendaji",
+                    opt_tier4: "Miundombinu ya Cloud & DevOps",
+                    opt_tier5: "API Salama & Microservices",
+                    opt_tier6: "Ujumuishaji wa AI ya Biashara",
+                    lbl_date: "Tarehe ya Kuzindua",
+                    lbl_brief: "Maelezo ya Usanifu wa Mfumo",
+                    btn_submit: "Tuma Ombi",
+                    ph_name: "Juma Rashid",
+                    ph_email: "juma@kampuni.com",
+                    ph_brief: "Eleza upeo wa mfumo, mahitaji ya uchakataji, na masuala ya ukuzi...",
+                    err_fields: "Makosa: Sehemu zote zinahitajika ili kuchakata mfumo.",
+                    err_email: "Makosa: Barua pepe uliyoweka haina muundo sahihi.",
+                    submitting: "Inatuma Data...",
+                    success_msg: "Mafanikio: Data ya mbinu imetumwa kikamilifu kupitia Formspree.",
+                    err_server: "Imeshindikana: Mtandao umekataa kutuma data.",
+                    footer_brand_desc: "Kutengeneza zana za kisasa za utendaji wa kidijitali na suluhisho kamili za full-stack.",
+                    footer_col1_title: "Muundo wa Injini",
+                    footer_col2_title: "Rasilimali",
+                    footer_col3_title: "Kampuni",
+                    footer_link_1: "Mfumo wa Web",
+                    footer_link_2: "Mifumo ya SaaS",
+                    footer_link_3: "Ujumuishaji wa Database",
+                    footer_link_4: "Mifano ya Kazi",
+                    footer_link_5: "Uchunguzi wa Mfumo",
+                    footer_link_6: "Weka Miadi Salama",
+                    footer_link_7: "Mfumo wa Mtandao",
+                    footer_link_8: "Itifaki ya Usalama",
+                    footer_link_9: "Vigezo vya Usanifu"
+                }
+            };
+
             // --- UI Control Elements Initialization ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
             const menuPanel = document.getElementById('menuPanel');
@@ -463,7 +683,6 @@
                 document.body.classList.toggle('menu-open');
             });
 
-            // Close responsive drawer layout upon clicking link targets
             document.querySelectorAll('.nav-item').forEach(link => {
                 link.addEventListener('click', () => {
                     hamburgerMenu.classList.remove('active');
@@ -495,7 +714,48 @@
                 }
             }
 
-            // --- Scrolling Metrics Analytics & Action Toggles ---
+            // --- Dynamic Language Translation Engine ---
+            function changeLanguage(lang) {
+                const dict = translations[lang] || translations.en;
+                
+                // Update elements with data-i18n attributes
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (dict[key]) {
+                        if (key === 'heading_main') {
+                            // Retain inline gradient span structure for main heading
+                            const parts = dict[key].split(' Strategy');
+                            if (parts.length > 1) {
+                                el.innerHTML = `${parts[0]} <span>Strategy${parts[1]}</span>`;
+                            } else {
+                                el.textContent = dict[key];
+                            }
+                        } else {
+                            el.textContent = dict[key];
+                        }
+                    }
+                });
+
+                // Update input placeholders dynamically
+                if (dict.ph_name) document.getElementById('clientName').placeholder = dict.ph_name;
+                if (dict.ph_email) document.getElementById('clientEmail').placeholder = dict.ph_email;
+                if (dict.ph_brief) document.getElementById('projectBrief').placeholder = dict.ph_brief;
+
+                htmlRoot.setAttribute('lang', lang);
+                localStorage.setItem('pref_lang', lang);
+            }
+
+            // Bind language select dropdown event without native browser alert popups
+            langSwitch.addEventListener('change', (e) => {
+                changeLanguage(e.target.value);
+            });
+
+            // Set initial language from storage if available
+            const savedLang = localStorage.getItem('pref_lang') || 'en';
+            langSwitch.value = savedLang;
+            changeLanguage(savedLang);
+
+            // --- Scrolling Metrics Analytics ---
             window.addEventListener('scroll', () => {
                 const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                 const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -513,17 +773,16 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // --- Language Switch Stub Notification Trigger ---
-            langSwitch.addEventListener('change', (e) => {
-                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
-            });
-
-            // --- Inline Booking Intake Validation Logic Engine ---
+            // --- Inline Formspree Submission Engine (No Browser Popups) ---
             const targetForm = document.getElementById('consultationForm');
             const formStatus = document.getElementById('formStatus');
+            const submitBtn = document.getElementById('submitBtn');
 
-            targetForm.addEventListener('submit', (e) => {
+            targetForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
+                const currentLang = langSwitch.value;
+                const dict = translations[currentLang] || translations.en;
+
                 formStatus.className = 'form-status-msg';
                 formStatus.style.display = 'none';
 
@@ -532,22 +791,54 @@
                 const briefVal = document.getElementById('projectBrief').value.trim();
                 const dateVal = document.getElementById('targetDate').value;
 
+                // Validation rules
                 if (!nameVal || !emailVal || !briefVal || !dateVal) {
-                    formStatus.textContent = "Error: All pipeline structural fields are required to process compilation architecture rules.";
+                    formStatus.textContent = dict.err_fields;
                     formStatus.classList.add('error');
                     return;
                 }
 
                 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-                    formStatus.textContent = "Error: Specified corporate entry fails syntax verification protocols.";
+                    formStatus.textContent = dict.err_email;
                     formStatus.classList.add('error');
                     return;
                 }
 
-                // Success pipeline confirmation feedback simulation state
-                formStatus.textContent = "Deployment Success: Strategy initialization data payload synchronized successfully.";
-                formStatus.classList.add('success');
-                targetForm.reset();
+                // Prepare Form Data Payload
+                const formData = new FormData(targetForm);
+                submitBtn.disabled = true;
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = `${dict.submitting} <i class="fa-solid fa-spinner fa-spin"></i>`;
+
+                try {
+                    const response = await fetch(targetForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        formStatus.textContent = dict.success_msg;
+                        formStatus.classList.add('success');
+                        targetForm.reset();
+                    } else {
+                        const data = await response.json();
+                        if (Object.hasOwn(data, 'errors')) {
+                            formStatus.textContent = data["errors"].map(error => error["message"]).join(", ");
+                        } else {
+                            formStatus.textContent = dict.err_server;
+                        }
+                        formStatus.classList.add('error');
+                    }
+                } catch (err) {
+                    formStatus.textContent = dict.err_server;
+                    formStatus.classList.add('error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnText;
+                }
             });
         });
     </script>
