@@ -1,736 +1,762 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Production Engineering Solutions | Pricing & Services</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>Transparent Tiered Pricing | Sum Web Dev</title>
+    <meta name="description" content="Predictable investment tiers for high-performance software engineering, SaaS systems, and enterprise integrations.">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        :root {
-            --bg-card: #ffffff;
-            --border-glass: #e2e8f0;
-            --text-pure: #0f172a;
-            --accent-primary: #4f46e5;
+        /* ==========================================================================
+           1. Theme Tokens & Global Styles
+           ========================================================================== */
+        :root[data-theme="dark"] {
+            --bg-main: #0B0F19;
+            --bg-card: #151A28;
+            --bg-card-hover: #1E2538;
+            --accent-primary: #6C63FF;
+            --accent-neon: #00D4FF;
+            --text-pure: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --header-bg: rgba(11, 15, 25, 0.85);
+            --badge-bg: rgba(108, 99, 255, 0.15);
+            --badge-text: #00D4FF;
         }
 
-        body { font-family: 'Inter', sans-serif; }
+        :root[data-theme="light"] {
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --bg-card-hover: #F1F5F9;
+            --accent-primary: #4F46E5;
+            --accent-neon: #0EA5E9;
+            --text-pure: #0F172A;
+            --text-muted: #64748B;
+            --border-glass: rgba(15, 23, 42, 0.08);
+            --header-bg: rgba(248, 250, 252, 0.9);
+            --badge-bg: rgba(79, 70, 229, 0.1);
+            --badge-text: #4F46E5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-pure);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.menu-open { overflow: hidden; }
+
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-neon));
+            z-index: 9999;
+        }
+
+        /* ==========================================================================
+           2. Navigation & Utility Header
+           ========================================================================== */
+        .main-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: var(--header-bg); backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass); z-index: 1000;
+            display: flex; align-items: center; transition: background 0.3s ease;
+        }
+        .nav-container {
+            width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        .logo {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-weight: 900; font-size: 1.5rem; color: var(--text-pure); text-decoration: none; letter-spacing: -1px;
+            z-index: 1010;
+        }
+        .logo svg { width: 32px; height: 32px; fill: none; stroke: var(--accent-primary); stroke-width: 2.5; }
+        .logo span { color: var(--accent-neon); }
+
+        .nav-controls-wrapper { display: flex; align-items: center; gap: 1rem; z-index: 1010; }
+        .nav-links { display: flex; align-items: center; gap: 2rem; }
+        
+        .nav-item {
+            color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.95rem;
+            transition: color 0.2s ease; position: relative;
+        }
+        .nav-item:hover, .nav-item.active { color: var(--text-pure); }
+        .nav-item.active::after {
+            content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 2px;
+            background: var(--accent-neon); border-radius: 2px;
+        }
+        
+        .utility-btn {
+            background: transparent; border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.5rem; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            transition: all 0.2s ease;
+        }
+        .utility-btn:hover { border-color: var(--accent-primary); }
+
+        .lang-select {
+            background: var(--bg-card); border: 1px solid var(--border-glass); color: var(--text-pure);
+            padding: 0.4rem 0.5rem; border-radius: 6px; font-family: inherit; font-size: 0.85rem; font-weight: 600; cursor: pointer; outline: none;
+            transition: all 0.2s ease; height: 38px;
+        }
+        .lang-select:focus { border-color: var(--accent-primary); }
+
+        .mobile-toggle {
+            display: none; background: transparent; border: 1px solid var(--border-glass); 
+            color: var(--text-pure); cursor: pointer; width: 38px; height: 38px;
+            border-radius: 6px; align-items: center; justify-content: center; transition: all 0.2s ease;
+            flex-direction: column; gap: 4px; padding: 0; z-index: 1010;
+        }
+        .mobile-toggle span {
+            display: block; width: 18px; height: 2px; background-color: var(--text-pure);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        .mobile-toggle:hover { border-color: var(--accent-primary); }
+        
+        .mobile-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+        .mobile-toggle.active span:nth-child(2) { opacity: 0; width: 0; }
+        .mobile-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+        /* ==========================================================================
+           3. Pricing Hero & Billing Tiers Architecture
+           ========================================================================== */
+        .pricing-hero {
+            max-width: 1400px; margin: 0 auto; padding: 140px 2rem 3rem; text-align: center;
+        }
+        .pricing-hero h1 {
+            font-size: 3.2rem; font-weight: 900; letter-spacing: -1.5px; margin-bottom: 1rem;
+        }
+        .pricing-hero p {
+            color: var(--text-muted); font-size: 1.15rem; max-width: 780px; margin: 0 auto 2.5rem;
+        }
+
+        .pricing-grid {
+            max-width: 1400px; margin: 0 auto; padding: 0 2rem 6rem;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+        }
+
+        .pricing-card {
+            background: var(--bg-card); border: 1px solid var(--border-glass);
+            border-radius: 12px; padding: 2.5rem; display: flex; flex-direction: column;
+            justify-content: space-between; position: relative; transition: all 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-5px); border-color: var(--accent-primary);
+            box-shadow: 0 12px 30px rgba(108, 99, 255, 0.12); background: var(--bg-card-hover);
+        }
+        .pricing-card.popular {
+            border-color: var(--accent-primary);
+            box-shadow: 0 8px 25px rgba(108, 99, 255, 0.15);
+        }
+
+        .card-popular-badge {
+            position: absolute; top: -14px; right: 24px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-neon)); color: #FFF; font-size: 0.75rem;
+            font-weight: 800; padding: 0.3rem 0.85rem; border-radius: 50px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; letter-spacing: -0.5px;
+        }
+
+        .pricing-card .tier-desc {
+            color: var(--text-muted); font-size: 0.92rem; line-height: 1.5; margin-bottom: 1.5rem; min-height: 44px;
+        }
+
+        .price-display {
+            margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-glass);
+        }
+        .price-amount {
+            font-size: 2.8rem; font-weight: 900; color: var(--text-pure); line-height: 1; letter-spacing: -1px;
+        }
+        .price-period {
+            font-size: 0.88rem; font-weight: 600; color: var(--text-muted); margin-top: 0.5rem; display: block;
+        }
+
+        .feature-list {
+            list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.75rem; flex-grow: 1;
+        }
+        .feature-list li {
+            display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9rem; color: var(--text-pure); font-weight: 500;
+        }
+        .feature-list li i { color: var(--accent-neon); font-size: 0.85rem; margin-top: 0.25rem; }
+
+        .btn-checkout {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            width: 100%; padding: 0.95rem 1.25rem; background: var(--accent-primary); color: #FFF;
+            text-decoration: none; font-weight: 700; font-size: 0.95rem; border-radius: 6px;
+            transition: all 0.2s ease; border: none; cursor: pointer; text-align: center;
+        }
+        .btn-checkout:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* FAQ Section */
+        .faq-section { max-width: 900px; margin: 0 auto; padding: 0 2rem 8rem; }
+        .faq-section h2 { text-align: center; font-size: 2rem; font-weight: 800; margin-bottom: 2.5rem; }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: 8px; margin-bottom: 1rem; padding: 1.5rem; }
+        .faq-item h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-pure); }
+        .faq-item p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; }
+
+        /* ==========================================================================
+           4. Corporate Footer
+           ========================================================================== */
+        .main-footer { background: var(--bg-card); border-top: 1px solid var(--border-glass); padding: 5rem 2rem 2.5rem; color: var(--text-muted); position: relative; z-index: 2; }
+        .footer-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr repeat(3, 1fr); gap: 4rem; margin-bottom: 4rem; }
+        .footer-brand p { margin-top: 1rem; max-width: 320px; font-size: 0.95rem; }
+        .footer-col h4 { color: var(--text-pure); font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .footer-col ul a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s ease; }
+        .footer-col ul a:hover { color: var(--text-pure); }
+        
+        .footer-social-row { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-link-icon {
+            display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px;
+            border-radius: 6px; border: 1px solid var(--border-glass); color: var(--text-pure); text-decoration: none; transition: background 0.2s ease;
+        }
+        .social-link-icon:hover { background: var(--accent-primary); color: #FFF; }
+
+        .footer-bottom { max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-glass); padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+        .footer-legal-links { display: flex; gap: 1.5rem; }
+        .footer-legal-links a { color: var(--text-muted); text-decoration: none; transition: color 0.2s ease; }
+        .footer-legal-links a:hover { color: var(--text-pure); }
+
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
+            border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
+        }
+
+        /* ==========================================================================
+           5. Responsive Breakpoints
+           ========================================================================== */
+        @media(max-width: 1024px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        }
+
+        @media(max-width: 768px) {
+            .mobile-toggle { display: flex; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            
+            .nav-controls-wrapper { position: relative; }
+            .nav-links {
+                display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 100%;
+                max-width: 300px; height: 100vh; background: rgba(21, 26, 40, 0.96); backdrop-filter: blur(20px);
+                border-left: 1px solid var(--border-glass); padding: 120px 2rem 2rem; gap: 2rem; align-items: flex-start;
+                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: -20px 0 40px rgba(0,0,0,0.4); z-index: 1005;
+            }
+            .nav-links.active { right: 0; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- Header / Custom Language Selector -->
-    <header class="max-w-7xl mx-auto w-full px-6 py-6 flex justify-between items-center">
-        <div class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">P</div>
-            <span class="font-extrabold text-xl tracking-tight text-slate-900">Production Engine</span>
-        </div>
-        
-        <!-- Top Header Controls -->
-        <div class="flex items-center gap-3 md:gap-5">
-            <select id="langSwitch" onchange="changeLanguage(this.value)" class="bg-[var(--bg-card)] border border-[var(--border-glass)] text-[var(--text-pure)] px-2 py-1.5 rounded-md font-semibold text-xs cursor-pointer outline-none transition-all duration-200 h-[38px] focus:border-[var(--accent-primary)]">
-                <option value="en">EN</option>
-                <option value="nl">NL</option>
-                <option value="fr">FR</option>
-                <option value="pt">PT</option>
-                <option value="es">ES</option>
-                <option value="it">IT</option>
-                <option value="ne">NE</option>
-                <option value="de">DE</option>
-            </select>
+    <div class="scroll-progress" id="scrollBar"></div>
+
+    <!-- Header & Navigation Area -->
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="../" class="logo">
+                <svg viewBox="0 0 32 32">
+                    <path d="M6 22L16 6L26 22H6Z" />
+                </svg>
+                SUM<span>WEBDEV</span>
+            </a>
+            
+            <nav class="nav-links" id="menuPanel">
+                <a href="../" class="nav-item" data-i18n="nav_home">Home</a>
+                <a href="../services/" class="nav-item" data-i18n="nav_services">Services</a>
+                <a href="./" class="nav-item active" data-i18n="nav_pricing">Pricing</a>
+                <a href="../portfolio/" class="nav-item" data-i18n="nav_portfolio">Portfolio</a>
+                <a href="../booking/" class="nav-item" data-i18n="nav_booking">Book Strategy</a>
+            </nav>
+
+            <div class="nav-controls-wrapper">
+                <select id="langSwitch" class="lang-select" aria-label="Select Language">
+                    <option value="en">EN</option>
+                    <option value="nl">NL</option>
+                    <option value="fr">FR</option>
+                    <option value="pt">PT</option>
+                    <option value="es">ES</option>
+                    <option value="it">IT</option>
+                    <option value="ne">NE</option>
+                    <option value="de">DE</option>
+                </select>
+                
+                <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                
+                <button class="mobile-toggle" id="hamburgerMenu" aria-label="Toggle Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-12">
-        <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h1 id="title" class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight mb-4">
-                Production Engineering Solutions
-            </h1>
-            <p id="subtitle" class="text-lg text-slate-600 leading-relaxed font-normal">
-                High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.
-            </p>
+    <!-- Pricing Hero Section -->
+    <section class="pricing-hero">
+        <h1 data-i18n="hero_title">Predictable Tiers for Scaling Tech</h1>
+        <p data-i18n="hero_subtitle">Transparent pricing in Euros with strict delivery milestones. Choose an engineering package suited to your current scale.</p>
+    </section>
+
+    <!-- 6 Detailed Pricing Tiers in Euros -->
+    <section class="pricing-grid">
+        
+        <!-- Tier 1 -->
+        <div class="pricing-card">
+            <div>
+                <h3 data-i18n="t1_title">Performance Audit</h3>
+                <p class="tier-desc" data-i18n="t1_desc">Complete code and speed audit with real-time bottleneck elimination strategy.</p>
+                <div class="price-display">
+                    <div class="price-amount">€750</div>
+                    <span class="price-period" data-i18n="t1_period">One-time / 1-2 Wks Delivery</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t1_f1">Lighthouse & Core Web Vitals Optimization</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t1_f2">Database Query Profiling</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t1_f3">Asset Pipeline & Cache Tuning</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t1_f4">Executive Diagnostic Report</span></li>
+            </ul>
+            <a href="../booking/?plan=audit" class="btn-checkout" data-i18n="btn_select">Get Started</a>
         </div>
 
-        <!-- Services Grid (6 Cards from Screenshots) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-
-            <!-- Card 1: Full-Stack Web Engineering -->
-            <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 mb-6">
-                        <i class="fa-solid fa-layer-group text-2xl"></i>
-                    </div>
-                    <h2 id="card1-title" class="text-xl font-extrabold text-slate-900 mb-3">Full-Stack Web Engineering</h2>
-                    <p id="card1-desc" class="text-slate-500 text-sm mb-6 leading-relaxed">
-                        Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c1-f1">Next.js & Server-Side Systems</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c1-f2">Clean, Adaptive Layout Frameworks</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c1-f3">Custom Node.js & REST API Nodes</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span id="lbl-time-1" class="text-xs text-slate-400 font-medium">Timeline:</span>
-                        <span class="text-sm font-bold text-slate-800 ml-1">2-4 Wks</span>
-                    </div>
-                    <button onclick="openBookingModal('Full-Stack Web Engineering', '€3,500 - €8,000')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                        <span id="btn-1">Select Engineering</span>
-                    </button>
+        <!-- Tier 2 -->
+        <div class="pricing-card">
+            <div>
+                <h3 data-i18n="t2_title">Microservices Node</h3>
+                <p class="tier-desc" data-i18n="t2_desc">High-throughput REST or GraphQL APIs with robust security layers.</p>
+                <div class="price-display">
+                    <div class="price-amount">€1.200</div>
+                    <span class="price-period" data-i18n="t2_period">Per Module / 2-3 Wks Delivery</span>
                 </div>
             </div>
-
-            <!-- Card 2: SaaS Ecosystem Design -->
-            <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 mb-6">
-                        <i class="fa-solid fa-boxes-stacked text-2xl"></i>
-                    </div>
-                    <h2 id="card2-title" class="text-xl font-extrabold text-slate-900 mb-3">SaaS Ecosystem Design</h2>
-                    <p id="card2-desc" class="text-slate-500 text-sm mb-6 leading-relaxed">
-                        Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c2-f1">Multi-Tenant DB Configurations</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c2-f2">Firebase & Supabase Architecture</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c2-f3">Automated Billing Integrations</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span id="lbl-time-2" class="text-xs text-slate-400 font-medium">Timeline:</span>
-                        <span class="text-sm font-bold text-slate-800 ml-1">4-6 Wks</span>
-                    </div>
-                    <button onclick="openBookingModal('SaaS Ecosystem Design', '€7,000 - €18,000')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                        <span id="btn-2">Select SaaS</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card 3: Performance Audits -->
-            <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 mb-6">
-                        <i class="fa-solid fa-gauge-high text-2xl"></i>
-                    </div>
-                    <h2 id="card3-title" class="text-xl font-extrabold text-slate-900 mb-3">Performance Audits</h2>
-                    <p id="card3-desc" class="text-slate-500 text-sm mb-6 leading-relaxed">
-                        Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c3-f1">Zero-Jank Animation Pipelines</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c3-f2">Severe Asset Compression Systems</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c3-f3">Advanced Cache Tuning Logic</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span id="lbl-time-3" class="text-xs text-slate-400 font-medium">Timeline:</span>
-                        <span class="text-sm font-bold text-slate-800 ml-1">1-2 Wks</span>
-                    </div>
-                    <button onclick="openBookingModal('Performance Audits', '€1,500 - €3,500')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                        <span id="btn-3">Select Audit</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card 4: Cloud Infrastructure & DevOps -->
-            <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 mb-6">
-                        <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
-                    </div>
-                    <h2 id="card4-title" class="text-xl font-extrabold text-slate-900 mb-3">Cloud Infrastructure & DevOps</h2>
-                    <p id="card4-desc" class="text-slate-500 text-sm mb-6 leading-relaxed">
-                        Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c4-f1">Docker & Kubernetes Orchestration</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c4-f2">AWS / Vercel Auto-Scaling Nodes</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c4-f3">Automated GitHub Actions CI/CD</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span id="lbl-time-4" class="text-xs text-slate-400 font-medium">Timeline:</span>
-                        <span class="text-sm font-bold text-slate-800 ml-1">2-3 Wks</span>
-                    </div>
-                    <button onclick="openBookingModal('Cloud Infrastructure & DevOps', '€2,500 - €6,000')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                        <span id="btn-4">Select DevOps</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card 5: Secure API & Microservices -->
-            <div class="bg-white rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div>
-                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 mb-6">
-                        <i class="fa-solid fa-network-wired text-2xl"></i>
-                    </div>
-                    <h2 id="card5-title" class="text-xl font-extrabold text-slate-900 mb-3">Secure API & Microservices</h2>
-                    <p id="card5-desc" class="text-slate-500 text-sm mb-6 leading-relaxed">
-                        Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c5-f1">JWT & OAuth2 Security Gates</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c5-f2">GraphQL & REST Endpoints</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c5-f3">DDoS Protection & Rate Limiting</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span id="lbl-time-5" class="text-xs text-slate-400 font-medium">Timeline:</span>
-                        <span class="text-sm font-bold text-slate-800 ml-1">3-4 Wks</span>
-                    </div>
-                    <button onclick="openBookingModal('Secure API & Microservices', '€4,000 - €10,000')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                        <span id="btn-5">Select APIs</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Card 6: Enterprise AI Integration -->
-            <div class="bg-white rounded-2xl p-8 border-2 border-indigo-500/20 shadow-sm hover:shadow-md transition-all flex flex-col justify-between relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold tracking-wider uppercase px-3 py-1 rounded-bl-lg">
-                    Featured
-                </div>
-                <div>
-                    <div class="w-12 h-12 bg-sky-50 rounded-xl flex items-center justify-center text-sky-500 mb-6">
-                        <i class="fa-solid fa-brain text-2xl"></i>
-                    </div>
-                    <h2 id="card6-title" class="text-xl font-extrabold text-slate-900 mb-3">Enterprise AI Integration</h2>
-                    <p id="card6-desc" class="text-slate-500 text-sm mb-6 leading-relaxed">
-                        Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.
-                    </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c6-f1">OpenAI & Custom LLM Pipelines</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c6-f2">Vector DB & Semantic Search</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-xs font-semibold text-slate-700">
-                            <i class="fa-solid fa-circle-check text-blue-600"></i> <span id="c6-f3">Automated Workflow Agents</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pt-6 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                        <span id="lbl-time-6" class="text-xs text-slate-400 font-medium">Timeline:</span>
-                        <span class="text-sm font-bold text-slate-800 ml-1">2-5 Wks</span>
-                    </div>
-                    <button onclick="openBookingModal('Enterprise AI Integration', '€15,000 - €35,000')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-all shadow-sm">
-                        <span id="btn-6">Select AI Engine</span>
-                    </button>
-                </div>
-            </div>
-
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t2_f1">Express.js / Node.js Engine</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t2_f2">JWT & OAuth2 Security Layers</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t2_f3">Real-time WebSockets Integration</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t2_f4">Swagger / OpenAPI Documentation</span></li>
+            </ul>
+            <a href="../booking/?plan=api" class="btn-checkout" data-i18n="btn_select">Get Started</a>
         </div>
-    </main>
 
-    <!-- Clean Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative transform transition-all">
-            <button onclick="closeBookingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <h3 id="modal-service-name" class="text-xl font-bold text-slate-900 mb-1">Service Request</h3>
-            <p id="modal-service-price" class="text-xs font-semibold text-indigo-600 mb-6">Estimated Range: €0.00</p>
-            
-            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
-                <div>
-                    <label id="lbl-modal-name" class="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
-                    <input type="text" required placeholder="John Doe" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
+        <!-- Tier 3 -->
+        <div class="pricing-card">
+            <div>
+                <h3 data-i18n="t3_title">Full-Stack Application</h3>
+                <p class="tier-desc" data-i18n="t3_desc">Custom, production-grade Next.js or React web applications built to scale.</p>
+                <div class="price-display">
+                    <div class="price-amount">€1.400</div>
+                    <span class="price-period" data-i18n="t3_period">Starting / 2-4 Wks Delivery</span>
                 </div>
-                <div>
-                    <label id="lbl-modal-email" class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
-                    <input type="email" required placeholder="john@company.com" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600">
-                </div>
-                <div>
-                    <label id="lbl-modal-notes" class="block text-xs font-bold text-slate-700 mb-1">Project Details</label>
-                    <textarea rows="3" placeholder="Tell us briefly about your goals..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600"></textarea>
-                </div>
-                <button type="submit" id="btn-modal-submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl text-sm transition-all shadow-md mt-2">
-                    Submit Proposal Request
-                </button>
-            </form>
+            </div>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t3_f1">Next.js & SSR Architecture</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t3_f2">Tailwind CSS Custom Design System</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t3_f3">Full SEO & Analytics Integration</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t3_f4">Responsive Multi-Device Layouts</span></li>
+            </ul>
+            <a href="../booking/?plan=fullstack" class="btn-checkout" data-i18n="btn_select">Get Started</a>
         </div>
-    </div>
 
-    <!-- Translations for EN, NL, FR, PT, ES, IT, NE, DE -->
+        <!-- Tier 4 -->
+        <div class="pricing-card">
+            <div>
+                <h3 data-i18n="t4_title">Cloud & DevOps Setup</h3>
+                <p class="tier-desc" data-i18n="t4_desc">Resilient cloud architecture setup, continuous integration, and server orchestration.</p>
+                <div class="price-display">
+                    <div class="price-amount">€1.750</div>
+                    <span class="price-period" data-i18n="t4_period">One-time / 2-3 Wks Delivery</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t4_f1">AWS & Cloudflare Infrastructure</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t4_f2">Docker Containerization Setup</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t4_f3">Automated GitHub Actions CI/CD</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t4_f4">Zero-Downtime Deployment Rules</span></li>
+            </ul>
+            <a href="../booking/?plan=devops" class="btn-checkout" data-i18n="btn_select">Get Started</a>
+        </div>
+
+        <!-- Tier 5 (Popular / Primary SaaS Package) -->
+        <div class="pricing-card popular">
+            <div class="card-popular-badge" data-i18n="badge_popular">Most Popular</div>
+            <div>
+                <h3 data-i18n="t5_title">SaaS Platform Core</h3>
+                <p class="tier-desc" data-i18n="t5_desc">End-to-end multi-tenant product development with authentication and payments.</p>
+                <div class="price-display">
+                    <div class="price-amount">€2.800</div>
+                    <span class="price-period" data-i18n="t5_period">Complete System / 4-6 Wks</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t5_f1">Firebase or Supabase DB Architecture</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t5_f2">Stripe Payment Gateway Integration</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t5_f3">Multi-Tenant User Authorization</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t5_f4">Admin Dashboard & Analytics Engine</span></li>
+            </ul>
+            <a href="../booking/?plan=saas" class="btn-checkout" data-i18n="btn_select">Get Started</a>
+        </div>
+
+        <!-- Tier 6 -->
+        <div class="pricing-card">
+            <div>
+                <h3 data-i18n="t6_title">Enterprise AI Integration</h3>
+                <p class="tier-desc" data-i18n="t6_desc">Local and cloud LLMs, autonomous support agents, and semantic search setups.</p>
+                <div class="price-display">
+                    <div class="price-amount">€3.200</div>
+                    <span class="price-period" data-i18n="t6_period">Starting / 3-5 Wks Delivery</span>
+                </div>
+            </div>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t6_f1">Ollama / Local LLM Node Deployment</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t6_f2">Vector DB & RAG Pipeline Setup</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t6_f3">Autonomous AI Agent Workflows</span></li>
+                <li><i class="fa-solid fa-check"></i> <span data-i18n="t6_f4">Custom Fine-Tuning & Prompt Pipelines</span></li>
+            </ul>
+            <a href="../booking/?plan=ai" class="btn-checkout" data-i18n="btn_select">Get Started</a>
+        </div>
+
+    </section>
+
+    <!-- Pricing FAQs Section -->
+    <section class="faq-section">
+        <h2 data-i18n="faq_title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h4 data-i18n="faq_q1">Are there hidden recurring licensing fees?</h4>
+            <p data-i18n="faq_a1">No. All pricing tiers are fixed single-project estimates. You maintain 100% ownership of your codebase and deployment keys upon delivery.</p>
+        </div>
+        <div class="faq-item">
+            <h4 data-i18n="faq_q2">What is the payment structure?</h4>
+            <p data-i18n="faq_a2">Projects are billed standard 50% upfront to initiate architectural planning and 50% upon final production launch.</p>
+        </div>
+        <div class="faq-item">
+            <h4 data-i18n="faq_q3">Can I request a custom feature set outside these tiers?</h4>
+            <p data-i18n="faq_a3">Yes. You can schedule a strategy call to map out specialized technical architecture tailored specifically to your project requirements.</p>
+        </div>
+    </section>
+
+    <!-- Global Corporate Footer -->
+    <footer class="main-footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="../" class="logo">
+                    <svg viewBox="0 0 32 32">
+                        <path d="M6 22L16 6L26 22H6Z" />
+                    </svg>
+                    SUM<span>WEBDEV</span>
+                </a>
+                <p data-i18n="footer_brand_desc">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <div class="footer-social-row">
+                    <a href="#" class="social-link-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-link-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_col1_title">Engine Structures</h4>
+                <ul>
+                    <li><a href="../web-frameworks/" data-i18n="footer_f1">Web Frameworks</a></li>
+                    <li><a href="../saas-ecosystems/" data-i18n="footer_f2">SaaS Ecosystems</a></li>
+                    <li><a href="../database-integration/" data-i18n="footer_f3">Database Integration</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_col2_title">Resources</h4>
+                <ul>
+                    <li><a href="../case-profiles/" data-i18n="footer_r1">Case Profiles</a></li>
+                    <li><a href="../system-diagnostics/" data-i18n="footer_r2">System Diagnostics</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-i18n="footer_col3_title">Corporate</h4>
+                <ul>
+                    <li><a href="../booking/" data-i18n="footer_c1">Secure Booking</a></li>
+                    <li><a href="../network-framework/" data-i18n="footer_c2">Network Framework</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sum Web Dev. All rights reserved.</p>
+            <div class="footer-legal-links">
+                <a href="../security-protocol/" data-i18n="footer_l1">Security Protocol</a>
+                <a href="../terms-of-architecture/" data-i18n="footer_l2">Terms of Architecture</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="scrollTopBtn" aria-label="Scroll to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Complete Client-Side Controller Engine (Translation, Theme, Mobile Navigation) -->
     <script>
-        const translations = {
+        const i18nData = {
             en: {
-                title: "Production Engineering Solutions",
-                subtitle: "High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.",
-                c1_title: "Full-Stack Web Engineering",
-                c1_desc: "Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.",
-                c1_f1: "Next.js & Server-Side Systems",
-                c1_f2: "Clean, Adaptive Layout Frameworks",
-                c1_f3: "Custom Node.js & REST API Nodes",
-                btn1: "Select Engineering",
-                c2_title: "SaaS Ecosystem Design",
-                c2_desc: "Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.",
-                c2_f1: "Multi-Tenant DB Configurations",
-                c2_f2: "Firebase & Supabase Architecture",
-                c2_f3: "Automated Billing Integrations",
-                btn2: "Select SaaS",
-                c3_title: "Performance Audits",
-                c3_desc: "Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.",
-                c3_f1: "Zero-Jank Animation Pipelines",
-                c3_f2: "Severe Asset Compression Systems",
-                c3_f3: "Advanced Cache Tuning Logic",
-                btn3: "Select Audit",
-                c4_title: "Cloud Infrastructure & DevOps",
-                c4_desc: "Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.",
-                c4_f1: "Docker & Kubernetes Orchestration",
-                c4_f2: "AWS / Vercel Auto-Scaling Nodes",
-                c4_f3: "Automated GitHub Actions CI/CD",
-                btn4: "Select DevOps",
-                c5_title: "Secure API & Microservices",
-                c5_desc: "Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.",
-                c5_f1: "JWT & OAuth2 Security Gates",
-                c5_f2: "GraphQL & REST Endpoints",
-                c5_f3: "DDoS Protection & Rate Limiting",
-                btn5: "Select APIs",
-                c6_title: "Enterprise AI Integration",
-                c6_desc: "Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.",
-                c6_f1: "OpenAI & Custom LLM Pipelines",
-                c6_f2: "Vector DB & Semantic Search",
-                c6_f3: "Automated Workflow Agents",
-                btn6: "Select AI Engine",
-                lbl_time: "Timeline:",
-                lbl_name: "Full Name",
-                lbl_email: "Email Address",
-                lbl_notes: "Project Details",
-                btn_submit: "Submit Proposal Request"
+                nav_home: "Home", nav_services: "Services", nav_pricing: "Pricing", nav_portfolio: "Portfolio", nav_booking: "Book Strategy",
+                hero_title: "Predictable Tiers for Scaling Tech", hero_subtitle: "Transparent pricing in Euros with strict delivery milestones. Choose an engineering package suited to your current scale.",
+                badge_popular: "Most Popular", btn_select: "Get Started",
+                t1_title: "Performance Audit", t1_desc: "Complete code and speed audit with real-time bottleneck elimination strategy.", t1_period: "One-time / 1-2 Wks Delivery",
+                t1_f1: "Lighthouse & Core Web Vitals Optimization", t1_f2: "Database Query Profiling", t1_f3: "Asset Pipeline & Cache Tuning", t1_f4: "Executive Diagnostic Report",
+                t2_title: "Microservices Node", t2_desc: "High-throughput REST or GraphQL APIs with robust security layers.", t2_period: "Per Module / 2-3 Wks Delivery",
+                t2_f1: "Express.js / Node.js Engine", t2_f2: "JWT & OAuth2 Security Layers", t2_f3: "Real-time WebSockets Integration", t2_f4: "Swagger / OpenAPI Documentation",
+                t3_title: "Full-Stack Application", t3_desc: "Custom, production-grade Next.js or React web applications built to scale.", t3_period: "Starting / 2-4 Wks Delivery",
+                t3_f1: "Next.js & SSR Architecture", t3_f2: "Tailwind CSS Custom Design System", t3_f3: "Full SEO & Analytics Integration", t3_f4: "Responsive Multi-Device Layouts",
+                t4_title: "Cloud & DevOps Setup", t4_desc: "Resilient cloud architecture setup, continuous integration, and server orchestration.", t4_period: "One-time / 2-3 Wks Delivery",
+                t4_f1: "AWS & Cloudflare Infrastructure", t4_f2: "Docker Containerization Setup", t4_f3: "Automated GitHub Actions CI/CD", t4_f4: "Zero-Downtime Deployment Rules",
+                t5_title: "SaaS Platform Core", t5_desc: "End-to-end multi-tenant product development with authentication and payments.", t5_period: "Complete System / 4-6 Wks",
+                t5_f1: "Firebase or Supabase DB Architecture", t5_f2: "Stripe Payment Gateway Integration", t5_f3: "Multi-Tenant User Authorization", t5_f4: "Admin Dashboard & Analytics Engine",
+                t6_title: "Enterprise AI Integration", t6_desc: "Local and cloud LLMs, autonomous support agents, and semantic search setups.", t6_period: "Starting / 3-5 Wks Delivery",
+                t6_f1: "Ollama / Local LLM Node Deployment", t6_f2: "Vector DB & RAG Pipeline Setup", t6_f3: "Autonomous AI Agent Workflows", t6_f4: "Custom Fine-Tuning & Prompt Pipelines",
+                faq_title: "Frequently Asked Questions", faq_q1: "Are there hidden recurring licensing fees?", faq_a1: "No. All pricing tiers are fixed single-project estimates. You maintain 100% ownership of your codebase and deployment keys upon delivery.",
+                faq_q2: "What is the payment structure?", faq_a2: "Projects are billed standard 50% upfront to initiate architectural planning and 50% upon final production launch.",
+                faq_q3: "Can I request a custom feature set outside these tiers?", faq_a3: "Yes. You can schedule a strategy call to map out specialized technical architecture tailored specifically to your project requirements.",
+                footer_brand_desc: "Architecting next-generation digital performance tools and custom full-stack solutions.", footer_col1_title: "Engine Structures", footer_col2_title: "Resources", footer_col3_title: "Corporate",
+                footer_f1: "Web Frameworks", footer_f2: "SaaS Ecosystems", footer_f3: "Database Integration", footer_r1: "Case Profiles", footer_r2: "System Diagnostics", footer_c1: "Secure Booking", footer_c2: "Network Framework", footer_l1: "Security Protocol", footer_l2: "Terms of Architecture"
             },
             nl: {
-                title: "Productie Engineering Oplossingen",
-                subtitle: "Hoogwaardige tech-stacks zorgvuldig ontworpen om wrijving te verminderen, conversies te automatiseren en systeemsnelheid te optimaliseren.",
-                c1_title: "Full-Stack Web Engineering",
-                c1_desc: "Zorgvuldig gestructureerde applicaties met schaalbare frontend-frameworks ondersteund door raazendsnelle serverruntimes.",
-                c1_f1: "Next.js & Server-Side Systemen",
-                c1_f2: "Schone, Adaptieve Layouts",
-                c1_f3: "Aangepaste Node.js & REST API Nodes",
-                btn1: "Selecteer Engineering",
-                c2_title: "SaaS Ecosystem Ontwerp",
-                c2_desc: "Volledige implementatie-pijplijnen uitgerust met aangepaste databanken, geïsoleerde accounts en veilige betalingen.",
-                c2_f1: "Multi-Tenant DB Configuraties",
-                c2_f2: "Firebase & Supabase Architectuur",
-                c2_f3: "Geautomatiseerde Facturatie-integraties",
-                btn2: "Selecteer SaaS",
-                c3_title: "Prestatie-Audits",
-                c3_desc: "Transformeer trage systemen in geoptimaliseerde motoren die hoog scoren in zoekmachines.",
-                c3_f1: "Vloeiende Animatie-Pijplijnen",
-                c3_f2: "Geavanceerde Asset-Compressie",
-                c3_f3: "Geavanceerde Cache-Optimalisatie",
-                btn3: "Selecteer Audit",
-                c4_title: "Cloud Infrastructuur & DevOps",
-                c4_desc: "Geautomatiseerde CI/CD-pijplijnen, gecontaineriseerde toepassingen en veerkrachtige cloudarchitectuur zonder downtime.",
-                c4_f1: "Docker & Kubernetes Orchestratie",
-                c4_f2: "AWS / Vercel Schaalbare Nodes",
-                c4_f3: "Geautomatiseerde GitHub Actions CI/CD",
-                btn4: "Selecteer DevOps",
-                c5_title: "Veilige API & Microservices",
-                c5_desc: "Ontwerp en integratie van zeer veilige GraphQL- en REST-microservices met tokenauthenticatie en snelheidslimieten.",
-                c5_f1: "JWT & OAuth2 Beveiligingspoorten",
-                c5_f2: "GraphQL & REST Eindpunten",
-                c5_f3: "DDoS-bescherming & Rate Limiting",
-                btn5: "Selecteer APIs",
-                c6_title: "Enterprise AI Integratie",
-                c6_desc: "Integreer aangepaste LLM's, geautomatiseerde werkstroomagenten en vectordatabanken om uw bedrijf een boost te geven.",
-                c6_f1: "OpenAI & Custom LLM Pijplijnen",
-                c6_f2: "Vector DB & Semantisch Zoeken",
-                c6_f3: "Geautomatiseerde Werkstroomagenten",
-                btn6: "Selecteer AI Engine",
-                lbl_time: "Tijdsduur:",
-                lbl_name: "Volledige Naam",
-                lbl_email: "E-mailadres",
-                lbl_notes: "Projectdetails",
-                btn_submit: "Aanvraag Indienen"
+                nav_home: "Startpagina", nav_services: "Diensten", nav_pricing: "Prijzen", nav_portfolio: "Portfolio", nav_booking: "Boek Strategie",
+                hero_title: "Voorspelbare Tarieven voor Schaalbare Tech", hero_subtitle: "Transparante prijzen in Euro's met strikte opleveringsmijlpalen. Kies een pakket dat past bij uw schaal.",
+                badge_popular: "Meest Populair", btn_select: "Aan de slag",
+                t1_title: "Prestatie-Audit", t1_desc: "Volledige code- en snelheidsaudit met realtime strategie voor knelpunteliminatie.", t1_period: "Eenmalig / 1-2 Wk Levering",
+                t1_f1: "Lighthouse & Core Web Vitals Optimalisatie", t1_f2: "Database Query Profiling", t1_f3: "Asset Pipeline & Cache Afstemming", t1_f4: "Diagnostisch Eindrapport",
+                t2_title: "Microservices Node", t2_desc: "REST- of GraphQL-API's met hoge doorvoer en robuuste beveiligingslagen.", t2_period: "Per Module / 2-3 Wk Levering",
+                t2_f1: "Express.js / Node.js Engine", t2_f2: "JWT & OAuth2 Beveiligingslagen", t2_f3: "Realtime WebSockets Integratie", t2_f4: "Swagger / OpenAPI Documentatie",
+                t3_title: "Full-Stack Applicatie", t3_desc: "Aangepaste Next.js- of React-webapplicaties van productiekwaliteit.", t3_period: "Vanaf / 2-4 Wk Levering",
+                t3_f1: "Next.js & SSR Architectuur", t3_f2: "Tailwind CSS Aangepast Design Systeem", t3_f3: "Volledige SEO & Analytics Integratie", t3_f4: "Responsieve Layouts",
+                t4_title: "Cloud & DevOps Inrichting", t4_desc: "Veerkrachtige cloudarchitectuur, continue integratie en serverorkestratie.", t4_period: "Eenmalig / 2-3 Wk Levering",
+                t4_f1: "AWS & Cloudflare Infrastructuur", t4_f2: "Docker Containerisatie Setup", t4_f3: "Geautomatiseerde GitHub Actions CI/CD", t4_f4: "Zero-Downtime Regels",
+                t5_title: "SaaS Platform Kern", t5_desc: "End-to-end multi-tenant productontwikkeling met authenticatie en betalingen.", t5_period: "Compleet Systeem / 4-6 Wk",
+                t5_f1: "Firebase of Supabase DB Architectuur", t5_f2: "Stripe Betalingskoppeling", t5_f3: "Multi-Tenant Gebruikersautorisatie", t5_f4: "Admin Dashboard & Analytics",
+                t6_title: "Enterprise AI Integratie", t6_desc: "Lokale en cloud LLM's, autonome ondersteuningsagenten en semantische zoekopdrachten.", t6_period: "Vanaf / 3-5 Wk Levering",
+                t6_f1: "Ollama / Lokale LLM Node Uitrol", t6_f2: "Vector DB & RAG Pipeline Setup", t6_f3: "Autonome AI Agent Workflows", t6_f4: "Aangepaste Fine-Tuning & Prompts",
+                faq_title: "Veelgestelde Vragen", faq_q1: "Zijn er verborgen terugkerende licentiekosten?", faq_a1: "Nee. Alle tarieven zijn vast op projectbasis. U behoudt 100% eigendom van uw broncode en sleutels.",
+                faq_q2: "Wat is de betalingsstructuur?", faq_a2: "Projecten worden gefactureerd met 50% vooraf om de planning te starten en 50% bij de definitieve lancering.",
+                faq_q3: "Kan ik een aangepast pakket aanvragen?", faq_a3: "Ja. U kunt een strategiegesprek inplannen om gespecialiseerde architectuur af te stemmen op uw eisen.",
+                footer_brand_desc: "Architectuur van de volgende generatie digitale prestatietools en full-stack oplossingen.", footer_col1_title: "Engine Structuren", footer_col2_title: "Bronmateriaal", footer_col3_title: "Zakelijk",
+                footer_f1: "Web Frameworks", footer_f2: "SaaS Ecosystemen", footer_f3: "Database Integratie", footer_r1: "Casestudies", footer_r2: "Systeemdiagnostiek", footer_c1: "Veilig Boeken", footer_c2: "Netwerk Framework", footer_l1: "Beveiligingsprotocol", footer_l2: "Voorwaarden"
             },
             fr: {
-                title: "Solutions d'Ingénierie de Production",
-                subtitle: "Des architectures technologiques à haute performance conçues pour réduire les frictions et optimiser la vitesse.",
-                c1_title: "Ingénierie Web Full-Stack",
-                c1_desc: "Applications rigoureusement structurées avec des frameworks front-end évolutifs et des serveurs ultra-rapides.",
-                c1_f1: "Systèmes Next.js & Côté Serveur",
-                c1_f2: "Interfaces Adaptatives & Épurées",
-                c1_f3: "Nœuds API REST & Node.js Sur Mesure",
-                btn1: "Sélectionner",
-                c2_title: "Conception d'Écosystème SaaS",
-                c2_desc: "Pipelines de déploiement complets avec bases de données dédiées, comptes isolés et paiements sécurisés.",
-                c2_f1: "Configurations BDD Multi-Locataires",
-                c2_f2: "Architecture Firebase & Supabase",
-                c2_f3: "Intégrations de Facturation Automatique",
-                btn2: "Sélectionner SaaS",
-                c3_title: "Audits de Performance",
-                c3_desc: "Transformez vos systèmes lents en moteurs optimisés affichant des scores élevés sur les moteurs de recherche.",
-                c3_f1: "Pipelines d'Animation Fluides",
-                c3_f2: "Compression Avancée des Ressources",
-                c3_f3: "Logique d'Optimisation du Cache",
-                btn3: "Sélectionner Audit",
-                c4_title: "Infrastructure Cloud & DevOps",
-                c4_desc: "Pipelines CI/CD automatisés, déploiements conteneurisés et architectures cloud haute disponibilité.",
-                c4_f1: "Orchestration Docker & Kubernetes",
-                c4_f2: "Nœuds à Échelle Automatique AWS / Vercel",
-                c4_f3: "CI/CD Automatisé via GitHub Actions",
-                btn4: "Sélectionner DevOps",
-                c5_title: "APIs Sécurisées & Microservices",
-                c5_desc: "Conception et intégration de microservices GraphQL et REST ultra-sécurisés avec authentification avancée.",
-                c5_f1: "Passerelles de Sécurité JWT & OAuth2",
-                c5_f2: "Points d'Accès GraphQL & REST",
-                c5_f3: "Protection DDoS & Limitation de Débit",
-                btn5: "Sélectionner APIs",
-                c6_title: "Intégration IA pour Entreprises",
-                c6_desc: "Intégrez des LLM personnalisés, des agents autonomes et des bases vectorielles pour propulser votre entreprise.",
-                c6_f1: "Pipelines OpenAI & LLM Sur Mesure",
-                c6_f2: "Base de Données Vectorielle & Recherche Sémantique",
-                c6_f3: "Agents d'Automatisation des Tâches",
-                btn6: "Sélectionner Moteur IA",
-                lbl_time: "Délai:",
-                lbl_name: "Nom Complet",
-                lbl_email: "Adresse Email",
-                lbl_notes: "Détails du Projet",
-                btn_submit: "Envoyer la Demande"
+                nav_home: "Accueil", nav_services: "Services", nav_pricing: "Tarifs", nav_portfolio: "Portfolio", nav_booking: "Réserver",
+                hero_title: "Tarifs Prévisibles pour Technologies Évolutives", hero_subtitle: "Tarification transparente en Euros avec étapes de livraison strictes. Choisissez une formule adaptée à votre échelle.",
+                badge_popular: "Le Plus Populaire", btn_select: "Commencer",
+                t1_title: "Audit de Performance", t1_desc: "Audit complet du code et de la vitesse avec stratégie d'élimination des goulots d'étranglement.", t1_period: "Unique / Livraison 1-2 Sem",
+                t1_f1: "Optimisation Lighthouse & Core Web Vitals", t1_f2: "Profilage des Requêtes SQL", t1_f3: "Optimisation du Cache et des Fichiers", t1_f4: "Rapport Diagnostic Exécutif",
+                t2_title: "Nœud de Microservices", t2_desc: "API REST ou GraphQL à haut débit avec couches de sécurité renforcées.", t2_period: "Par Module / Livraison 2-3 Sem",
+                t2_f1: "Moteur Express.js / Node.js", t2_f2: "Couches de Sécurité JWT & OAuth2", t2_f3: "Intégration WebSockets Temps Réel", t2_f4: "Documentation Swagger / OpenAPI",
+                t3_title: "Application Full-Stack", t3_desc: "Applications web Next.js ou React sur mesure, conçues pour monter en charge.", t3_period: "À partir de / Livraison 2-4 Sem",
+                t3_f1: "Architecture Next.js & SSR", t3_f2: "Système de Design Tailwind CSS", t3_f3: "Intégration SEO & Analytics", t3_f4: "Mises en page Adaptatives",
+                t4_title: "Infrastructure Cloud & DevOps", t4_desc: "Architecture cloud résiliente, intégration continue et orchestration de serveurs.", t4_period: "Unique / Livraison 2-3 Sem",
+                t4_f1: "Infrastructures AWS & Cloudflare", t4_f2: "Configuration Docker & Conteneurs", t4_f3: "CI/CD GitHub Actions Automatisé", t4_f4: "Règles de Déploiement Sans Interruption",
+                t5_title: "Cœur de Plateforme SaaS", t5_desc: "Développement complet de produits multi-locataires avec authentification et paiements.", t5_period: "Système Complet / 4-6 Sem",
+                t5_f1: "Architecture Base de Données Firebase/Supabase", t5_f2: "Intégration Passerelle de Paiement Stripe", t5_f3: "Autorisation Utilisateur Multi-Locataire", t5_f4: "Tableau de Bord Admin & Analytique",
+                t6_title: "Intégration IA Entreprise", t6_desc: "LLMs locaux et cloud, agents d'assistance autonomes et recherche sémantique.", t6_period: "À partir de / Livraison 3-5 Sem",
+                t6_f1: "Déploiement de Nœud LLM Local / Ollama", t6_f2: "Configuration Vector DB & Pipeline RAG", t6_f3: "Flux d'Agents IA Autonomes", t6_f4: "Ajustement sur Mesure & Prompts",
+                faq_title: "Foire Aux Questions", faq_q1: "Y a-t-il des frais de licence récurrents cachés?", faq_a1: "Non. Tous les tarifs sont fixes par projet. Vous conservez 100% de la propriété de votre code source à la livraison.",
+                faq_q2: "Quelle est la structure de paiement?", faq_a2: "Les projets sont facturés à 50% d'acompte pour lancer l'architecture et 50% au lancement final.",
+                faq_q3: "Puis-je demander des fonctionnalités sur mesure?", faq_a3: "Oui. Vous pouvez réserver un appel stratégique pour concevoir une architecture adaptée à vos besoins précis.",
+                footer_brand_desc: "Conception d'outils de performance numérique de nouvelle génération et solutions full-stack.", footer_col1_title: "Architectures Engine", footer_col2_title: "Ressources", footer_col3_title: "Entreprise",
+                footer_f1: "Frameworks Web", footer_f2: "Écosystèmes SaaS", footer_f3: "Intégration DB", footer_r1: "Profils d'Études", footer_r2: "Diagnostics Système", footer_c1: "Réservation Sécurisée", footer_c2: "Cadre Réseau", footer_l1: "Protocole de Sécurité", footer_l2: "Conditions d'Architecture"
             },
             pt: {
-                title: "Soluções de Engenharia de Produção",
-                subtitle: "Stacks tecnológicas de alto desempenho meticulosamente projetadas para minimizar o atrito e otimizar a velocidade.",
-                c1_title: "Engenharia Web Full-Stack",
-                c1_desc: "Aplicações estruturadas com frameworks frontend escaláveis e ambientes de servidor de alta velocidade.",
-                c1_f1: "Sistemas Next.js e Server-Side",
-                c1_f2: "Layouts Limpos e Adaptativos",
-                c1_f3: "APIs REST e Nós Node.js Personalizados",
-                btn1: "Selecionar Engenharia",
-                c2_title: "Design de Ecossistemas SaaS",
-                c2_desc: "Pipelines de implantação completos com bancos de dados personalizados, contas isoladas e pagamentos seguros.",
-                c2_f1: "Configurações BD Multi-Tenant",
-                c2_f2: "Arquitetura Firebase e Supabase",
-                c2_f3: "Integração de Faturamento Automatizado",
-                btn2: "Selecionar SaaS",
-                c3_title: "Auditorias de Desempenho",
-                c3_desc: "Transforme sistemas lentos em motores otimizados com pontuação alta nos motores de busca.",
-                c3_f1: "Pipelines de Animação Fluida",
-                c3_f2: "Sistemas de Compressão de Ativos",
-                c3_f3: "Lógica Avançada de Otimização de Cache",
-                btn3: "Selecionar Auditoria",
-                c4_title: "Infraestrutura Cloud & DevOps",
-                c4_desc: "Pipelines CI/CD automatizados, implantações em containers e arquitetura em nuvem para zero tempo de inatividade.",
-                c4_f1: "Orquestração Docker e Kubernetes",
-                c4_f2: "Nós de Escalonamento AWS / Vercel",
-                c4_f3: "CI/CD Automatizado via GitHub Actions",
-                btn4: "Selecionar DevOps",
-                c5_title: "APIs Seguras e Microserviços",
-                c5_desc: "Design e integração de microserviços GraphQL e REST ultra-seguros com autenticação de token e controle de taxa.",
-                c5_f1: "Portais de Segurança JWT e OAuth2",
-                c5_f2: "Endpoints GraphQL e REST",
-                c5_f3: "Proteção DDoS e Controle de Taxa",
-                btn5: "Selecionar APIs",
-                c6_title: "Integração de IA Empresarial",
-                c6_desc: "Integre LLMs personalizados, agentes automatizados e bancos de dados vetoriais para impulsionar seu negócio.",
-                c6_f1: "Pipelines OpenAI e LLMs Personalizados",
-                c6_f2: "Banco de Dados Vetorial e Busca Semântica",
-                c6_f3: "Agentes de Fluxo de Trabalho Automatizados",
-                btn6: "Selecionar Motor de IA",
-                lbl_time: "Prazo:",
-                lbl_name: "Nome Completo",
-                lbl_email: "Endereço de E-mail",
-                lbl_notes: "Detalhes do Projeto",
-                btn_submit: "Enviar Solicitação"
+                nav_home: "Início", nav_services: "Serviços", nav_pricing: "Preços", nav_portfolio: "Portfólio", nav_booking: "Agendar",
+                hero_title: "Planos Previsíveis para Tecnologia Escalável", hero_subtitle: "Preços transparentes em Euros com prazos e entregas rigorosas. Escolha o pacote ideal para o seu momento.",
+                badge_popular: "Mais Popular", btn_select: "Começar Agora",
+                t1_title: "Auditoria de Desempenho", t1_desc: "Auditoria completa de código e velocidade com estratégia de eliminação de gargalos.", t1_period: "Único / Entrega em 1-2 Sem",
+                t1_f1: "Otimização de Lighthouse & Core Web Vitals", t1_f2: "Análise de Consultas em Banco de Dados", t1_f3: "Ajuste de Cache e Pipeline de Arquivos", t1_f4: "Relatório Diagnóstico Executivo",
+                t2_title: "Nó de Microserviços", t2_desc: "APIs REST ou GraphQL de alto desempenho com camadas avançadas de segurança.", t2_period: "Por Módulo / Entrega em 2-3 Sem",
+                t2_f1: "Motor Express.js / Node.js", t2_f2: "Camadas de Segurança JWT & OAuth2", t2_f3: "Integração WebSockets em Tempo Real", t2_f4: "Documentação Swagger / OpenAPI",
+                t3_title: "Aplicação Full-Stack", t3_desc: "Aplicações web sob medida em Next.js ou React, projetadas para alta escala.", t3_period: "A partir de / Entrega em 2-4 Sem",
+                t3_f1: "Arquitetura Next.js & SSR", t3_f2: "Sistema de Design Customizado Tailwind CSS", t3_f3: "Integração Completa de SEO e Analytics", t3_f4: "Layouts Responsivos Multi-Dispositivo",
+                t4_title: "Infraestrutura Cloud & DevOps", t4_desc: "Arquitetura em nuvem resiliente, integração contínua e orquestração de servidores.", t4_period: "Único / Entrega em 2-3 Sem",
+                t4_f1: "Infraestrutura AWS & Cloudflare", t4_f2: "Configuração de Containers Docker", t4_f3: "Automação CI/CD com GitHub Actions", t4_f4: "Regras de Implantação Sem Interrupção",
+                t5_title: "Núcleo de Plataforma SaaS", t5_desc: "Desenvolvimento completo de produto multi-inquilino com autenticação e pagamentos.", t5_period: "Sistema Completo / 4-6 Sem",
+                t5_f1: "Arquitetura de Banco de Dados Firebase/Supabase", t5_f2: "Integração com Gateway de Pagamento Stripe", t5_f3: "Autorização de Usuários Multi-Inquilino", t5_f4: "Painel de Controle Admin e Métricas",
+                t6_title: "Integração de IA Corporativa", t6_desc: "LLMs locais e em nuvem, agentes autônomos de suporte e busca semântica.", t6_period: "A partir de / Entrega em 3-5 Sem",
+                t6_f1: "Implantação de Nó LLM Local / Ollama", t6_f2: "Configuração de Banco de Vetores & RAG", t6_f3: "Fluxos de Trabalho com Agentes de IA", t6_f4: "Ajuste Fino e Prompts Personalizados",
+                faq_title: "Perguntas Frequentes", faq_q1: "Existem taxas recorrentes ou licenças ocultas?", faq_a1: "Não. Todos os planos têm preços fixos por projeto. Você mantém 100% da propriedade do código e chaves ao finalizar.",
+                faq_q2: "Como funciona a estrutura de pagamento?", faq_a2: "Os projetos são faturados com 50% de entrada para iniciar a arquitetura e 50% no lançamento final.",
+                faq_q3: "Posso solicitar um projeto customizado fora desses planos?", faq_a3: "Sim. Você pode agendar uma reunião de estratégia para desenhar uma arquitetura específica para o seu negócio.",
+                footer_brand_desc: "Construindo ferramentas de desempenho digital de última geração e soluções full-stack.", footer_col1_title: "Estrutura do Motor", footer_col2_title: "Recursos", footer_col3_title: "Corporativo",
+                footer_f1: "Frameworks Web", footer_f2: "Ecossistemas SaaS", footer_f3: "Integração de Bancos", footer_r1: "Casos de Estudo", footer_r2: "Diagnóstico de Sistemas", footer_c1: "Agendamento Seguro", footer_c2: "Estrutura de Rede", footer_l1: "Protocolo de Segurança", footer_l2: "Termos de Arquitetura"
             },
             es: {
-                title: "Soluciones de Ingeniería de Producción",
-                subtitle: "Stacks tecnológicos de alto rendimiento meticulosamente diseñados para minimizar la fricción y optimizar la velocidad.",
-                c1_title: "Ingeniería Web Full-Stack",
-                c1_desc: "Aplicaciones estructuradas con frameworks frontend escalables respaldadas por servidores ultrarrápidos de nivel de producción.",
-                c1_f1: "Sistemas Next.js y Server-Side",
-                c1_f2: "Diseños Limpios y Adaptables",
-                c1_f3: "Nodos API REST y Node.js Personalizados",
-                btn1: "Seleccionar Ingeniería",
-                c2_title: "Diseño de Ecosistemas SaaS",
-                c2_desc: "Pipelines de despliegue completos con capas de bases de datos personalizadas, cuentas aisladas y pagos seguros.",
-                c2_f1: "Configuraciones BD Multi-Inquilino",
-                c2_f2: "Arquitectura Firebase y Supabase",
-                c2_f3: "Integración de Facturación Automatizada",
-                btn2: "Seleccionar SaaS",
-                c3_title: "Auditorías de Rendimiento",
-                c3_desc: "Transforme sistemas lentos en motores optimizados con alto rendimiento en motores de búsqueda.",
-                c3_f1: "Pipelines de Animación Sin Interrupciones",
-                c3_f2: "Compresión Avanzada de Archivos",
-                c3_f3: "Lógica de Optimización de Caché",
-                btn3: "Seleccionar Auditoría",
-                c4_title: "Infraestructura Cloud y DevOps",
-                c4_desc: "Pipelines CI/CD automatizados, despliegues en contenedores y arquitectura en la nube diseñada para cero tiempo de inactividad.",
-                c4_f1: "Orquestación Docker y Kubernetes",
-                c4_f2: "Nodos de Escalado Automático AWS / Vercel",
-                c4_f3: "CI/CD Automatizado con GitHub Actions",
-                btn4: "Seleccionar DevOps",
-                c5_title: "APIs Seguras y Microservicios",
-                c5_desc: "Diseño e integración de microservicios GraphQL y REST ultraseguros con autenticación por tokens y límite de velocidad.",
-                c5_f1: "Puertas de Seguridad JWT y OAuth2",
-                c5_f2: "Endpoints GraphQL y REST",
-                c5_f3: "Protección DDoS y Límite de Velocidad",
-                btn5: "Seleccionar APIs",
-                c6_title: "Integración de IA Empresarial",
-                c6_desc: "Integre LLMs personalizados, agentes automatizados y bases de datos vectoriales para potenciar su negocio.",
-                c6_f1: "Pipelines OpenAI y LLM Personalizados",
-                c6_f2: "Base de Datos Vectorial y Búsqueda Semántica",
-                c6_f3: "Agentes de Flujo de Trabajo Automatizados",
-                btn6: "Seleccionar Motor IA",
-                lbl_time: "Plazo:",
-                lbl_name: "Nombre Completo",
-                lbl_email: "Correo Electrónico",
-                lbl_notes: "Detalles del Proyecto",
-                btn_submit: "Enviar Solicitud"
+                nav_home: "Inicio", nav_services: "Servicios", nav_pricing: "Precios", nav_portfolio: "Portafolio", nav_booking: "Reservar",
+                hero_title: "Planes Predecibles para Tecnología Escalable", hero_subtitle: "Precios transparentes en Euros con plazos de entrega estrictos. Elija el paquete adecuado para su escala actual.",
+                badge_popular: "Más Popular", btn_select: "Comenzar",
+                t1_title: "Auditoría de Rendimiento", t1_desc: "Auditoría completa de código y velocidad con estrategia para eliminar cuellos de botella.", t1_period: "Pago Único / Entrega 1-2 Sem",
+                t1_f1: "Optimización de Lighthouse y Core Web Vitals", t1_f2: "Perfilado de Consultas a Bases de Datos", t1_f3: "Ajuste de Caché y Pipeline de Recursos", t1_f4: "Informe Diagnóstico Ejecutivo",
+                t2_title: "Nodo de Microservicios", t2_desc: "APIs REST o GraphQL de alto rendimiento con capas de seguridad robustas.", t2_period: "Por Módulo / Entrega 2-3 Sem",
+                t2_f1: "Motor Express.js / Node.js", t2_f2: "Capas de Seguridad JWT y OAuth2", t2_f3: "Integración de WebSockets en Tiempo Real", t2_f4: "Documentación Swagger / OpenAPI",
+                t3_title: "Aplicación Full-Stack", t3_desc: "Aplicaciones web personalizadas en Next.js o React construidas para escalar.", t3_period: "Desde / Entrega 2-4 Sem",
+                t3_f1: "Arquitectura Next.js y SSR", t3_f2: "Sistema de Diseño Personalizado en Tailwind CSS", t3_f3: "Integración Completa de SEO y Analítica", t3_f4: "Diseños Adaptables Multidispositivo",
+                t4_title: "Infraestructura Cloud y DevOps", t4_desc: "Arquitectura en la nube resiliente, integración continua y orquestación de servidores.", t4_period: "Pago Único / Entrega 2-3 Sem",
+                t4_f1: "Infraestructura en AWS y Cloudflare", t4_f2: "Configuración de Contenedores Docker", t4_f3: "CI/CD Automatizado con GitHub Actions", t4_f4: "Reglas de Despliegue Sin Interrupciones",
+                t5_title: "Núcleo de Plataforma SaaS", t5_desc: "Desarrollo completo de producto multinquilino con autenticación y pagos.", t5_period: "Sistema Completo / 4-6 Sem",
+                t5_f1: "Arquitectura en Firebase o Supabase", t5_f2: "Integración de Pasarela de Pagos Stripe", t5_f3: "Autorización de Usuarios Multinquilino", t5_f4: "Panel de Control Admin y Métricas",
+                t6_title: "Integración de IA Empresarial", t6_desc: "LLMs locales y en la nube, agentes de soporte autónomos y búsqueda semántica.", t6_period: "Desde / Entrega 3-5 Sem",
+                t6_f1: "Despliegue de Nodo LLM Local / Ollama", t6_f2: "Configuración de Base de Datos Vectorial y RAG", t6_f3: "Flujos de Trabajo con Agentes de IA Autónomos", t6_f4: "Ajuste Fino Personalizado y Prompts",
+                faq_title: "Preguntas Frecuentes", faq_q1: "¿Existen cargos ocultos de licencia recurrente?", faq_a1: "No. Todos los planes son estimaciones fijas por proyecto. Usted conserva el 100% de la propiedad de su código al finalizar.",
+                faq_q2: "¿Cuál es la estructura de pago?", faq_a2: "Los proyectos se facturan con un 50% anticipado para iniciar la arquitectura y un 50% al momento del lanzamiento final.",
+                faq_q3: "¿Puedo solicitar un plan personalizado fuera de estas opciones?", faq_a3: "Sí. Puede programar una llamada de estrategia para diseñar una arquitectura técnica adaptada a sus requisitos específicos.",
+                footer_brand_desc: "Diseñando herramientas de alto rendimiento digital y soluciones full-stack personalizadas.", footer_col1_title: "Estructura del Motor", footer_col2_title: "Recursos", footer_col3_title: "Corporativo",
+                footer_f1: "Frameworks Web", footer_f2: "Ecosistemas SaaS", footer_f3: "Integración de BD", footer_r1: "Perfiles de Casos", footer_r2: "Diagnóstico de Sistemas", footer_c1: "Reserva Segura", footer_c2: "Marco de Red", footer_l1: "Protocolo de Seguridad", footer_l2: "Términos de Arquitectura"
             },
             it: {
-                title: "Soluzioni di Ingegneria di Produzione",
-                subtitle: "Architetture tecnologiche ad alte prestazioni progettate per ridurre gli attriti e ottimizzare la velocità del sistema.",
-                c1_title: "Ingegneria Web Full-Stack",
-                c1_desc: "Applicazioni strutturate con framework frontend scalabili e runtime di server ultra-veloci ad alto livello.",
-                c1_f1: "Sistemi Next.js & Server-Side",
-                c1_f2: "Layout Puliti e Adattivi",
-                c1_f3: "Nodi API REST e Node.js Personalizzati",
-                btn1: "Seleziona Ingegneria",
-                c2_title: "Design di Ecosistemi SaaS",
-                c2_desc: "Pipeline di distribuzione complete con database personalizzati, account isolati e pagamenti sicuri.",
-                c2_f1: "Configurazioni DB Multi-Tenant",
-                c2_f2: "Architettura Firebase & Supabase",
-                c2_f3: "Integrazione Fatturazione Automatica",
-                btn2: "Seleziona SaaS",
-                c3_title: "Audit delle Prestazioni",
-                c3_desc: "Trasforma sistemi lenti in motori ottimizzati che ottengono punteggi elevati sui motori di ricerca.",
-                c3_f1: "Pipeline di Animazione Fluida",
-                c3_f2: "Compressione Avanzata delle Risorse",
-                c3_f3: "Logica di Gestione della Cache",
-                btn3: "Seleziona Audit",
-                c4_title: "Infrastruttura Cloud & DevOps",
-                c4_desc: "Pipeline CI/CD automatizzate, distribuzioni in container e architettura cloud ad alta disponibilità.",
-                c4_f1: "Orchestrazione Docker & Kubernetes",
-                c4_f2: "Nodi Scalabili AWS / Vercel",
-                c4_f3: "CI/CD Automatizzata con GitHub Actions",
-                btn4: "Seleziona DevOps",
-                c5_title: "API Sicure & Microservizi",
-                c5_desc: "Progettazione e integrazione di microservizi GraphQL e REST ultra-sicuri con autenticazione avanzata.",
-                c5_f1: "Gateway di Sicurezza JWT & OAuth2",
-                c5_f2: "Endpoint GraphQL & REST",
-                c5_f3: "Protezione DDoS & Limite di Frequenza",
-                btn5: "Seleziona API",
-                c6_title: "Integrazione IA Aziendale",
-                c6_desc: "Integra LLM personalizzati, agenti automatizzati e database vettoriali per potenziare la tua azienda.",
-                c6_f1: "Pipeline OpenAI e LLM Personalizzati",
-                c6_f2: "Database Vettoriale & Ricerca Semantica",
-                c6_f3: "Agenti di Workflow Automatizzati",
-                btn6: "Seleziona Motore IA",
-                lbl_time: "Tempistica:",
-                lbl_name: "Nome Completo",
-                lbl_email: "Indirizzo Email",
-                lbl_notes: "Dettagli del Progetto",
-                btn_submit: "Invia Richiesta"
+                nav_home: "Home", nav_services: "Servizi", nav_pricing: "Prezzi", nav_portfolio: "Portfolio", nav_booking: "Prenota",
+                hero_title: "Piani Prevedibili per Tecnologie Scalabili", hero_subtitle: "Prezzi trasparenti in Euro con scadenze di consegna rigorose. Scegli il pacchetto più adatto alla tua scala.",
+                badge_popular: "Più Popolare", btn_select: "Inizia Ora",
+                t1_title: "Audit di Prestazioni", t1_desc: "Audit completo del codice e della velocità con strategia di eliminazione dei colli di bottiglia.", t1_period: "Una tantum / Consegna 1-2 Sett",
+                t1_f1: "Ottimizzazione Lighthouse & Core Web Vitals", t1_f2: "Profilazione Query Database", t1_f3: "Ottimizzazione Cache e Asset", t1_f4: "Report Diagnostico Esecutivo",
+                t2_title: "Nodo Microservizi", t2_desc: "API REST o GraphQL ad alte prestazioni con livelli di sicurezza avanzati.", t2_period: "Per Modulo / Consegna 2-3 Sett",
+                t2_f1: "Engine Express.js / Node.js", t2_f2: "Sicurezza con JWT & OAuth2", t2_f3: "Integrazione WebSockets in Tempo Reale", t2_f4: "Documentazione Swagger / OpenAPI",
+                t3_title: "Applicazione Full-Stack", t3_desc: "Applicazioni web Next.js o React su misura, progettate per scalare.", t3_period: "A partire da / Consegna 2-4 Sett",
+                t3_f1: "Architettura Next.js & SSR", t3_f2: "Design System Tailwind CSS", t3_f3: "Integrazione SEO & Analytics Completa", t3_f4: "Layout Reattivi Multi-Dispositivo",
+                t4_title: "Cloud & DevOps Setup", t4_desc: "Architettura cloud resiliente, integrazione continua e orchestrazione server.", t4_period: "Una tantum / Consegna 2-3 Sett",
+                t4_f1: "Infrastruttura AWS & Cloudflare", t4_f2: "Configurazione Container Docker", t4_f3: "CI/CD Automatizzato con GitHub Actions", t4_f4: "Regole di Deployment Senza Downtime",
+                t5_title: "Core Piattaforma SaaS", t5_desc: "Sviluppo completo di prodotti multi-tenant con autenticazione e pagamenti.", t5_period: "Sistema Completo / 4-6 Sett",
+                t5_f1: "Architettura DB Firebase o Supabase", t5_f2: "Integrazione Gateway Pagamenti Stripe", t5_f3: "Autorizzazione Utenti Multi-Tenant", t5_f4: "Dashboard Admin & Engine Analitico",
+                t6_title: "Integrazione AI Enterprise", t6_desc: "LLM locali e cloud, agenti di supporto autonomi e ricerca semantica.", t6_period: "A partire da / Consegna 3-5 Sett",
+                t6_f1: "Deployment Nodo LLM Locale / Ollama", t6_f2: "Setup Vector DB & Pipeline RAG", t6_f3: "Workflow Agenti AI Autonomi", t6_f4: "Fine-Tuning & Prompt Personalizzati",
+                faq_title: "Domande Frequenti", faq_q1: "Ci sono costi di licenza ricorrenti nascosti?", faq_a1: "No. Tutti i prezzi sono stime fisse per progetto. Mantieni il 100% della proprietà del codice e delle chiavi alla consegna.",
+                faq_q2: "Qual è la struttura di pagamento?", faq_a2: "I progetti sono fatturati con il 50% di anticipo per avviare la pianificazione e il 50% al lancio finale.",
+                faq_q3: "Posso richiedere un pacchetto personalizzato?", faq_a3: "Sì. Puoi prenotare una chiamata strategica per progettare un'architettura tecnica su misura per le tue esigenze.",
+                footer_brand_desc: "Architettura di strumenti digitali ad alte prestazioni e soluzioni full-stack personalizzate.", footer_col1_title: "Struttura Engine", footer_col2_title: "Risorse", footer_col3_title: "Aziendale",
+                footer_f1: "Framework Web", footer_f2: "Ecosistemi SaaS", footer_f3: "Integrazione Database", footer_r1: "Profili Casi", footer_r2: "Diagnostica di Sistema", footer_c1: "Prenotazione Sicura", footer_c2: "Framework di Rete", footer_l1: "Protocollo di Sicurezza", footer_l2: "Termini di Architettura"
             },
             ne: {
-                title: "उत्पादन इन्जिनियरिङ समाधानहरू",
-                subtitle: "प्रणालीको गतिलाई अप्टिमाइज गर्न र कामलाई छिटो बनाउन निर्माण गरिएका उच्च-प्रदर्शन प्रविधिहरू।",
-                c1_title: "फुल-स्ट्याक वेब इन्जिनियरिङ",
-                c1_desc: "द्रुत गतिमा चल्ने सर्भरहरूद्वारा समर्थित आधुनिक र उच्च-स्तरीय वेब एप्लिकेसनहरू।",
-                c1_f1: "Next.js र सर्भर-साइड प्रणालीहरू",
-                c1_f2: "आकर्षक र सहज लेआउटहरू",
-                c1_f3: "कस्टम Node.js र REST API हरू",
-                btn1: "इन्जिनियरिङ छनोट गर्नुहोस्",
-                c2_title: "SaaS प्रणाली डिजाइन",
-                c2_desc: "कस्टम डेटाबेस, प्रयोगकर्ता खाताहरू र सुरक्षित भुक्तानी प्रणालीसहितको पूर्ण प्लेटफर्म।",
-                c2_f1: "मल्टी-टेनेन्ट DB कन्फिगरेसन",
-                c2_f2: "Firebase र Supabase संरचना",
-                c2_f3: "स्वचालित बिलिङ एकीकरण",
-                btn2: "SaaS छनोट गर्नुहोस्",
-                c3_title: "प्रदर्शन लेखापरीक्षण (Performance Audit)",
-                c3_desc: "सुस्त वेबसाइटहरूलाई द्रुत गतिमा चल्ने र सर्च इन्जिनमा उच्च र्याङ्क गर्ने इन्जिनमा रूपान्तरण गर्नुहोस्।",
-                c3_f1: "स्मूथ एनिमेशन प्रणाली",
-                c3_f2: "फाइल कम्प्रेसन प्रणाली",
-                c3_f3: "उन्नत क्यास (Cache) अप्टिमाइजेसन",
-                btn3: "Audit छनोट गर्नुहोस्",
-                c4_title: "क्लाउड पूर्वाधार र DevOps",
-                c4_desc: "स्वचालित CI/CD पाइपलाइनहरू र भरपर्दो क्लाउड पूर्वाधार।",
-                c4_f1: "Docker र Kubernetes प्रणाली",
-                c4_f2: "AWS / Vercel अटो-स्केलिङ",
-                c4_f3: "स्वचालित GitHub Actions CI/CD",
-                btn4: "DevOps छनोट गर्नुहोस्",
-                c5_title: "सुरक्षित API र माइक्रोसर्भिसहरू",
-                c5_desc: "सुरक्षित GraphQL र REST माइक्रोसर्भिसहरूको डिजाइन र एकीकरण।",
-                c5_f1: "JWT र OAuth2 सुरक्षा प्रणाली",
-                c5_f2: "GraphQL र REST इन्डपोइन्टहरू",
-                c5_f3: "DDoS सुरक्षा र दर सीमा",
-                btn5: "API छनोट गर्नुहोस्",
-                c6_title: "एन्टरप्राइज AI एकीकरण",
-                c6_desc: "व्यवसाय प्रवर्धनका लागि कस्टम LLMs, अटोमेटेड एजेन्टहरू र भेक्टर डेटाबेसहरू जोड्नुहोस्।",
-                c6_f1: "OpenAI र कस्टम LLM पाइपलाइन",
-                c6_f2: "भेक्टर DB र सेमान्टिक खोज",
-                c6_f3: "स्वचालित कार्यप्रवाह एजेन्टहरू",
-                btn6: "AI इन्जिन छनोट गर्नुहोस्",
-                lbl_time: "समय सीमा:",
-                lbl_name: "पूरा नाम",
-                lbl_email: "इमेल ठेगाना",
-                lbl_notes: "आयोजना विवरण",
-                btn_submit: "प्रस्ताव पठाउनुहोस्"
+                nav_home: "गृहपृष्ठ", nav_services: "सेवाहरू", nav_pricing: "मूल्य निर्धारण", nav_portfolio: "पोर्टफोलियो", nav_booking: "रणनीति बुक गर्नुहोस्",
+                hero_title: "प्रविधिको लागि पारदर्शी मूल्यहरू", hero_subtitle: "यूरोमा स्पष्ट मूल्य निर्धारण र निश्चित समयसीमा। आफ्नो आवश्यकता अनुसारको प्याकेज छान्नुहोस्।",
+                badge_popular: "सबैभन्दा लोकप्रिय", btn_select: "शुरू गर्नुहोस्",
+                t1_title: "कार्यसम्पादन अडिट", t1_desc: "कोड र गतिको पूर्ण अडिट र समस्या समाधान गर्ने रणनीति।", t1_period: "एक पटक / १-२ हप्ता भित्र डेलिभरी",
+                t1_f1: "लाइटहाउस र कोर वेब भाइटल्स अप्टिमाइजेसन", t1_f2: "डाटाबेस क्वेरी प्रोफाइलिंग", t1_f3: "क्यास र एसेट ट्युनिङ", t1_f4: "विस्तृत निदान रिपोर्ट",
+                t2_title: "माइक्रोसर्भिस नोड", t2_desc: "सुरक्षित र उच्च क्षमताको REST वा GraphQL API हरू।", t2_period: "प्रति मोड्युल / २-३ हप्ता भित्र डेलिभरी",
+                t2_f1: "Express.js / Node.js इन्जिन", t2_f2: "JWT र OAuth2 सुरक्षा तहहरू", t2_f3: "रियल-टाइम WebSockets एकीकरण", t2_f4: "Swagger / OpenAPI कागजात",
+                t3_title: "फुल-स्ट्याक एप्लिकेसन", t3_desc: "नेक्स्ट-जेनेरेसन Next.js वा React वेब एप्लिकेसनहरू।", t3_period: "सुरुवाती मूल्य / २-४ हप्ता भित्र डेलिभरी",
+                t3_f1: "Next.js र SSR आर्किटेक्चर", t3_f2: "Tailwind CSS कस्टम डिजाइन", t3_f3: "पूर्ण SEO र एनालिटिक्स एकीकरण", t3_f4: "सबै डिभाइसमा मिल्ने लेआउट",
+                t4_title: "क्लाउड र DevOps सेटअप", t4_desc: "सुरक्षित क्लाउड आर्किटेक्चर र सर्भर व्यवस्थापन।", t4_period: "एक पटक / २-३ हप्ता भित्र डेलिभरी",
+                t4_f1: "AWS र Cloudflare पूर्वाधार", t4_f2: "Docker कन्टेनर सेटअप", t4_f3: "स्वचालित GitHub Actions CI/CD", t4_f4: "निरन्तर चल्ने प्रणाली नियमहरू",
+                t5_title: "SaaS प्लेटफर्म कोर", t5_desc: "मल्टि-टेनेन्ट प्रणाली, प्रमाणिकरण र भुक्तानी एकीकरण।", t5_period: "पूर्ण प्रणाली / ४-६ हप्ता",
+                t5_f1: "Firebase वा Supabase डाटाबेस", t5_f2: "Stripe भुक्तानी गेटवे एकीकरण", t5_f3: "मल्टि-टेनेन्ट प्रयोगकर्ता पहुँच", t5_f4: "एडमिन ड्यासबोर्ड र एनालिटिक्स",
+                t6_title: "एन्टरप्राइज AI एकीकरण", t6_desc: "स्थानीय AI मोडेल, एजेन्टहरू र सेमान्टिक खोज प्रणाली।", t6_period: "सुरुवाती मूल्य / ३-५ हप्ता भित्र डेलिभरी",
+                t6_f1: "Ollama / स्थानीय LLM नोड सेटअप", t6_f2: "Vector DB र RAG प्रणाली", t6_f3: "स्वचालित AI एजेन्ट कार्यप्रवाह", t6_f4: "कस्टम फाइन-ट्युनिङ र प्रम्प्ट्स",
+                faq_title: "बारम्बार सोधिएका प्रश्नहरू", faq_q1: "के कुनै लुकेको शुल्क छ?", faq_a1: "छैन। सबै मूल्यहरू निश्चित छन्। डेलिभरी पछि कोडको १००% स्वामित्व तपाईंको हुन्छ।",
+                faq_q2: "भुक्तानी प्रक्रिया कस्तो छ?", faq_a2: "काम सुरु गर्दा ५०% र पूर्ण डेलिभरी पछि बाँकी ५०% भुक्तानी गर्नुपर्छ।",
+                faq_q3: "के म कस्टम प्याकेज लिन सक्छु?", faq_a3: "सकिन्छ। तपाईं आफ्नो विशेष आवश्यकता अनुसारको छलफलका लागि कल बुक गर्न सक्नुहुन्छ।",
+                footer_brand_desc: "उच्च कार्यसम्पादनका डिजिटल उपकरणहरू र फुल-स्ट्याक समाधानहरू।", footer_col1_title: "इन्जिन संरचना", footer_col2_title: "स्रोतहरू", footer_col3_title: "कर्पोरेट",
+                footer_f1: "वेब फ्रेमवर्कहरू", footer_f2: "SaaS इकोसिस्टम", footer_f3: "डाटाबेस एकीकरण", footer_r1: "केस प्रोफाइलहरू", footer_r2: "प्रणाली निदान", footer_c1: "सुरक्षित बुकिङ", footer_c2: "नेटवर्क फ्रेमवर्क", footer_l1: "सुरक्षा प्रोटोकल", footer_l2: "आर्किटेक्चर सर्तहरू"
             },
             de: {
-                title: "Production Engineering Lösungen",
-                subtitle: "Hochleistungs-Tech-Stacks, die entwickelt wurden, um Reibung zu minimieren und die Systemgeschwindigkeit zu optimieren.",
-                c1_title: "Full-Stack Web-Engineering",
-                c1_desc: "Präzise strukturierte Anwendungen mit skalierbaren Frontend-Frameworks und blitzschnellen Server-Laufzeiten.",
-                c1_f1: "Next.js & Server-Side Systeme",
-                c1_f2: "Saubere, Adaptive Layouts",
-                c1_f3: "Maßgeschneiderte Node.js & REST APIs",
-                btn1: "Engineering Wählen",
-                c2_title: "SaaS-Ökosystem-Design",
-                c2_desc: "Komplette Deployment-Pipelines mit benutzerdefinierten Datenbanken, Benutzerkonten und sicheren Checkouts.",
-                c2_f1: "Multi-Tenant Datenbank-Konfigurationen",
-                c2_f2: "Firebase & Supabase Architektur",
-                c2_f3: "Automatisierte Abrechnungssysteme",
-                btn2: "SaaS Wählen",
-                c3_title: "Performance-Audits",
-                c3_desc: "Verwandeln Sie langsame Systeme in optimierte Engines mit Höchstbewertungen bei Suchmaschinen.",
-                c3_f1: "Ruckelfreie Animations-Pipelines",
-                c3_f2: "Effiziente Asset-Komprimierung",
-                c3_f3: "Erweiterte Cache-Optimierung",
-                btn3: "Audit Wählen",
-                c4_title: "Cloud-Infrastruktur & DevOps",
-                c4_desc: "Automatisierte CI/CD-Pipelines, containerisierte Deployments und ausfallsichere Cloud-Architektur.",
-                c4_f1: "Docker & Kubernetes Orchestrierung",
-                c4_f2: "AWS / Vercel Auto-Scaling Nodes",
-                c4_f3: "Automatisierte GitHub Actions CI/CD",
-                btn4: "DevOps Wählen",
-                c5_title: "Sichere APIs & Microservices",
-                c5_desc: "Entwicklung hochsicherer GraphQL- und REST-Microservices mit Token-Authentifizierung und Rate-Limiting.",
-                c5_f1: "JWT & OAuth2 Sicherheits-Gates",
-                c5_f2: "GraphQL & REST Endpunkte",
-                c5_f3: "DDoS-Schutz & Rate-Limiting",
-                btn5: "APIs Wählen",
-                c6_title: "Enterprise KI-Integration",
-                c6_desc: "Integrieren Sie benutzerdefinierte LLMs, Workflow-Agenten und Vektordatenbanken für Ihre Geschäftslogik.",
-                c6_f1: "OpenAI & Custom LLM Pipelines",
-                c6_f2: "Vektordatenbank & Semantische Suche",
-                c6_f3: "Automatisierte Workflow-Agenten",
-                btn6: "KI-Engine Wählen",
-                lbl_time: "Zeitrahm:",
-                lbl_name: "Vollständiger Name",
-                lbl_email: "E-Mail-Adresse",
-                lbl_notes: "Projekt-Details",
-                btn_submit: "Anfrage Absenden"
+                nav_home: "Startseite", nav_services: "Dienstleistungen", nav_pricing: "Preise", nav_portfolio: "Portfolio", nav_booking: "Strategie Buchen",
+                hero_title: "Vorhersehbare Tarife für Skalierbare Tech", hero_subtitle: "Transparente Preise in Euro mit strikten Meilensteinen. Wählen Sie das passende Engineering-Paket.",
+                badge_popular: "Am Beliebtesten", btn_select: "Jetzt Starten",
+                t1_title: "Performance-Audit", t1_desc: "Vollständiges Code- und Geschwindigkeits-Audit mit Strategie zur Engpassbeseitigung.", t1_period: "Einmalig / 1-2 Wochen Lieferzeit",
+                t1_f1: "Lighthouse & Core Web Vitals Optimierung", t1_f2: "Datenbank-Abfrage-Profiling", t1_f3: "Asset-Pipeline & Cache-Tuning", t1_f4: "Ausführlicher Diagnosebericht",
+                t2_title: "Microservices-Knoten", t2_desc: "Hochdurchsatz-REST- oder GraphQL-APIs mit robusten Sicherheits-Layern.", t2_period: "Pro Modul / 2-3 Wochen Lieferzeit",
+                t2_f1: "Express.js / Node.js Engine", t2_f2: "JWT & OAuth2 Sicherheits-Spezifikationen", t2_f3: "Echtzeit-WebSockets-Integration", t2_f4: "Swagger / OpenAPI Dokumentation",
+                t3_title: "Full-Stack Anwendung", t3_desc: "Maßgeschneiderte Next.js oder React Webanwendungen, gebaut für Skalierbarkeit.", t3_period: "Ab / 2-4 Wochen Lieferzeit",
+                t3_f1: "Next.js & SSR Architektur", t3_f2: "Tailwind CSS Custom Design-System", t3_f3: "Vollständige SEO & Analytics Integration", t3_f4: "Responsive Multi-Device Layouts",
+                t4_title: "Cloud & DevOps Einrichten", t4_desc: "Belastbare Cloud-Architektur, kontinuierliche Integration und Server-Orchestrierung.", t4_period: "Einmalig / 2-3 Wochen Lieferzeit",
+                t4_f1: "AWS & Cloudflare Infrastruktur", t4_f2: "Docker Containerisierung Setup", t4_f3: "Automatisierte GitHub Actions CI/CD", t4_f4: "Zero-Downtime Deployment Regeln",
+                t5_title: "SaaS Plattform-Kern", t5_desc: "End-to-End Multi-Tenant Produktentwicklung mit Authentifizierung und Zahlungen.", t5_period: "Komplettes System / 4-6 Wochen",
+                t5_f1: "Firebase oder Supabase DB Architektur", t5_f2: "Stripe Zahlungsanbindung", t5_f3: "Multi-Tenant Benutzerberechtigungen", t5_f4: "Admin Dashboard & Analytics Engine",
+                t6_title: "Enterprise AI Integration", t6_desc: "Lokale und Cloud-LLMs, autonome Support-Agenten und semantische Suche.", t6_period: "Ab / 3-5 Wochen Lieferzeit",
+                t6_f1: "Ollama / Lokaler LLM-Knoten-Deployment", t6_f2: "Vektor-DB & RAG Pipeline Setup", t6_f3: "Autonome KI-Agenten-Workflows", t6_f4: "Individuelles Fine-Tuning & Prompts",
+                faq_title: "Häufig Gestellte Fragen", faq_q1: "Gibt es versteckte wiederkehrende Lizenzgebühren?", faq_a1: "Nein. Alle Tarife sind Festpreise pro Projekt. Sie behalten nach der Übergabe 100% Eigentum am Code.",
+                faq_q2: "Wie sieht die Zahlungsstruktur aus?", faq_a2: "Projekte werden mit 50% Anzahlung zur Architekturentwicklung und 50% bei finalem Launch abgerechnet.",
+                faq_q3: "Kann ich ein individuelles Angebot anfordern?", faq_a3: "Ja. Sie können ein Strategiegespräch buchen, um eine spezielle technische Architektur abzustimmen.",
+                footer_brand_desc: "Architektur digitaler High-Performance-Werkzeuge und maßgeschneiderter Full-Stack-Lösungen.", footer_col1_title: "Engine-Strukturen", footer_col2_title: "Ressourcen", footer_col3_title: "Unternehmen",
+                footer_f1: "Web Frameworks", footer_f2: "SaaS Ökosysteme", footer_f3: "Datenbank-Integration", footer_r1: "Fallstudien", footer_r2: "Systemdiagnose", footer_c1: "Sichere Buchung", footer_c2: "Netzwerk-Framework", footer_l1: "Sicherheitsprotokoll", footer_l2: "Architekturbedingungen"
             }
         };
 
-        function changeLanguage(lang) {
-            const t = translations[lang] || translations['en'];
-            document.getElementById('title').innerText = t.title;
-            document.getElementById('subtitle').innerText = t.subtitle;
-            
-            document.getElementById('card1-title').innerText = t.c1_title;
-            document.getElementById('card1-desc').innerText = t.c1_desc;
-            document.getElementById('c1-f1').innerText = t.c1_f1;
-            document.getElementById('c1-f2').innerText = t.c1_f2;
-            document.getElementById('c1-f3').innerText = t.c1_f3;
-            document.getElementById('btn-1').innerText = t.btn1;
+        document.addEventListener('DOMContentLoaded', () => {
+            const langSwitch = document.getElementById('langSwitch');
+            const hamburgerMenu = document.getElementById('hamburgerMenu');
+            const menuPanel = document.getElementById('menuPanel');
+            const themeToggler = document.getElementById('themeToggler');
+            const scrollBar = document.getElementById('scrollBar');
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            const htmlRoot = document.documentElement;
 
-            document.getElementById('card2-title').innerText = t.c2_title;
-            document.getElementById('card2-desc').innerText = t.c2_desc;
-            document.getElementById('c2-f1').innerText = t.c2_f1;
-            document.getElementById('c2-f2').innerText = t.c2_f2;
-            document.getElementById('c2-f3').innerText = t.c2_f3;
-            document.getElementById('btn-2').innerText = t.btn2;
-
-            document.getElementById('card3-title').innerText = t.c3_title;
-            document.getElementById('card3-desc').innerText = t.c3_desc;
-            document.getElementById('c3-f1').innerText = t.c3_f1;
-            document.getElementById('c3-f2').innerText = t.c3_f2;
-            document.getElementById('c3-f3').innerText = t.c3_f3;
-            document.getElementById('btn-3').innerText = t.btn3;
-
-            document.getElementById('card4-title').innerText = t.c4_title;
-            document.getElementById('card4-desc').innerText = t.c4_desc;
-            document.getElementById('c4-f1').innerText = t.c4_f1;
-            document.getElementById('c4-f2').innerText = t.c4_f2;
-            document.getElementById('c4-f3').innerText = t.c4_f3;
-            document.getElementById('btn-4').innerText = t.btn4;
-
-            document.getElementById('card5-title').innerText = t.c5_title;
-            document.getElementById('card5-desc').innerText = t.c5_desc;
-            document.getElementById('c5-f1').innerText = t.c5_f1;
-            document.getElementById('c5-f2').innerText = t.c5_f2;
-            document.getElementById('c5-f3').innerText = t.c5_f3;
-            document.getElementById('btn-5').innerText = t.btn5;
-
-            document.getElementById('card6-title').innerText = t.c6_title;
-            document.getElementById('card6-desc').innerText = t.c6_desc;
-            document.getElementById('c6-f1').innerText = t.c6_f1;
-            document.getElementById('c6-f2').innerText = t.c6_f2;
-            document.getElementById('c6-f3').innerText = t.c6_f3;
-            document.getElementById('btn-6').innerText = t.btn6;
-
-            for(let i=1; i<=6; i++) {
-                document.getElementById(`lbl-time-${i}`).innerText = t.lbl_time;
+            // Language Translation Switcher Engine
+            function applyTranslation(lang) {
+                const dictionary = i18nData[lang] || i18nData['en'];
+                document.querySelectorAll('[data-i18n]').forEach(element => {
+                    const key = element.getAttribute('data-i18n');
+                    if (dictionary[key]) {
+                        element.textContent = dictionary[key];
+                    }
+                });
+                localStorage.setItem('preferred_lang', lang);
             }
 
-            document.getElementById('lbl-modal-name').innerText = t.lbl_name;
-            document.getElementById('lbl-modal-email').innerText = t.lbl_email;
-            document.getElementById('lbl-modal-notes').innerText = t.lbl_notes;
-            document.getElementById('btn-modal-submit').innerText = t.btn_submit;
-        }
+            const savedLang = localStorage.getItem('preferred_lang') || 'en';
+            langSwitch.value = savedLang;
+            applyTranslation(savedLang);
 
-        function openBookingModal(serviceName, estimatedPrice) {
-            document.getElementById('modal-service-name').innerText = serviceName;
-            document.getElementById('modal-service-price').innerText = `Estimated Range: ${estimatedPrice}`;
-            const modal = document.getElementById('bookingModal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+            langSwitch.addEventListener('change', (e) => {
+                applyTranslation(e.target.value);
+            });
 
-        function closeBookingModal() {
-            const modal = document.getElementById('bookingModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
+            // Mobile Menu Controller
+            hamburgerMenu.addEventListener('click', () => {
+                hamburgerMenu.classList.toggle('active');
+                menuPanel.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
 
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            alert('Thank you! Your request has been recorded.');
-            closeBookingModal();
-        }
+            // Close mobile menu when clicking nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    hamburgerMenu.classList.remove('active');
+                    menuPanel.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+
+            // Dark/Light Theme Switching
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            htmlRoot.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+
+            themeToggler.addEventListener('click', () => {
+                const currentTheme = htmlRoot.getAttribute('data-theme');
+                const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                htmlRoot.setAttribute('data-theme', targetTheme);
+                localStorage.setItem('theme', targetTheme);
+                updateThemeIcon(targetTheme);
+            });
+
+            function updateThemeIcon(theme) {
+                const icon = themeToggler.querySelector('i');
+                icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            }
+
+            // Scroll Bar & Top Scroll Logic
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollBar.style.width = scrolled + '%';
+                scrollTopBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+            });
+
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
     </script>
 </body>
 </html>
