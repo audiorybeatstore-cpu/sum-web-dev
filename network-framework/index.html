@@ -269,11 +269,11 @@
             </a>
             
             <nav class="nav-links" id="menuPanel">
-                <a href="../" class="nav-item">Home</a>
-                <a href="../services/" class="nav-item">Services</a>
+                <a href="../" class="nav-item" data-i18n="nav_home">Home</a>
+                <a href="../services/" class="nav-item" data-i18n="nav_services">Services</a>
                 <a href="../pricing/" class="nav-item" data-i18n="nav_pricing">Pricing</a>
-                <a href="../portfolio/" class="nav-item">Portfolio</a>
-                <a href="../booking/" class="nav-item">Book Strategy</a>
+                <a href="../portfolio/" class="nav-item" data-i18n="nav_portfolio">Portfolio</a>
+                <a href="../booking/" class="nav-item" data-i18n="nav_book">Book Strategy</a>
             </nav>
 
             <div class="nav-controls-wrapper">
@@ -305,8 +305,8 @@
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
         <div class="net-hero-content">
-            <h1 class="net-title">Enterprise <span>Network Framework</span></h1>
-            <p class="net-subtext">Optimizing data plane transmission pipelines. We deploy intelligent edge delivery mechanics to shield origins, eliminate dropouts, and lock down secure application endpoints.</p>
+            <h1 class="net-title" data-i18n="hero_title">Enterprise <span>Network Framework</span></h1>
+            <p class="net-subtext" data-i18n="hero_subtext">Optimizing data plane transmission pipelines. We deploy intelligent edge delivery mechanics to shield origins, eliminate dropouts, and lock down secure application endpoints.</p>
         </div>
     </section>
 
@@ -314,30 +314,30 @@
         
         <div class="topology-grid">
             <div class="topology-diagram-panel">
-                <h2>Edge Proxies & Global Distribution</h2>
-                <p>Applications are mapped directly across high-availability CDN edge systems. Static assets, audio streams, and critical code bundles are served directly from proxy layers sitting as close to the target client as mathematically possible.</p>
-                <a href="../booking/" class="btn btn-primary" style="align-self: flex-start;">Audit Infrastructure</a>
+                <h2 data-i18n="panel_title">Edge Proxies & Global Distribution</h2>
+                <p data-i18n="panel_subtext">Applications are mapped directly across high-availability CDN edge systems. Static assets, audio streams, and critical code bundles are served directly from proxy layers sitting as close to the target client as mathematically possible.</p>
+                <a href="../booking/" class="btn btn-primary" style="align-self: flex-start;" data-i18n="panel_cta">Audit Infrastructure</a>
             </div>
             
             <div class="cluster-monitor">
                 <div style="color: var(--accent-neon); font-weight: bold; margin-bottom: 1rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 0.5rem;">
-                    <i class="fa-solid fa-terminal"></i> Edge Network Cluster Diagnostics
+                    <i class="fa-solid fa-terminal"></i> <span data-i18n="diag_title">Edge Network Cluster Diagnostics</span>
                 </div>
                 <div class="monitor-line">
-                    <span>Mombasa Hub (Origin Proxy)</span>
-                    <span class="status-active">ONLINE <small class="node-tag">2ms</small></span>
+                    <span data-i18n="diag_line1">Mombasa Hub (Origin Proxy)</span>
+                    <span class="status-active"><span data-i18n="status_online">ONLINE</span> <small class="node-tag">2ms</small></span>
                 </div>
                 <div class="monitor-line">
-                    <span>AWS CloudFront Edge Distribution</span>
-                    <span class="status-active">ACTIVE <small class="node-tag">14ms</small></span>
+                    <span data-i18n="diag_line2">AWS CloudFront Edge Distribution</span>
+                    <span class="status-active"><span data-i18n="status_active">ACTIVE</span> <small class="node-tag">14ms</small></span>
                 </div>
                 <div class="monitor-line">
-                    <span>Asset Routing Cache Buffer</span>
-                    <span class="status-active">HIT (99.4%)</span>
+                    <span data-i18n="diag_line3">Asset Routing Cache Buffer</span>
+                    <span class="status-active"><span data-i18n="status_hit">HIT</span> (99.4%)</span>
                 </div>
                 <div class="monitor-line">
-                    <span>Secure Gateway SSL Tunneling</span>
-                    <span class="status-active">ENCRYPTED</span>
+                    <span data-i18n="diag_line4">Secure Gateway SSL Tunneling</span>
+                    <span class="status-active" data-i18n="status_encrypted">ENCRYPTED</span>
                 </div>
             </div>
         </div>
@@ -346,20 +346,20 @@
             
             <div class="node-card">
                 <div class="node-icon-wrapper"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>Origin Shield Guarding</h3>
-                <p>Isolate application servers from malicious exploitation loops or sudden traffic spikes using reverse proxy clusters and intelligent rate-limiting configurations.</p>
+                <h3 data-i18n="node1_title">Origin Shield Guarding</h3>
+                <p data-i18n="node1_desc">Isolate application servers from malicious exploitation loops or sudden traffic spikes using reverse proxy clusters and intelligent rate-limiting configurations.</p>
             </div>
 
             <div class="node-card">
                 <div class="node-icon-wrapper"><i class="fa-solid fa-network-wired"></i></div>
-                <h3>Asynchronous Live Event Pipelines</h3>
-                <p>Configuring highly performant communication channels via WebSockets or SSE matrices to stream concurrent checkout pools, dashboard states, or track metrics perfectly.</p>
+                <h3 data-i18n="node2_title">Asynchronous Live Event Pipelines</h3>
+                <p data-i18n="node2_desc">Configuring highly performant communication channels via WebSockets or SSE matrices to stream concurrent checkout pools, dashboard states, or track metrics perfectly.</p>
             </div>
 
             <div class="node-card">
                 <div class="node-icon-wrapper"><i class="fa-solid fa-server"></i></div>
-                <h3>Static Distribution Engineering</h3>
-                <p>Deploy folder-based marketplace directory pages optimized to bundle asset layers efficiently, maximizing static service deployments like GitHub Pages nodes.</p>
+                <h3 data-i18n="node3_title">Static Distribution Engineering</h3>
+                <p data-i18n="node3_desc">Deploy folder-based marketplace directory pages optimized to bundle asset layers efficiently, maximizing static service deployments like GitHub Pages nodes.</p>
             </div>
 
         </div>
@@ -375,14 +375,14 @@
                     </svg>
                     SUM<span>WEBDEV</span>
                 </a>
-                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <p data-i18n="footer_brand_desc">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
                 <div class="footer-social-row">
                     <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Engine Structures</h4>
+                <h4 data-i18n="footer_col1_title">Engine Structures</h4>
                 <ul>
                     <li><a href="../web-frameworks/" data-i18n="footer_link_1">Web Frameworks</a></li>
                     <li><a href="../saas-ecosystems/" data-i18n="footer_link_2">SaaS Ecosystems</a></li>
@@ -390,14 +390,14 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
+                <h4 data-i18n="footer_col2_title">Resources</h4>
                 <ul>
                     <li><a href="./" data-i18n="footer_link_4">Case Profiles</a></li>
                     <li><a href="../system-diagnostics/" data-i18n="footer_link_5">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Corporate</h4>
+                <h4 data-i18n="footer_col3_title">Corporate</h4>
                 <ul>
                     <li><a href="../booking/" data-i18n="footer_link_6">Secure Booking</a></li>
                     <li><a href="../network-framework/" data-i18n="footer_link_7">Network Framework</a></li>
@@ -405,7 +405,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <p data-i18n="footer_copyright">&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
             <div class="footer-legal-links">
                 <a href="../security-protocol/" data-i18n="footer_link_8">Security Protocol</a>
                 <a href="../terms-of-architecture/" data-i18n="footer_link_9">Terms of Architecture</a>
@@ -418,6 +418,350 @@
     </button>
 
     <script>
+        // Multilingual Translation Dictionary Engine
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_pricing: "Pricing",
+                nav_portfolio: "Portfolio",
+                nav_book: "Book Strategy",
+                hero_title: 'Enterprise <span>Network Framework</span>',
+                hero_subtext: "Optimizing data plane transmission pipelines. We deploy intelligent edge delivery mechanics to shield origins, eliminate dropouts, and lock down secure application endpoints.",
+                panel_title: "Edge Proxies & Global Distribution",
+                panel_subtext: "Applications are mapped directly across high-availability CDN edge systems. Static assets, audio streams, and critical code bundles are served directly from proxy layers sitting as close to the target client as mathematically possible.",
+                panel_cta: "Audit Infrastructure",
+                diag_title: "Edge Network Cluster Diagnostics",
+                diag_line1: "Mombasa Hub (Origin Proxy)",
+                diag_line2: "AWS CloudFront Edge Distribution",
+                diag_line3: "Asset Routing Cache Buffer",
+                diag_line4: "Secure Gateway SSL Tunneling",
+                status_online: "ONLINE",
+                status_active: "ACTIVE",
+                status_hit: "HIT",
+                status_encrypted: "ENCRYPTED",
+                node1_title: "Origin Shield Guarding",
+                node1_desc: "Isolate application servers from malicious exploitation loops or sudden traffic spikes using reverse proxy clusters and intelligent rate-limiting configurations.",
+                node2_title: "Asynchronous Live Event Pipelines",
+                node2_desc: "Configuring highly performant communication channels via WebSockets or SSE matrices to stream concurrent checkout pools, dashboard states, or track metrics perfectly.",
+                node3_title: "Static Distribution Engineering",
+                node3_desc: "Deploy folder-based marketplace directory pages optimized to bundle asset layers efficiently, maximizing static service deployments like GitHub Pages nodes.",
+                footer_brand_desc: "Architecting next-generation digital performance tools and custom full-stack solutions.",
+                footer_col1_title: "Engine Structures",
+                footer_col2_title: "Resources",
+                footer_col3_title: "Corporate",
+                footer_link_1: "Web Frameworks",
+                footer_link_2: "SaaS Ecosystems",
+                footer_link_3: "Database Integration",
+                footer_link_4: "Case Profiles",
+                footer_link_5: "System Diagnostics",
+                footer_link_6: "Secure Booking",
+                footer_link_7: "Network Framework",
+                footer_copyright: "© 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.",
+                footer_link_8: "Security Protocol",
+                footer_link_9: "Terms of Architecture"
+            },
+            nl: {
+                nav_home: "Startpagina",
+                nav_services: "Diensten",
+                nav_pricing: "Prijzen",
+                nav_portfolio: "Portfolio",
+                nav_book: "Strategie Boeken",
+                hero_title: 'Enterprise <span>Netwerk Framework</span>',
+                hero_subtext: "Optimalisatie van datatransmissiepijplijnen. Wij zetten intelligente edge-distributiemechanismen in om origins te beschermen, uitval te elimineren en beveiligde eindpunten te garanderen.",
+                panel_title: "Edge Proxies & Wereldwijde Distributie",
+                panel_subtext: "Applicaties worden rechtstreeks toegewezen over hoog beschikbare CDN-edge-systemen. Statische bestanden, audiostreams en kritieke code worden rechtstreeks geserveerd vanuit proxylagen die zich zo dicht mogelijk bij de client bevinden.",
+                panel_cta: "Infrastructuur Auditeren",
+                diag_title: "Edge Netwerk Cluster Diagnose",
+                diag_line1: "Mombasa Hub (Origin Proxy)",
+                diag_line2: "AWS CloudFront Edge Distributie",
+                diag_line3: "Asset Routing Cache Buffer",
+                diag_line4: "Beveiligde Gateway SSL Tunneling",
+                status_online: "ONLINE",
+                status_active: "ACTIEF",
+                status_hit: "HIT",
+                status_encrypted: "GEVERSLEUTELD",
+                node1_title: "Origin Shield Beveiliging",
+                node1_desc: "Isoleer applicatieservers van kwaadwillige aanvallen of plotselinge verkeerspieken met behulp van reverse proxy clusters en intelligente rate-limiting configuraties.",
+                node2_title: "Asynchrone Live Event Pijplijnen",
+                node2_desc: "Configuratie van hoogwaardige communicatiekanalen via WebSockets of SSE-matrices om gelijktijdige afrekenprocessen, dashboardstatus en statistieken te streamen.",
+                node3_title: "Statische Distributie Engineering",
+                node3_desc: "Implementeer op mappen gebaseerde marktplaats-directorypagina's die zijn geoptimaliseerd om asset-lagen efficiënt te bundelen op statische hostingsystemen.",
+                footer_brand_desc: "Architectuur van de volgende generatie digitale prestatie-tools en op maat gemaakte full-stack oplossingen.",
+                footer_col1_title: "Engine Structuren",
+                footer_col2_title: "Bronbestanden",
+                footer_col3_title: "Zakelijk",
+                footer_link_1: "Web Frameworks",
+                footer_link_2: "SaaS Ecosystemen",
+                footer_link_3: "Database Integratie",
+                footer_link_4: "Casestudies",
+                footer_link_5: "Systeemdiagnose",
+                footer_link_6: "Veilig Boeken",
+                footer_link_7: "Netwerk Framework",
+                footer_copyright: "© 2026 Sum Web Dev. Alle rechten voorbehouden. Hub-activiteiten gevestigd in Mombasa, KE.",
+                footer_link_8: "Beveiligingsprotocol",
+                footer_link_9: "Architectuurvoorwaarden"
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_services: "Services",
+                nav_pricing: "Tarifs",
+                nav_portfolio: "Portfolio",
+                nav_book: "Réserver",
+                hero_title: 'Framework <span>Réseau d\'Entreprise</span>',
+                hero_subtext: "Optimisation des pipelines de transmission de données. Nous déployons des mécanismes intelligents de distribution Edge pour protéger vos origines et sécuriser vos points d'accès.",
+                panel_title: "Proxys Edge & Distribution Mondiale",
+                panel_subtext: "Les applications sont déployées sur des réseaux CDN à haute disponibilité. Les ressources statiques, le flux audio et les scripts sont servis directement depuis les proxys les plus proches du client.",
+                panel_cta: "Auditer l'Infrastructure",
+                diag_title: "Diagnostic du Cluster Réseau Edge",
+                diag_line1: "Hub Mombasa (Proxy d'Origine)",
+                diag_line2: "Distribution Edge AWS CloudFront",
+                diag_line3: "Tampon de Cache de Routage",
+                diag_line4: "Tunneling SSL de Passerelle Sécurisée",
+                status_online: "EN LIGNE",
+                status_active: "ACTIF",
+                status_hit: "SUCCÈS",
+                status_encrypted: "CHIFFRÉ",
+                node1_title: "Protection Shield d'Origine",
+                node1_desc: "Isolez les serveurs d'applications des cyberattaques et des pics de trafic soudains grâce à des clusters de reverse proxy et à des règles de limitation de débit.",
+                node2_title: "Pipelines d'Événements Asynchrones",
+                node2_desc: "Configuration de canaux de communication à haute performance via WebSockets ou SSE pour diffuser des données en direct et suivre les métriques en temps réel.",
+                node3_title: "Ingénierie de Distribution Statique",
+                node3_desc: "Déploiement de pages de répertoires structurées optimisées pour regrouper efficacement les ressources sur des réseaux d'hébergement statiques.",
+                footer_brand_desc: "Conception d'outils digitaux haute performance de nouvelle génération et de solutions full-stack sur mesure.",
+                footer_col1_title: "Structures Moteurs",
+                footer_col2_title: "Ressources",
+                footer_col3_title: "Entreprise",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Écosystèmes SaaS",
+                footer_link_3: "Intégration de Bases de Données",
+                footer_link_4: "Profils d'Études de Cas",
+                footer_link_5: "Diagnostics Système",
+                footer_link_6: "Réservation Sécurisée",
+                footer_link_7: "Framework Réseau",
+                footer_copyright: "© 2026 Sum Web Dev. Tous droits réservés. Opérations basées à Mombasa, KE.",
+                footer_link_8: "Protocole de Sécurité",
+                footer_link_9: "Conditions d'Architecture"
+            },
+            pt: {
+                nav_home: "Início",
+                nav_services: "Serviços",
+                nav_pricing: "Preços",
+                nav_portfolio: "Portfólio",
+                nav_book: "Agendar Estratégia",
+                hero_title: 'Framework de <span>Rede Empresarial</span>',
+                hero_subtext: "Otimizando pipelines de transmissão de dados. Implantamos mecanismos inteligentes de entrega Edge para proteger servidores de origem e garantir conexões seguras.",
+                panel_title: "Proxies Edge e Distribuição Global",
+                panel_subtext: "Aplicações mapeadas diretamente em sistemas Edge de alta disponibilidade. Arquivos estáticos e transmissões de áudio são servidos a partir de proxies estrategicamente localizados.",
+                panel_cta: "Auditar Infraestrutura",
+                diag_title: "Diagnóstico de Cluster de Rede Edge",
+                diag_line1: "Hub Mombasa (Proxy de Origem)",
+                diag_line2: "Distribuição Edge AWS CloudFront",
+                diag_line3: "Buffer de Cache de Roteamento",
+                diag_line4: "Tunelamento SSL de Gateway Seguro",
+                status_online: "ONLINE",
+                status_active: "ATIVO",
+                status_hit: "ACERTO",
+                status_encrypted: "CRIPTOGRAFADO",
+                node1_title: "Proteção de Origem",
+                node1_desc: "Isole servidores de aplicação contra ataques maliciosos ou picos inesperados de tráfego usando clusters de proxy reverso e limitação de taxa inteligente.",
+                node2_title: "Pipelines de Eventos Assíncronos",
+                node2_desc: "Configuração de canais de comunicação de alto desempenho via WebSockets ou SSE para transmissão de dados e métricas em tempo real.",
+                node3_title: "Engenharia de Distribuição Estática",
+                node3_desc: "Implantação de páginas de diretório otimizadas para agrupar camadas de ativos de forma eficiente em nós de hospedagem estática.",
+                footer_brand_desc: "Desenvolvimento de ferramentas de desempenho digital de última geração e soluções full-stack personalizadas.",
+                footer_col1_title: "Estruturas de Motor",
+                footer_col2_title: "Recursos",
+                footer_col3_title: "Corporativo",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Ecossistemas SaaS",
+                footer_link_3: "Integração de Banco de Dados",
+                footer_link_4: "Casos de Estudo",
+                footer_link_5: "Diagnósticos de Sistema",
+                footer_link_6: "Agendamento Seguro",
+                footer_link_7: "Framework de Rede",
+                footer_copyright: "© 2026 Sum Web Dev. Todos os direitos reservados. Operações centradas em Mombasa, KE.",
+                footer_link_8: "Protocolo de Segurança",
+                footer_link_9: "Termos de Arquitetura"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_pricing: "Precios",
+                nav_portfolio: "Portafolio",
+                nav_book: "Reservar Estrategia",
+                hero_title: 'Framework de <span>Red Empresarial</span>',
+                hero_subtext: "Optimización de tubos de transmisión de datos. Desplegamos mecanismos Edge inteligentes para proteger servidores de origen y asegurar puntos de acceso.",
+                panel_title: "Proxies Edge y Distribución Global",
+                panel_subtext: "Las aplicaciones se distribuyen a través de sistemas Edge CDN de alta disponibilidad. Los recursos estáticos y secuencias de audio se sirven desde los proxies más cercanos al usuario.",
+                panel_cta: "Auditar Infraestructura",
+                diag_title: "Diagnóstico del Cluster de Red Edge",
+                diag_line1: "Hub Mombasa (Proxy de Origen)",
+                diag_line2: "Distribución Edge AWS CloudFront",
+                diag_line3: "Búfer de Caché de Enrutamiento",
+                diag_line4: "Túnel SSL de Pasarela Segura",
+                status_online: "EN LÍNEA",
+                status_active: "ACTIVO",
+                status_hit: "Acierto",
+                status_encrypted: "ENCRIPTADO",
+                node1_title: "Escudo de Protección de Origen",
+                node1_desc: "Aísle los servidores de aplicaciones de ataques maliciosos o picos repentinos de tráfico utilizando clusters de proxy inverso y configuraciones de límite de tasa.",
+                node2_title: "Flujos de Eventos Asíncronos en Vivo",
+                node2_desc: "Configuración de canales de comunicación de alto rendimiento mediante WebSockets o SSE para transmitir datos y métricas en tiempo real.",
+                node3_title: "Ingeniería de Distribución Estática",
+                node3_desc: "Despliegue páginas de directorio estructuradas para agrupar capas de recursos de manera eficiente en nodos de alojamiento estático.",
+                footer_brand_desc: "Arquitectura de herramientas digitales de alto rendimiento y soluciones full-stack personalizadas de última generación.",
+                footer_col1_title: "Estructuras de Motor",
+                footer_col2_title: "Recursos",
+                footer_col3_title: "Corporativo",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Ecosistemas SaaS",
+                footer_link_3: "Integración de Bases de Datos",
+                footer_link_4: "Casos de Estudio",
+                footer_link_5: "Diagnóstico de Sistema",
+                footer_link_6: "Reserva Segura",
+                footer_link_7: "Framework de Red",
+                footer_copyright: "© 2026 Sum Web Dev. Todos los derechos reservados. Operaciones ubicadas en Mombasa, KE.",
+                footer_link_8: "Protocolo de Seguridad",
+                footer_link_9: "Términos de Arquitectura"
+            },
+            it: {
+                nav_home: "Home",
+                nav_services: "Servizi",
+                nav_pricing: "Prezzi",
+                nav_portfolio: "Portfolio",
+                nav_book: "Prenota Strategia",
+                hero_title: 'Framework di <span>Rete Enterprise</span>',
+                hero_subtext: "Ottimizzazione delle pipeline di trasmissione dati. Distribuiamo meccanismi intelligenti Edge per proteggere i server di origine e garantire endpoint sicuri.",
+                panel_title: "Edge Proxy e Distribuzione Globale",
+                panel_subtext: "Le applicazioni sono mappate su reti CDN Edge ad alta disponibilità. Gli asset statici e i flussi audio vengono serviti direttamente dai nodi proxy più vicini al client.",
+                panel_cta: "Audita Infrastruttura",
+                diag_title: "Diagnostica Cluster di Rete Edge",
+                diag_line1: "Hub Mombasa (Proxy di Origine)",
+                diag_line2: "Distribuzione Edge AWS CloudFront",
+                diag_line3: "Buffer di Cache del Instradamento",
+                diag_line4: "Tunneling SSL Gateway Sicuro",
+                status_online: "ONLINE",
+                status_active: "ATTIVO",
+                status_hit: "HIT",
+                status_encrypted: "CRITTOGRAFATO",
+                node1_title: "Protezione Origin Shield",
+                node1_desc: "Isola i server applicativi da attacchi informatici o picchi improvvisi di traffico utilizzando cluster di reverse proxy e limiti di frequenza intelligenti.",
+                node2_title: "Pipeline di Eventi Asincroni in Tempo Reale",
+                node2_desc: "Configurazione di canali di comunicazione ad alte prestazioni tramite WebSockets o SSE per lo streaming di dati e metriche in tempo reale.",
+                node3_title: "Ingegneria della Distribuzione Statica",
+                node3_desc: "Distribuisci pagine di directory ottimizzate per raggruppare in modo efficiente gli asset su infrastrutture di hosting statico.",
+                footer_brand_desc: "Progettazione di strumenti digitali ad alte prestazioni e soluzioni full-stack personalizzate di nuova generazione.",
+                footer_col1_title: "Strutture Motore",
+                footer_col2_title: "Risorse",
+                footer_col3_title: "Aziendale",
+                footer_link_1: "Framework Web",
+                footer_link_2: "Ecosistemi SaaS",
+                footer_link_3: "Integrazione Database",
+                footer_link_4: "Casi di Studio",
+                footer_link_5: "Diagnostica di Sistema",
+                footer_link_6: "Prenotazione Sicura",
+                footer_link_7: "Framework di Rete",
+                footer_copyright: "© 2026 Sum Web Dev. Tutti i diritti riservati. Operazioni centralizzate a Mombasa, KE.",
+                footer_link_8: "Protocollo di Sicurezza",
+                footer_link_9: "Termini di Architettura"
+            },
+            ne: {
+                nav_home: "गृहपृष्ठ",
+                nav_services: "सेवाहरू",
+                nav_pricing: "मूल्य निर्धारण",
+                nav_portfolio: "पोर्टफोलियो",
+                nav_book: "रणनीति बुक गर्नुहोस्",
+                hero_title: 'इन्टरप्राइज <span>नेटवर्क ढाँचा</span>',
+                hero_subtext: "डेटा ट्रान्समिशन पाइपलाइनहरूको अप्टिमाइजेशन। हामी सुरक्षित नेटवर्क सम्प्रेषण र डेटा सुरक्षाका लागि बुद्धिमानी एज डेलिभरी प्रणालीहरू प्रयोग गर्दछौं।",
+                panel_title: "एज प्रोक्सी र विश्वव्यापी वितरण",
+                panel_subtext: "अनुप्रयोगहरू उच्च-उपलब्धता CDN प्रणालीहरूमा सिधै म्याप गरिएका छन्। प्रयोगकर्ताको सबैभन्दा नजिकको प्रोक्सी तहहरूबाट स्थिर फाइलहरू र स्ट्रिमहरू द्रुत रूपमा पहुँचयोग्य हुन्छन्।",
+                panel_cta: "पूर्वाधार अडिट गर्नुहोस्",
+                diag_title: "एज नेटवर्क क्लस्टर निदान",
+                diag_line1: "मोम्बासा हब (मूल प्रोक्सी)",
+                diag_line2: "AWS CloudFront एज वितरण",
+                diag_line3: "एसेट राउटिङ क्यास बफर",
+                diag_line4: "सुरक्षित गेटवे SSL टनेलिङ",
+                status_online: "अनलाइन",
+                status_active: "सक्रिय",
+                status_hit: "सफल",
+                status_encrypted: "इन्क्रिप्टेड",
+                node1_title: "मूल सर्भर सुरक्षा ढाल",
+                node1_desc: "रिभर्स प्रोक्सी क्लस्टर र दर-सीमा प्रणाली प्रयोग गरेर अनुप्रयोग सर्भरहरूलाई हानिकारक ट्राफिक र आक्रमणहरूबाट सुरक्षित राख्नुहोस्।",
+                node2_title: "लाइभ ईभेन्ट पाइपलाइनहरू",
+                node2_desc: "डेटा र मेट्रिक्स वास्तविक समयमा स्ट्रिम गर्न WebSockets वा SSE मार्फत उच्च-प्रदर्शन सञ्चार च्यानलहरू निर्माण।",
+                node3_title: "स्टेटिक वितरण इन्जिनियरिङ",
+                node3_desc: "स्टेटिक सर्भरहरूमा दक्षताका साथ फाइलहरू र स्रोतहरू लोड गर्न अनुकूलित गरिएको निर्देशिका संरचनाहरू।",
+                footer_brand_desc: "नेक्स्ट-जेनेरेसन डिजिटल कार्यसम्पादन उपकरणहरू र अनुकूलन फुल-स्ट्याक समाधानहरूको निर्माण।",
+                footer_col1_title: "इन्जिन संरचनाहरू",
+                footer_col2_title: "स्रोतहरू",
+                footer_col3_title: "कर्पोरेट",
+                footer_link_1: "वेब फ्रेमवर्कहरू",
+                footer_link_2: "SaaS इकोसिस्टमहरू",
+                footer_link_3: "डेटाबेस एकीकरण",
+                footer_link_4: "केस प्रोफाइलहरू",
+                footer_link_5: "सिस्टम निदान",
+                footer_link_6: "सुरक्षित बुकिङ",
+                footer_link_7: "नेटवर्क ढाँचा",
+                footer_copyright: "© २०२६ Sum Web Dev। सर्वाधिकार सुरक्षित। हब सञ्चालन मोम्बासा, KE मा अवस्थित।",
+                footer_link_8: "सुरक्षा प्रोटोकल",
+                footer_link_9: "संरचनाका सर्तहरू"
+            },
+            de: {
+                nav_home: "Startseite",
+                nav_services: "Dienste",
+                nav_pricing: "Preise",
+                nav_portfolio: "Portfolio",
+                nav_book: "Strategie Buchen",
+                hero_title: 'Enterprise <span>Netzwerk-Framework</span>',
+                hero_subtext: "Optimierung von Datenübertragungs-Pipelines. Wir setzen intelligente Edge-Mechanismen ein, um Ursprungsserver zu schützen und sichere Anwendungsendpunkte zu gewährleisten.",
+                panel_title: "Edge-Proxies & Globale Verteilung",
+                panel_subtext: "Anwendungen werden direkt über hochverfügbare CDN-Edge-Systeme verteilt. Statische Assets und Audiostreams werden direkt von den nächstgelegenen Proxy-Schichten bereitgestellt.",
+                panel_cta: "Infrastruktur Überprüfen",
+                diag_title: "Edge-Netzwerk-Cluster-Diagnose",
+                diag_line1: "Mombasa Hub (Origin-Proxy)",
+                diag_line2: "AWS CloudFront Edge-Verteilung",
+                diag_line3: "Asset-Routing-Cache-Puffer",
+                diag_line4: "Sicheres Gateway SSL-Tunneling",
+                status_online: "ONLINE",
+                status_active: "AKTIV",
+                status_hit: "TREFFER",
+                status_encrypted: "VERSCHLÜSSELT",
+                node1_title: "Origin-Shield-Schutz",
+                node1_desc: "Isolieren Sie Anwendungsserver vor schädlichen Angriffen oder plötzlichen Spitzenlasten mithilfe von Reverse-Proxy-Clustern und intelligenter Ratenbegrenzung.",
+                node2_title: "Asynchrone Live-Event-Pipelines",
+                node2_desc: "Konfiguration hochperformanter Kommunikationskanäle über WebSockets oder SSE-Matrizen zur Echtzeit-Übertragung von Daten und Metriken.",
+                node3_title: "Statische Verteilungs-Architektur",
+                node3_desc: "Bereitstellung von ordnerbasierten Marktplatzseiten, die für die effiziente Bündelung von Asset-Ebenen auf statischen Hosting-Knoten optimiert sind.",
+                footer_brand_desc: "Architektur digitaler Performance-Tools der nächsten Generation und maßgeschneiderte Full-Stack-Lösungen.",
+                footer_col1_title: "Engine-Strukturen",
+                footer_col2_title: "Ressourcen",
+                footer_col3_title: "Unternehmensbereich",
+                footer_link_1: "Web-Frameworks",
+                footer_link_2: "SaaS-Ökosysteme",
+                footer_link_3: "Datenbank-Integration",
+                footer_link_4: "Fallstudien-Profile",
+                footer_link_5: "Systemdiagnose",
+                footer_link_6: "Sichere Buchung",
+                footer_link_7: "Netzwerk-Framework",
+                footer_copyright: "© 2026 Sum Web Dev. Alle Rechte vorbehalten. Hub-Operations mit Sitz in Mombasa, KE.",
+                footer_link_8: "Sicherheitsprotokoll",
+                footer_link_9: "Architektur-Bedingungen"
+            }
+        };
+
+        function applyTranslation(lang) {
+            const dictionary = translations[lang] || translations.en;
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[key]) {
+                    element.innerHTML = dictionary[key];
+                }
+            });
+            document.documentElement.lang = lang;
+            localStorage.setItem('preferredLang', lang);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // --- UI Control Elements Initialization ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
