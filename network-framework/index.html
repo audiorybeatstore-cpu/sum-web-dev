@@ -271,14 +271,21 @@
             <nav class="nav-links" id="menuPanel">
                 <a href="../" class="nav-item">Home</a>
                 <a href="../services/" class="nav-item">Services</a>
+                <a href="../pricing/" class="nav-item" data-i18n="nav_pricing">Pricing</a>
                 <a href="../portfolio/" class="nav-item">Portfolio</a>
                 <a href="../booking/" class="nav-item">Book Strategy</a>
             </nav>
 
             <div class="nav-controls-wrapper">
-                <select class="lang-select" id="langSwitch">
+                <select id="langSwitch" class="lang-select" aria-label="Select Language">
                     <option value="en">EN</option>
+                    <option value="nl">NL</option>
+                    <option value="fr">FR</option>
+                    <option value="pt">PT</option>
                     <option value="es">ES</option>
+                    <option value="it">IT</option>
+                    <option value="ne">NE</option>
+                    <option value="de">DE</option>
                 </select>
                 
                 <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
@@ -377,31 +384,31 @@
             <div class="footer-col">
                 <h4>Engine Structures</h4>
                 <ul>
-                    <li><a href="../services/">Web Frameworks</a></li>
-                    <li><a href="../services/">SaaS Ecosystems</a></li>
-                    <li><a href="../database-integration/">Database Integration</a></li>
+                    <li><a href="../web-frameworks/" data-i18n="footer_link_1">Web Frameworks</a></li>
+                    <li><a href="../saas-ecosystems/" data-i18n="footer_link_2">SaaS Ecosystems</a></li>
+                    <li><a href="../database-Integration/" data-i18n="footer_link_3">Database Integration</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Resources</h4>
                 <ul>
-                    <li><a href="../portfolio/">Case Profiles</a></li>
-                    <li><a href="#">System Diagnostics</a></li>
+                    <li><a href="./" data-i18n="footer_link_4">Case Profiles</a></li>
+                    <li><a href="../system-diagnostics/" data-i18n="footer_link_5">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <h4>Corporate</h4>
                 <ul>
-                    <li><a href="../booking/">Secure Booking</a></li>
-                    <li><a href="./">Network Framework</a></li>
+                    <li><a href="../booking/" data-i18n="footer_link_6">Secure Booking</a></li>
+                    <li><a href="../network-framework/" data-i18n="footer_link_7">Network Framework</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
             <div class="footer-legal-links">
-                <a href="#">Security Protocol</a>
-                <a href="#">Terms of Architecture</a>
+                <a href="../security-protocol/" data-i18n="footer_link_8">Security Protocol</a>
+                <a href="../terms-of-architecture/" data-i18n="footer_link_9">Terms of Architecture</a>
             </div>
         </div>
     </footer>
@@ -477,9 +484,13 @@
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
 
-            // --- Language Switch Stub Notification Trigger ---
+            // Language Selector Initialization & Event Listener
+            const savedLang = localStorage.getItem('preferredLang') || 'en';
+            langSwitch.value = savedLang;
+            applyTranslation(savedLang);
+
             langSwitch.addEventListener('change', (e) => {
-                alert(`System mapping initialized to locale target: "${e.target.value.toUpperCase()}"`);
+                applyTranslation(e.target.value);
             });
         });
     </script>
