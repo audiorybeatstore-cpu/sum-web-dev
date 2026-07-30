@@ -61,45 +61,11 @@
 
         body.menu-open { overflow: hidden; }
 
-        /* --- ADD MOBILE MENU & HAMBURGER STYLES HERE --- */
+        /* Mobile Menu Drawer Toggle State */
         @media (max-width: 767px) {
             #menuPanel.active {
                 right: 0 !important;
             }
-            .mobile-toggle {
-                display: flex;
-            }
-        }
-
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 28px;
-            height: 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1010;
-        }
-
-        .mobile-toggle span {
-            width: 100%;
-            height: 2px;
-            background-color: var(--text-pure);
-            border-radius: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-toggle.active span:nth-child(1) {
-            transform: translateY(9px) rotate(45deg);
-        }
-        .mobile-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .mobile-toggle.active span:nth-child(3) {
-            transform: translateY(-9px) rotate(-45deg);
         }
     </style>
 </head>
@@ -141,8 +107,8 @@
                     <i class="fa-solid fa-moon"></i>
                 </button>
                 
-                <button id="hamburgerMenu" class="md:hidden text-[var(--text-pure)] text-xl p-2 cursor-pointer focus:outline-none" aria-label="Toggle Menu">
-                    <i class="fa-solid fa-bars"></i>
+                <button id="hamburgerMenu" class="md:hidden text-[var(--text-pure)] text-xl p-2 cursor-pointer focus:outline-none flex items-center justify-center w-[38px] h-[38px] border border-[var(--border-glass)] rounded-md hover:border-[var(--accent-primary)] transition-all duration-200" aria-label="Toggle Menu">
+                    <i id="hamburgerIcon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
@@ -631,9 +597,27 @@
             }
         };
 
+        const hamburgerBtn = document.getElementById('hamburgerMenu');
+        const hamburgerIcon = document.getElementById('hamburgerIcon');
+        const menuPanel = document.getElementById('menuPanel');
+
+        if (hamburgerBtn && menuPanel) {
+            hamburgerBtn.addEventListener('click', () => {
+                menuPanel.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+                
+                // Toggle icon between bars and X
+                if (menuPanel.classList.contains('active')) {
+                    hamburgerIcon.classList.remove('fa-bars');
+                    hamburgerIcon.classList.add('fa-xmark');
+                } else {
+                    hamburgerIcon.classList.remove('fa-xmark');
+                    hamburgerIcon.classList.add('fa-bars');
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
-            const hamburgerMenu = document.getElementById('hamburgerMenu');
-            const menuPanel = document.getElementById('menuPanel');
             const themeToggler = document.getElementById('themeToggler');
             const langSwitch = document.getElementById('langSwitch');
             const scrollBar = document.getElementById('scrollBar');
@@ -664,13 +648,6 @@
 
             const initialLang = localStorage.getItem('preferred-lang') || 'en';
             applyTranslations(initialLang);
-
-            // --- Mobile Drop Drawer Navigation Toggle Rules ---
-            hamburgerMenu.addEventListener('click', () => {
-                hamburgerMenu.classList.toggle('active');
-                menuPanel.classList.toggle('active');
-                document.body.classList.toggle('menu-open');
-            });
 
             document.querySelectorAll('#menuPanel a').forEach(link => {
                 link.addEventListener('click', () => {
