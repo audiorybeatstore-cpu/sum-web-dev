@@ -27,7 +27,7 @@
     </script>
     
     <style>
-        /* Custom Theme Token Variables & Global Transition Overrides */
+        /* Custom Theme Token Variables */
         :root[data-theme="dark"] {
             --bg-main: #0B0F19;
             --bg-card: #151A28;
@@ -36,8 +36,7 @@
             --text-pure: #FFFFFF;
             --text-muted: #94A3B8;
             --border-glass: rgba(255, 255, 255, 0.08);
-            --glass-grad: linear-gradient(135deg, rgba(21, 26, 40, 0.7) 0%, rgba(11, 15, 25, 0.8) 100%);
-            --header-bg: rgba(11, 15, 25, 0.85);
+            --header-bg: #0B0F19;
         }
 
         :root[data-theme="light"] {
@@ -48,8 +47,7 @@
             --text-pure: #0F172A;
             --text-muted: #64748B;
             --border-glass: rgba(15, 23, 42, 0.08);
-            --glass-grad: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(241, 245, 249, 0.9) 100%);
-            --header-bg: rgba(248, 250, 252, 0.9);
+            --header-bg: #F8FAFC;
         }
 
         body {
@@ -61,7 +59,7 @@
 
         body.menu-open { overflow: hidden; }
 
-        /* Mobile Drawer Explicit Styling */
+        /* Crisp Side Drawer Layout */
         @media (max-width: 767px) {
             #menuPanel {
                 position: fixed;
@@ -70,9 +68,9 @@
                 width: 80vw;
                 max-width: 300px;
                 height: 100vh;
-                background-color: #151A28 !important; /* Solid dark color like Screenshot 2 */
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
-                transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+                background-color: #111625 !important; /* Solid dark background, zero blur */
+                box-shadow: -8px 0 24px rgba(0, 0, 0, 0.6);
+                transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 z-index: 1050;
             }
 
@@ -80,12 +78,11 @@
                 right: 0 !important;
             }
 
-            /* Dark Overlay behind menu when opened */
+            /* Clean dimming overlay behind drawer without blur */
             #menuOverlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(0, 0, 0, 0.6);
-                backdrop-filter: blur(4px);
+                background: rgba(0, 0, 0, 0.55);
                 z-index: 1040;
                 opacity: 0;
                 pointer-events: none;
@@ -97,7 +94,7 @@
                 pointer-events: auto;
             }
 
-            /* Menu link overrides inside dark drawer */
+            /* Explicit Link Styling */
             #menuPanel a {
                 color: #94A3B8 !important;
             }
@@ -109,14 +106,14 @@
 </head>
 <body class="overflow-x-hidden leading-relaxed">
 
-    <!-- Scroll Progress Indicator -->
+    <!-- Scroll Progress Bar -->
     <div id="scrollBar" class="fixed top-0 left-0 w-0 h-[3px] bg-gradient-to-r from-[var(--accent-primary)] to-[var(--accent-neon)] z-[9999]"></div>
 
-    <!-- Dark Overlay Backdrop for Mobile Menu -->
+    <!-- Solid Dim Overlay -->
     <div id="menuOverlay"></div>
 
     <!-- Global Header -->
-    <header class="fixed top-0 left-0 w-full h-20 bg-[var(--header-bg)] backdrop-blur-md border-b border-[var(--border-glass)] z-[1000] flex items-center transition-colors duration-300">
+    <header class="fixed top-0 left-0 w-full h-20 bg-[var(--header-bg)] border-b border-[var(--border-glass)] z-[1000] flex items-center transition-colors duration-300">
         <div class="w-full max-w-[1400px] mx-auto px-6 md:px-8 flex justify-between items-center">
             <a href="../" class="flex items-center gap-3 font-black text-2xl text-[var(--text-pure)] no-underline tracking-tighter z-[1010]">
                 <svg class="w-8 h-8 fill-none stroke-[var(--accent-primary)] stroke-[2.5]" viewBox="0 0 32 32">
@@ -125,7 +122,7 @@
                 <span class="text-[var(--text-pure)]">SUM<span class="text-[var(--accent-neon)]">WEBDEV</span></span>
             </a>
             
-            <!-- Side Navigation Drawer -->
+            <!-- Mobile Menu Panel -->
             <nav id="menuPanel" class="flex items-center gap-8 max-md:pt-28 max-md:px-8 max-md:pb-8 max-md:flex-col max-md:items-start max-md:gap-7">
                 <a href="../" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-home">Home</a>
                 <a href="./" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] relative transition-colors duration-200 active after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-[var(--accent-neon)] after:rounded-sm max-md:text-lg max-md:font-bold" data-tr="nav-services">Services</a>
@@ -133,7 +130,7 @@
                 <a href="../booking/" class="text-[var(--text-muted)] hover:text-[var(--text-pure)] font-medium text-[0.95rem] transition-colors duration-200 max-md:text-lg max-md:font-bold" data-tr="nav-booking">Book Strategy</a>
             </nav>
 
-            <!-- Header Controls -->
+            <!-- Controls -->
             <div class="flex items-center gap-3 md:gap-5 z-[1060] relative">
                 <select id="langSwitch" class="bg-[var(--bg-card)] border border-[var(--border-glass)] text-[var(--text-pure)] px-2 py-1.5 rounded-md font-semibold text-xs cursor-pointer outline-none transition-all duration-200 h-[38px] focus:border-[var(--accent-primary)]">
                     <option value="en">EN</option>
@@ -158,22 +155,19 @@
     </header>
 
     <!-- Services Hero Section -->
-    <section class="pt-[160px] pb-16 px-8 relative overflow-hidden text-center">
-        <div class="absolute rounded-full blur-[140px] opacity-12 z-0 top-[10%] left-[15%] w-[400px] h-[400px] bg-[var(--accent-primary)]"></div>
-        <div class="absolute rounded-full blur-[140px] opacity-12 z-0 bottom-[5%] right-[15%] w-[400px] h-[400px] bg-[var(--accent-neon)]"></div>
-        
+    <section class="pt-[160px] pb-16 px-8 relative text-center">
         <div class="relative z-1 max-w-[800px] mx-auto">
             <h1 id="services-hero-title" class="text-[3.8rem] max-md:text-[3rem] font-black tracking-tight leading-[1.1] mb-6">Production Engineering <span>Solutions</span></h1>
             <p id="services-hero-desc" class="text-xl text-[var(--text-muted)]">High-performance tech stacks meticulously architected to minimize friction, automate conversions, and optimize system speed.</p>
         </div>
     </section>
 
-    <!-- Extended Services Grid Section -->
+    <!-- Services Grid -->
     <section class="max-w-[1400px] mx-auto px-8 pb-32 relative z-2">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             
             <!-- Service 1 -->
-            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
                 <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-layer-group"></i></div>
                 <h3 id="serv1-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Full-Stack Web Engineering</h3>
                 <p id="serv1-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Meticulously structured applications using scalable frontend frameworks backed by lightning-fast, production-grade server runtimes.</p>
@@ -189,7 +183,7 @@
             </div>
 
             <!-- Service 2 -->
-            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
                 <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-cubes"></i></div>
                 <h3 id="serv2-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">SaaS Ecosystem Design</h3>
                 <p id="serv2-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Complete deployment pipelines equipped with custom database layers, isolated user accounts, and programmatic secure checkouts.</p>
@@ -205,7 +199,7 @@
             </div>
 
             <!-- Service 3 -->
-            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
                 <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-gauge-high"></i></div>
                 <h3 id="serv3-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Performance Audits</h3>
                 <p id="serv3-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Transform sluggish setups into optimized engines scoring highly on major search signals, dramatically decreasing bounce rates.</p>
@@ -221,7 +215,7 @@
             </div>
 
             <!-- Service 4 -->
-            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
                 <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-cloud-arrow-up"></i></div>
                 <h3 id="serv4-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Cloud Infrastructure & DevOps</h3>
                 <p id="serv4-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Automated CI/CD pipelines, containerized deployments, and resilient cloud architecture engineered for zero downtime.</p>
@@ -237,7 +231,7 @@
             </div>
 
             <!-- Service 5 -->
-            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
                 <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-network-wired"></i></div>
                 <h3 id="serv5-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Secure API & Microservices</h3>
                 <p id="serv5-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Design and integration of ultra-secure GraphQL and REST microservices with robust token authentication and rate limiting.</p>
@@ -253,7 +247,7 @@
             </div>
 
             <!-- Service 6 -->
-            <div class="bg-[var(--glass-grad)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col backdrop-blur-md transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
+            <div class="bg-[var(--bg-card)] border border-[var(--border-glass)] rounded-xl p-12 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:border-[rgba(108,99,255,0.3)]">
                 <div class="text-[2.5rem] text-[var(--accent-neon)] mb-6"><i class="fa-solid fa-brain"></i></div>
                 <h3 id="serv6-title" class="text-[1.6rem] font-extrabold mb-4 tracking-tight">Enterprise AI Integration</h3>
                 <p id="serv6-desc" class="text-[var(--text-muted)] text-base mb-8 flex-grow">Integrate custom LLMs, automated workflow agents, and vector databases to supercharge your business logic and user experience.</p>
@@ -271,7 +265,7 @@
         </div>
     </section>
 
-    <!-- Global Corporate Structural Footer -->
+    <!-- Footer -->
     <footer class="bg-[var(--bg-card)] border-t border-[var(--border-glass)] pt-20 pb-10 px-8 text-[var(--text-muted)] relative z-2">
         <div class="max-w-[1400px] mx-auto grid grid-cols-[1.5fr_repeat(3,1fr)] max-lg:grid-cols-2 max-md:grid-cols-1 gap-16 mb-16">
             <div class="footer-brand">
