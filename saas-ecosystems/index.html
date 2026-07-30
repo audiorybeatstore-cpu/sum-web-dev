@@ -59,6 +59,22 @@
             z-index: 9999;
         }
 
+        /* RTL Support for Right-to-Left Languages like Arabic */
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+        [dir="rtl"] .logo {
+            letter-spacing: normal;
+        }
+        [dir="rtl"] .nav-links.active {
+            right: auto;
+            left: 0;
+            border-left: none;
+            border-right: 1px solid var(--border-glass);
+            box-shadow: 20px 0 40px rgba(0,0,0,0.4);
+        }
+
         /* ==========================================================================
            2. Header & Navigation Ecosystem
            ========================================================================== */
@@ -150,6 +166,7 @@
             padding: 4rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             margin-bottom: 5rem; text-align: left;
         }
+        [dir="rtl"] .intro-block { text-align: right; }
         .intro-block h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1.5rem; }
         .intro-block p { color: var(--text-muted); font-size: 1.1rem; max-width: 950px; line-height: 1.7; }
 
@@ -201,6 +218,7 @@
             position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
             border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
         }
+        [dir="rtl"] .back-to-top { right: auto; left: 2rem; }
 
         /* ==========================================================================
            5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
@@ -223,10 +241,12 @@
                 display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 100%;
                 max-width: 300px; height: 100vh; background: rgba(21, 26, 40, 0.96); backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px); border-left: 1px solid var(--border-glass); padding: 120px 2rem 2rem;
-                gap: 2rem; align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                gap: 2rem; align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 box-shadow: -20px 0 40px rgba(0,0,0,0.4); z-index: 1005;
             }
+            [dir="rtl"] .nav-links { right: auto; left: -100%; }
             .nav-links.active { right: 0; }
+            [dir="rtl"] .nav-links.active { right: auto; left: 0; }
 
             .nav-links .nav-item {
                 font-size: 1.25rem; font-weight: 600; opacity: 0; transform: translateX(15px);
@@ -260,17 +280,21 @@
             </a>
             
             <nav class="nav-links" id="menuPanel">
-                <a href="../" class="nav-item">Home</a>
-                <a href="../services/" class="nav-item active">Services</a>
+                <a href="../" class="nav-item" data-i18n="nav_home">Home</a>
+                <a href="../services/" class="nav-item active" data-i18n="nav_services">Services</a>
                 <a href="../pricing/" class="nav-item" data-i18n="nav_pricing">Pricing</a>
-                <a href="../portfolio/" class="nav-item">Portfolio</a>
-                <a href="../booking/" class="nav-item">Book Strategy</a>
+                <a href="../portfolio/" class="nav-item" data-i18n="nav_portfolio">Portfolio</a>
+                <a href="../booking/" class="nav-item" data-i18n="nav_booking">Book Strategy</a>
             </nav>
 
             <div class="nav-controls-wrapper">
                 <select class="lang-select" id="langSwitch">
                     <option value="en">EN</option>
                     <option value="es">ES</option>
+                    <option value="fr">FR</option>
+                    <option value="sw">SW</option>
+                    <option value="de">DE</option>
+                    <option value="ar">AR</option>
                 </select>
                 
                 <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
@@ -291,8 +315,8 @@
         <div class="glow-orb orb-1"></div>
         <div class="glow-orb orb-2"></div>
         <div class="saas-hero-content">
-            <h1 class="saas-title">SaaS <span>Cloud Ecosystems</span></h1>
-            <p class="saas-subtext">Unifying backend pipelines, authentication gateways, and third-party web microservices into secure, scalable multi-tenant engines.</p>
+            <h1 class="saas-title" data-i18n="hero_title">SaaS <span>Cloud Ecosystems</span></h1>
+            <p class="saas-subtext" data-i18n="hero_subtext">Unifying backend pipelines, authentication gateways, and third-party web microservices into secure, scalable multi-tenant engines.</p>
         </div>
     </section>
 
@@ -301,8 +325,8 @@
         
         <!-- Premium Strategic Intro Block -->
         <div class="intro-block">
-            <h2>Decoupled Infrastructure for Zero Fluctuation</h2>
-            <p>Modern cloud environments demand absolute partition independence. We deploy high-availability service layers utilizing top-tier cloud backends to manage identities, state syncs, webhooks, and secure financial processing parameters seamlessly without adding runtime overhead to the client viewport.</p>
+            <h2 data-i18n="intro_title">Decoupled Infrastructure for Zero Fluctuation</h2>
+            <p data-i18n="intro_p">Modern cloud environments demand absolute partition independence. We deploy high-availability service layers utilizing top-tier cloud backends to manage identities, state syncs, webhooks, and secure financial processing parameters seamlessly without adding runtime overhead to the client viewport.</p>
         </div>
 
         <!-- Ecosystem Breakdown Grid Matrix -->
@@ -311,22 +335,22 @@
             <!-- Infrastructure Pillar 1 -->
             <div class="ecosystem-card">
                 <div class="card-icon-box"><i class="fa-solid fa-shield-halved"></i></div>
-                <h3>Unified Auth Gateways</h3>
-                <p>Deploying secure token-based user signups and multi-role login walls powered by Supabase or Firebase Auth layers to guard restricted portal domains.</p>
+                <h3 data-i18n="card_1_title">Unified Auth Gateways</h3>
+                <p data-i18n="card_1_p">Deploying secure token-based user signups and multi-role login walls powered by Supabase or Firebase Auth layers to guard restricted portal domains.</p>
             </div>
 
             <!-- Infrastructure Pillar 2 -->
             <div class="ecosystem-card">
                 <div class="card-icon-box"><i class="fa-solid fa-database"></i></div>
-                <h3>Multi-Tenant Storage</h3>
-                <p>Configuring structured relational tables with strict row-level security protocols to isolate marketplace metadata and maintain partition purity.</p>
+                <h3 data-i18n="card_2_title">Multi-Tenant Storage</h3>
+                <p data-i18n="card_2_p">Configuring structured relational tables with strict row-level security protocols to isolate marketplace metadata and maintain partition purity.</p>
             </div>
 
             <!-- Infrastructure Pillar 3 -->
             <div class="ecosystem-card">
                 <div class="card-icon-box"><i class="fa-solid fa-server"></i></div>
-                <h3>Serverless Edge Nodes</h3>
-                <p>Assembling performant API functions to parse fast background tasks, audio fingerprint algorithms, or ticket webhook triggers on demand.</p>
+                <h3 data-i18n="card_3_title">Serverless Edge Nodes</h3>
+                <p data-i18n="card_3_p">Assembling performant API functions to parse fast background tasks, audio fingerprint algorithms, or ticket webhook triggers on demand.</p>
             </div>
 
         </div>
@@ -343,14 +367,14 @@
                     </svg>
                     SUM<span>WEBDEV</span>
                 </a>
-                <p>Architecting next-generation digital performance tools and custom full-stack solutions.</p>
+                <p data-i18n="footer_brand_text">Architecting next-generation digital performance tools and custom full-stack solutions.</p>
                 <div class="footer-social-row">
                     <a href="#" class="social-link-icon"><i class="fa-brands fa-github"></i></a>
                     <a href="#" class="social-link-icon"><i class="fa-brands fa-linkedin"></i></a>
                 </div>
             </div>
             <div class="footer-col">
-                <h4>Engine Structures</h4>
+                <h4 data-i18n="footer_col_1_title">Engine Structures</h4>
                 <ul>
                     <li><a href="../web-frameworks/" data-i18n="footer_link_1">Web Frameworks</a></li>
                     <li><a href="../saas-ecosystems/" data-i18n="footer_link_2">SaaS Ecosystems</a></li>
@@ -358,14 +382,14 @@
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
+                <h4 data-i18n="footer_col_2_title">Resources</h4>
                 <ul>
-                    <li><a href="../case-profiles/">Case Profiles</a></li>
+                    <li><a href="../case-profiles/" data-i18n="footer_link_4">Case Profiles</a></li>
                     <li><a href="../system-diagnostics/" data-i18n="footer_link_5">System Diagnostics</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <h4>Corporate</h4>
+                <h4 data-i18n="footer_col_3_title">Corporate</h4>
                 <ul>
                     <li><a href="../booking/" data-i18n="footer_link_6">Secure Booking</a></li>
                     <li><a href="../network-framework/" data-i18n="footer_link_7">Network Framework</a></li>
@@ -373,7 +397,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <p data-i18n="footer_copyright">&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
             <div class="footer-legal-links">
                 <a href="../security-protocol/" data-i18n="footer_link_8">Security Protocol</a>
                 <a href="../terms-of-architecture/" data-i18n="footer_link_9">Terms of Architecture</a>
@@ -385,8 +409,221 @@
         <i class="fa-solid fa-arrow-up"></i>
     </button>
 
-    <!-- Engine Control Logic Script Blocks -->
+    <!-- Engine Control Logic & i18n Translation Dictionary Script -->
     <script>
+        // --- Internationalization Dictionary ---
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_services: "Services",
+                nav_pricing: "Pricing",
+                nav_portfolio: "Portfolio",
+                nav_booking: "Book Strategy",
+                hero_title: "SaaS <span>Cloud Ecosystems</span>",
+                hero_subtext: "Unifying backend pipelines, authentication gateways, and third-party web microservices into secure, scalable multi-tenant engines.",
+                intro_title: "Decoupled Infrastructure for Zero Fluctuation",
+                intro_p: "Modern cloud environments demand absolute partition independence. We deploy high-availability service layers utilizing top-tier cloud backends to manage identities, state syncs, webhooks, and secure financial processing parameters seamlessly without adding runtime overhead to the client viewport.",
+                card_1_title: "Unified Auth Gateways",
+                card_1_p: "Deploying secure token-based user signups and multi-role login walls powered by Supabase or Firebase Auth layers to guard restricted portal domains.",
+                card_2_title: "Multi-Tenant Storage",
+                card_2_p: "Configuring structured relational tables with strict row-level security protocols to isolate marketplace metadata and maintain partition purity.",
+                card_3_title: "Serverless Edge Nodes",
+                card_3_p: "Assembling performant API functions to parse fast background tasks, audio fingerprint algorithms, or ticket webhook triggers on demand.",
+                footer_brand_text: "Architecting next-generation digital performance tools and custom full-stack solutions.",
+                footer_col_1_title: "Engine Structures",
+                footer_link_1: "Web Frameworks",
+                footer_link_2: "SaaS Ecosystems",
+                footer_link_3: "Database Integration",
+                footer_col_2_title: "Resources",
+                footer_link_4: "Case Profiles",
+                footer_link_5: "System Diagnostics",
+                footer_col_3_title: "Corporate",
+                footer_link_6: "Secure Booking",
+                footer_link_7: "Network Framework",
+                footer_copyright: "© 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.",
+                footer_link_8: "Security Protocol",
+                footer_link_9: "Terms of Architecture"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_pricing: "Precios",
+                nav_portfolio: "Portafolio",
+                nav_booking: "Reservar Estrategia",
+                hero_title: "Ecosistemas <span>Nube SaaS</span>",
+                hero_subtext: "Unificando tuberías de backend, pasarelas de autenticación y microservicios web en motores multinquilino seguros y escalables.",
+                intro_title: "Infraestructura Desacoplada para Cero Fluctuación",
+                intro_p: "Los entornos de la nube moderna exigen una independencia de partición absoluta. Desplegamos capas de servicios de alta disponibilidad utilizando infraestructuras en la nube de primer nivel para gestionar identidades, sincronizaciones, webhooks y parámetros de pago seguros.",
+                card_1_title: "Pasarelas de Autenticación",
+                card_1_p: "Despliegue de registros de usuarios basados en tokens y muros de acceso basados en roles impulsados por capas Auth de Supabase o Firebase.",
+                card_2_title: "Almacenamiento Multinquilino",
+                card_2_p: "Configuración de tablas relacionales estructuradas con protocolos estrictos de seguridad a nivel de fila para aislar metadatos del mercado.",
+                card_3_title: "Nodos Edge Sin Servidor",
+                card_3_p: "Ensamblaje de funciones API de alto rendimiento para procesar tareas rápidas en segundo plano, algoritmos de audio o webhooks.",
+                footer_brand_text: "Diseñando herramientas digitales de alto rendimiento de próxima generación y soluciones full-stack personalizadas.",
+                footer_col_1_title: "Estructuras de Motor",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Ecosistemas SaaS",
+                footer_link_3: "Integración de Bases de Datos",
+                footer_col_2_title: "Recursos",
+                footer_link_4: "Perfiles de Caso",
+                footer_link_5: "Diagnóstico del Sistema",
+                footer_col_3_title: "Corporativo",
+                footer_link_6: "Reserva Segura",
+                footer_link_7: "Red de Trabajo",
+                footer_copyright: "© 2026 Sum Web Dev. Todos los derechos reservados. Operaciones desde Mombasa, KE.",
+                footer_link_8: "Protocolo de Seguridad",
+                footer_link_9: "Términos de Arquitectura"
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_services: "Services",
+                nav_pricing: "Tarifs",
+                nav_portfolio: "Portfolio",
+                nav_booking: "Réserver une Stratégie",
+                hero_title: "Écosystèmes <span>Cloud SaaS</span>",
+                hero_subtext: "Unification des pipelines backend, des passerelles d'authentification et des microservices web en moteurs multi-locataires sécurisés et évolutifs.",
+                intro_title: "Infrastructure Découplée pour une Fluctuation Nulle",
+                intro_p: "Les environnements cloud modernes exigent une indépendance absolue des partitions. Nous déployons des couches de services à haute disponibilité utilisant des backends cloud de premier ordre pour gérer les identités, les webhooks et le traitement financier sécurisé.",
+                card_1_title: "Passerelles d'Authentification",
+                card_1_p: "Déploiement d'inscriptions d'utilisateurs sécurisées par jetons et de restrictions d'accès basées sur des rôles via Supabase ou Firebase.",
+                card_2_title: "Stockage Multi-Locataire",
+                card_2_p: "Configuration de tables relationnelles structurées avec des protocoles stricts de sécurité au niveau des lignes pour isoler les métadonnées.",
+                card_3_title: "Nœuds Serverless Edge",
+                card_3_p: "Assemblage de fonctions API performantes pour traiter à la demande des tâches en arrière-plan, des algorithmes audio ou des webhooks.",
+                footer_brand_text: "Conception d'outils de performance numérique de nouvelle génération et de solutions full-stack sur mesure.",
+                footer_col_1_title: "Structures de Moteur",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Écosystèmes SaaS",
+                footer_link_3: "Intégration de Bases de Données",
+                footer_col_2_title: "Ressources",
+                footer_link_4: "Études de Cas",
+                footer_link_5: "Diagnostics Système",
+                footer_col_3_title: "Entreprise",
+                footer_link_6: "Réservation Sécurisée",
+                footer_link_7: "Réseau d'Architecture",
+                footer_copyright: "© 2026 Sum Web Dev. Tous droits réservés. Centre d'opérations situé à Mombasa, KE.",
+                footer_link_8: "Protocole de Sécurité",
+                footer_link_9: "Conditions d'Architecture"
+            },
+            sw: {
+                nav_home: "Nyumbani",
+                nav_services: "Huduma",
+                nav_pricing: "Bei",
+                nav_portfolio: "Kazi Zetu",
+                nav_booking: "Panga Mkakati",
+                hero_title: "Mifumo ya <span>Wavuti ya SaaS</span>",
+                hero_subtext: "Kuunganisha miundombinu ya backend, mifumo ya usalama ya kuingia, na huduma ndogo za wavuti kuwa mfumo salama na wenye uwezo wa kukua.",
+                intro_title: "Muundo Huru Uliotenganishwa kwa Uthabiti Mkubwa",
+                intro_p: "Mazingira ya kisasa ya cloud yanahitaji uhuru kamili wa mifumo. Tunatengeneza viwango vya huduma zenye uwezo wa juu kwa kutumia backend za cloud za daraja la kwanza kusimamia vitambulisho, usawazishaji wa data, na malipo salama.",
+                card_1_title: "Mifumo ya Usalama ya Kuingia",
+                card_1_p: "Kuweka mifumo salama ya usajili wa watumiaji na vizuizi vya kuingia kulingana na majukumu ikitumiwa na Supabase au Firebase Auth.",
+                card_2_title: "Hifadhi ya Watumiaji Wengi",
+                card_2_p: "Kuweka miundo ya jedwali zenye ulinzi mkali wa data za kila mtumiaji ili kutenganisha taarifa za soko na kulinda usalama.",
+                card_3_title: "Mifumo ya API za Edge",
+                card_3_p: "Kutengeneza kazi za haraka za API za kuchakata majukumu ya nyuma, kanuni za sauti, au arifa za malipo papo hapo.",
+                footer_brand_text: "Ubunifu wa zana za kidijitali za kizazi kijacho na suluhisho kamili za programu za kompyuta.",
+                footer_col_1_title: "Miundo ya Mitambo",
+                footer_link_1: "Mifumo ya Web Frameworks",
+                footer_link_2: "Mifumo ya SaaS Ecosystems",
+                footer_link_3: "Uunganishaji wa Database",
+                footer_col_2_title: "Rasilimali",
+                footer_link_4: "Mifano ya Kazi",
+                footer_link_5: "Uchunguzi wa Mfumo",
+                footer_col_3_title: "Kampuni",
+                footer_link_6: "Uwekaji Nafasi Salama",
+                footer_link_7: "Mtandao wa Kazi",
+                footer_copyright: "© 2026 Sum Web Dev. Haki zote zimehifadhiwa. Makao Makuu yapo Mombasa, KE.",
+                footer_link_8: "Itifaki ya Usalama",
+                footer_link_9: "Vigezo vya Muundo"
+            },
+            de: {
+                nav_home: "Startseite",
+                nav_services: "Dienste",
+                nav_pricing: "Preise",
+                nav_portfolio: "Portfolio",
+                nav_booking: "Strategie Buchen",
+                hero_title: "SaaS <span>Cloud-Ökosysteme</span>",
+                hero_subtext: "Vereinheitlichung von Backend-Pipelines, Authentifizierungs-Gateways und Microservices in sichere, skalierbare Mandanten-Engines.",
+                intro_title: "Entkoppelte Infrastruktur für Maximale Stabilität",
+                intro_p: "Moderne Cloud-Umgebungen erfordern absolute Unabhängigkeit der Partitionen. Wir stellen hochverfügbare Serviceschichten bereit, die erstklassige Cloud-Backends nutzen, um Identitäten, Status-Synchronisierungen und sichere Zahlungen zu verwalten.",
+                card_1_title: "Zentrale Auth-Gateways",
+                card_1_p: "Bereitstellung sicherer tokenbasierter Registrierungen und rollenbasierter Zugriffsschranken auf Basis von Supabase oder Firebase Auth.",
+                card_2_title: "Mandantenfähiger Speicher",
+                card_2_p: "Konfiguration strukturierter relationaler Tabellen mit strengen Sicherheitsprotokollen auf Zeilenebene zur Trennung von Marktplatz-Metadaten.",
+                card_3_title: "Serverlose Edge-Knoten",
+                card_3_p: "Erstellung leistungsstarker API-Funktionen zur Verarbeitung schneller Hintergrundaufgaben, Audio-Algorithmen oder Webhooks bei Bedarf.",
+                footer_brand_text: "Entwicklung digitaler Performance-Tools der nächsten Generation und maßgeschneiderter Full-Stack-Lösungen.",
+                footer_col_1_title: "Engine-Strukturen",
+                footer_link_1: "Web-Frameworks",
+                footer_link_2: "SaaS-Ökosysteme",
+                footer_link_3: "Datenbank-Integration",
+                footer_col_2_title: "Ressourcen",
+                footer_link_4: "Fallstudien",
+                footer_link_5: "Systemdiagnose",
+                footer_col_3_title: "Unternehmen",
+                footer_link_6: "Sichere Buchung",
+                footer_link_7: "Netzwerk-Framework",
+                footer_copyright: "© 2026 Sum Web Dev. Alle Rechte vorbehalten. Hauptsitz in Mombasa, KE.",
+                footer_link_8: "Sicherheitsprotokoll",
+                footer_link_9: "Architekturbedingungen"
+            },
+            ar: {
+                nav_home: "الرئيسية",
+                nav_services: "الخدمات",
+                nav_pricing: "الأسعار",
+                nav_portfolio: "الأعمال",
+                nav_booking: "حجز استشارة",
+                hero_title: "أنظمة <span>السحابة لـ SaaS</span>",
+                hero_subtext: "توحيد أنابيب الخادم الخلفي، بوابات التحقق، والخدمات المصغرة في محركات آمنة وقابلة للتوسع.",
+                intro_title: "بنية تحتية منفصلة لضمان الاستقرار التام",
+                intro_p: "تتطلب البيئات السحابية الحديثة استقلالية تامة. نحن نقوم بنشر طبقات خدمة عالية التوفر باستخدام أحدث تقنيات السحابة لإدارة الهويات، مزامنة البيانات، والمعاملات المالية الآمنة.",
+                card_1_title: "بوابات التحقق الموحدة",
+                card_1_p: "نشر أنظمة تسجيل الدخول الآمنة والقائمة على الأدوار باستخدام طبقات Supabase أو Firebase Auth لحماية النطاقات الخاصة.",
+                card_2_title: "تخزين متعدد المستأجرين",
+                card_2_p: "تكوين جداول علاقات مهيكلة مع بروتوكولات أمان صارمة على مستوى الصفوف لعزل بيانات السوق الحساسة.",
+                card_3_title: "عقد Edge السحابية",
+                card_3_p: "بناء وظائف API عالية الأداء لمعالجة المهام الخلفية السريعة، خوارزميات البصمة الصوتية، وإشعارات Webhooks.",
+                footer_brand_text: "هندسة أدوات الأداء الرقمي من الجيل القادم وحلول التطوير الكامل المخصصة.",
+                footer_col_1_title: "هياكل المحرك",
+                footer_link_1: "أطر عمل الويب",
+                footer_link_2: "أنظمة SaaS",
+                footer_link_3: "تكامل قواعد البيانات",
+                footer_col_2_title: "الموارد",
+                footer_link_4: "دراسات الحالة",
+                footer_link_5: "تشخيص النظام",
+                footer_col_3_title: "الشركة",
+                footer_link_6: "الحجز الآمن",
+                footer_link_7: "إطار الشبكة",
+                footer_copyright: "© 2026 Sum Web Dev. جميع الحقوق محفوظة. مركز العمليات في مومباسا، كينيا.",
+                footer_link_8: "بروتوكول الأمان",
+                footer_link_9: "شروط الهندسة"
+            }
+        };
+
+        // Function to apply translation across all elements with data-i18n
+        function applyTranslation(lang) {
+            const dictionary = translations[lang] || translations['en'];
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (dictionary[key]) {
+                    element.innerHTML = dictionary[key];
+                }
+            });
+
+            // Handle Language Direction (RTL for Arabic)
+            if (lang === 'ar') {
+                document.documentElement.setAttribute('dir', 'rtl');
+                document.documentElement.setAttribute('lang', 'ar');
+            } else {
+                document.documentElement.removeAttribute('dir');
+                document.documentElement.setAttribute('lang', lang);
+            }
+
+            localStorage.setItem('preferredLang', lang);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             // --- UI Control Elements Initialization ---
             const hamburgerMenu = document.getElementById('hamburgerMenu');
