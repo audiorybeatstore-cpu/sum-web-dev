@@ -59,22 +59,6 @@
             z-index: 9999;
         }
 
-        /* RTL Support for Right-to-Left Languages like Arabic */
-        [dir="rtl"] {
-            direction: rtl;
-            text-align: right;
-        }
-        [dir="rtl"] .logo {
-            letter-spacing: normal;
-        }
-        [dir="rtl"] .nav-links.active {
-            right: auto;
-            left: 0;
-            border-left: none;
-            border-right: 1px solid var(--border-glass);
-            box-shadow: 20px 0 40px rgba(0,0,0,0.4);
-        }
-
         /* ==========================================================================
            2. Header & Navigation Ecosystem
            ========================================================================== */
@@ -166,7 +150,6 @@
             padding: 4rem; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             margin-bottom: 5rem; text-align: left;
         }
-        [dir="rtl"] .intro-block { text-align: right; }
         .intro-block h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 1.5rem; }
         .intro-block p { color: var(--text-muted); font-size: 1.1rem; max-width: 950px; line-height: 1.7; }
 
@@ -218,7 +201,6 @@
             position: fixed; bottom: 2rem; right: 2rem; background: var(--accent-primary); color: #FFF;
             border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 500; transition: all 0.2s ease;
         }
-        [dir="rtl"] .back-to-top { right: auto; left: 2rem; }
 
         /* ==========================================================================
            5. Responsive Breakpoints Engine & Fluid Side Menu Drawer
@@ -241,12 +223,10 @@
                 display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 100%;
                 max-width: 300px; height: 100vh; background: rgba(21, 26, 40, 0.96); backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px); border-left: 1px solid var(--border-glass); padding: 120px 2rem 2rem;
-                gap: 2rem; align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1), left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                gap: 2rem; align-items: flex-start; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
                 box-shadow: -20px 0 40px rgba(0,0,0,0.4); z-index: 1005;
             }
-            [dir="rtl"] .nav-links { right: auto; left: -100%; }
             .nav-links.active { right: 0; }
-            [dir="rtl"] .nav-links.active { right: auto; left: 0; }
 
             .nav-links .nav-item {
                 font-size: 1.25rem; font-weight: 600; opacity: 0; transform: translateX(15px);
@@ -288,13 +268,15 @@
             </nav>
 
             <div class="nav-controls-wrapper">
-                <select class="lang-select" id="langSwitch">
+                <select id="langSwitch" class="lang-select" aria-label="Select Language">
                     <option value="en">EN</option>
-                    <option value="es">ES</option>
+                    <option value="nl">NL</option>
                     <option value="fr">FR</option>
-                    <option value="sw">SW</option>
+                    <option value="pt">PT</option>
+                    <option value="es">ES</option>
+                    <option value="it">IT</option>
+                    <option value="ne">NE</option>
                     <option value="de">DE</option>
-                    <option value="ar">AR</option>
                 </select>
                 
                 <button class="utility-btn" id="themeToggler" aria-label="Toggle Theme">
@@ -397,7 +379,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p data-i18n="footer_copyright">&copy; 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.</p>
+            <p data-i18n="footer_copyright">&copy; 2026 Sum Web Dev. All rights reserved.</p>
             <div class="footer-legal-links">
                 <a href="../security-protocol/" data-i18n="footer_link_8">Security Protocol</a>
                 <a href="../terms-of-architecture/" data-i18n="footer_link_9">Terms of Architecture</a>
@@ -440,40 +422,40 @@
                 footer_col_3_title: "Corporate",
                 footer_link_6: "Secure Booking",
                 footer_link_7: "Network Framework",
-                footer_copyright: "© 2026 Sum Web Dev. All rights reserved. Hub Operations located in Mombasa, KE.",
+                footer_copyright: "© 2026 Sum Web Dev. All rights reserved.",
                 footer_link_8: "Security Protocol",
                 footer_link_9: "Terms of Architecture"
             },
-            es: {
-                nav_home: "Inicio",
-                nav_services: "Servicios",
-                nav_pricing: "Precios",
-                nav_portfolio: "Portafolio",
-                nav_booking: "Reservar Estrategia",
-                hero_title: "Ecosistemas <span>Nube SaaS</span>",
-                hero_subtext: "Unificando tuberías de backend, pasarelas de autenticación y microservicios web en motores multinquilino seguros y escalables.",
-                intro_title: "Infraestructura Desacoplada para Cero Fluctuación",
-                intro_p: "Los entornos de la nube moderna exigen una independencia de partición absoluta. Desplegamos capas de servicios de alta disponibilidad utilizando infraestructuras en la nube de primer nivel para gestionar identidades, sincronizaciones, webhooks y parámetros de pago seguros.",
-                card_1_title: "Pasarelas de Autenticación",
-                card_1_p: "Despliegue de registros de usuarios basados en tokens y muros de acceso basados en roles impulsados por capas Auth de Supabase o Firebase.",
-                card_2_title: "Almacenamiento Multinquilino",
-                card_2_p: "Configuración de tablas relacionales estructuradas con protocolos estrictos de seguridad a nivel de fila para aislar metadatos del mercado.",
-                card_3_title: "Nodos Edge Sin Servidor",
-                card_3_p: "Ensamblaje de funciones API de alto rendimiento para procesar tareas rápidas en segundo plano, algoritmos de audio o webhooks.",
-                footer_brand_text: "Diseñando herramientas digitales de alto rendimiento de próxima generación y soluciones full-stack personalizadas.",
-                footer_col_1_title: "Estructuras de Motor",
-                footer_link_1: "Frameworks Web",
-                footer_link_2: "Ecosistemas SaaS",
-                footer_link_3: "Integración de Bases de Datos",
-                footer_col_2_title: "Recursos",
-                footer_link_4: "Perfiles de Caso",
-                footer_link_5: "Diagnóstico del Sistema",
-                footer_col_3_title: "Corporativo",
-                footer_link_6: "Reserva Segura",
-                footer_link_7: "Red de Trabajo",
-                footer_copyright: "© 2026 Sum Web Dev. Todos los derechos reservados. Operaciones desde Mombasa, KE.",
-                footer_link_8: "Protocolo de Seguridad",
-                footer_link_9: "Términos de Arquitectura"
+            nl: {
+                nav_home: "Home",
+                nav_services: "Diensten",
+                nav_pricing: "Prijzen",
+                nav_portfolio: "Portfolio",
+                nav_booking: "Strategie Boeken",
+                hero_title: "SaaS <span>Cloud Ecosystemen</span>",
+                hero_subtext: "Backend-pipelines, authenticatie-gateways en microservices integreren in veilige, schaalbare multi-tenant engines.",
+                intro_title: "Ontkoppelde Infrastructuur voor Maximale Stabiliteit",
+                intro_p: "Moderne cloud-omgevingen vereisen absolute onafhankelijkheid. Wij bouwen hoog-beschikbare servicelagen met behulp van hoogwaardige cloud-backends om identiteiten, synchronisaties en veilige betalingsverwerkingen te beheren.",
+                card_1_title: "Centrale Auth Gateways",
+                card_1_p: "Implementatie van veilige, op tokens gebaseerde gebruikersregistraties en rollenbeheer aangedreven door Supabase of Firebase Auth.",
+                card_2_title: "Multi-Tenant Opslag",
+                card_2_p: "Configureren van gestructureerde relationele tabellen met strikte beveiliging op rijniveau om marktplaats-metadata te isoleren.",
+                card_3_title: "Serverless Edge Nodes",
+                card_3_p: "Aanmaken van krachtige API-functies om snelle achtergrondtaken, audio-algoritmen of webhooks op aanvraag te verwerken.",
+                footer_brand_text: "Ontwikkeling van geavanceerde digitale prestatietools en op maat gemaakte full-stack oplossingen.",
+                footer_col_1_title: "Engine Structuren",
+                footer_link_1: "Web Frameworks",
+                footer_link_2: "SaaS Ecosystemen",
+                footer_link_3: "Database Integratie",
+                footer_col_2_title: "Bronmateriaal",
+                footer_link_4: "Casestudies",
+                footer_link_5: "Systeemdiagnose",
+                footer_col_3_title: "Bedrijf",
+                footer_link_6: "Veilig Boeken",
+                footer_link_7: "Netwerk Framework",
+                footer_copyright: "© 2026 Sum Web Dev. Alle rechten voorbehouden.",
+                footer_link_8: "Beveiligingsprotocol",
+                footer_link_9: "Architectuurvoorwaarden"
             },
             fr: {
                 nav_home: "Accueil",
@@ -502,40 +484,133 @@
                 footer_col_3_title: "Entreprise",
                 footer_link_6: "Réservation Sécurisée",
                 footer_link_7: "Réseau d'Architecture",
-                footer_copyright: "© 2026 Sum Web Dev. Tous droits réservés. Centre d'opérations situé à Mombasa, KE.",
+                footer_copyright: "© 2026 Sum Web Dev. Tous droits réservés.",
                 footer_link_8: "Protocole de Sécurité",
                 footer_link_9: "Conditions d'Architecture"
             },
-            sw: {
-                nav_home: "Nyumbani",
-                nav_services: "Huduma",
-                nav_pricing: "Bei",
-                nav_portfolio: "Kazi Zetu",
-                nav_booking: "Panga Mkakati",
-                hero_title: "Mifumo ya <span>Wavuti ya SaaS</span>",
-                hero_subtext: "Kuunganisha miundombinu ya backend, mifumo ya usalama ya kuingia, na huduma ndogo za wavuti kuwa mfumo salama na wenye uwezo wa kukua.",
-                intro_title: "Muundo Huru Uliotenganishwa kwa Uthabiti Mkubwa",
-                intro_p: "Mazingira ya kisasa ya cloud yanahitaji uhuru kamili wa mifumo. Tunatengeneza viwango vya huduma zenye uwezo wa juu kwa kutumia backend za cloud za daraja la kwanza kusimamia vitambulisho, usawazishaji wa data, na malipo salama.",
-                card_1_title: "Mifumo ya Usalama ya Kuingia",
-                card_1_p: "Kuweka mifumo salama ya usajili wa watumiaji na vizuizi vya kuingia kulingana na majukumu ikitumiwa na Supabase au Firebase Auth.",
-                card_2_title: "Hifadhi ya Watumiaji Wengi",
-                card_2_p: "Kuweka miundo ya jedwali zenye ulinzi mkali wa data za kila mtumiaji ili kutenganisha taarifa za soko na kulinda usalama.",
-                card_3_title: "Mifumo ya API za Edge",
-                card_3_p: "Kutengeneza kazi za haraka za API za kuchakata majukumu ya nyuma, kanuni za sauti, au arifa za malipo papo hapo.",
-                footer_brand_text: "Ubunifu wa zana za kidijitali za kizazi kijacho na suluhisho kamili za programu za kompyuta.",
-                footer_col_1_title: "Miundo ya Mitambo",
-                footer_link_1: "Mifumo ya Web Frameworks",
-                footer_link_2: "Mifumo ya SaaS Ecosystems",
-                footer_link_3: "Uunganishaji wa Database",
-                footer_col_2_title: "Rasilimali",
-                footer_link_4: "Mifano ya Kazi",
-                footer_link_5: "Uchunguzi wa Mfumo",
-                footer_col_3_title: "Kampuni",
-                footer_link_6: "Uwekaji Nafasi Salama",
-                footer_link_7: "Mtandao wa Kazi",
-                footer_copyright: "© 2026 Sum Web Dev. Haki zote zimehifadhiwa. Makao Makuu yapo Mombasa, KE.",
-                footer_link_8: "Itifaki ya Usalama",
-                footer_link_9: "Vigezo vya Muundo"
+            pt: {
+                nav_home: "Início",
+                nav_services: "Serviços",
+                nav_pricing: "Preços",
+                nav_portfolio: "Portfólio",
+                nav_booking: "Agendar Estratégia",
+                hero_title: "Ecrossistemas <span>SaaS em Nuvem</span>",
+                hero_subtext: "Unificando pipelines de backend, gateways de autenticação e microserviços em motores multilocatários seguros e escaláveis.",
+                intro_title: "Infraestrutura Desacoplada para Oscilação Zero",
+                intro_p: "Ambientes de nuvem modernos exigem independência total de partição. Implantamos camadas de serviço de alta disponibilidade utilizando os melhores backends de nuvem para gerenciar identidades, sincronizações e pagamentos seguros.",
+                card_1_title: "Gateways de Autenticação",
+                card_1_p: "Implantação de registros de usuários seguros baseados em tokens e barreiras de acesso por função com Supabase ou Firebase Auth.",
+                card_2_title: "Armazenamento Multilocatário",
+                card_2_p: "Configuração de tabelas relacionais estruturadas com protocolos rígidos de segurança em nível de linha para isolar metadados.",
+                card_3_title: "Nós Edge Serverless",
+                card_3_p: "Montagem de funções API de alto desempenho para processar tarefas rápidas em segundo plano, algoritmos de áudio ou webhooks.",
+                footer_brand_text: "Projetando ferramentas digitais de alta performance e soluções full-stack personalizadas de última geração.",
+                footer_col_1_title: "Estruturas de Motor",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Ecossistemas SaaS",
+                footer_link_3: "Integração de Banco de Dados",
+                footer_col_2_title: "Recursos",
+                footer_link_4: "Perfis de Caso",
+                footer_link_5: "Diagnóstico de Sistema",
+                footer_col_3_title: "Corporativo",
+                footer_link_6: "Reserva Segura",
+                footer_link_7: "Rede de Arquitetura",
+                footer_copyright: "© 2026 Sum Web Dev. Todos os direitos reservados.",
+                footer_link_8: "Protocolo de Segurança",
+                footer_link_9: "Termos de Arquitetura"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_services: "Servicios",
+                nav_pricing: "Precios",
+                nav_portfolio: "Portafolio",
+                nav_booking: "Reservar Estrategia",
+                hero_title: "Ecosistemas <span>Nube SaaS</span>",
+                hero_subtext: "Unificando tuberías de backend, pasarelas de autenticación y microservicios web en motores multinquilino seguros y escalables.",
+                intro_title: "Infraestructura Desacoplada para Cero Fluctuación",
+                intro_p: "Los entornos de la nube moderna exigen una independencia de partición absoluta. Desplegamos capas de servicios de alta disponibilidad utilizando infraestructuras en la nube de primer nivel para gestionar identidades, sincronizaciones, webhooks y parámetros de pago seguros.",
+                card_1_title: "Pasarelas de Autenticación",
+                card_1_p: "Despliegue de registros de usuarios basados en tokens y muros de acceso basados en roles impulsados por capas Auth de Supabase o Firebase.",
+                card_2_title: "Almacenamiento Multinquilino",
+                card_2_p: "Configuración de tablas relacionales estructuradas con protocolos estrictos de seguridad a nivel de fila para aislar metadatos del mercado.",
+                card_3_title: "Nodos Edge Sin Servidor",
+                card_3_p: "Ensamblaje de funciones API de alto rendimiento para procesar tareas rápidas en segundo plano, algoritmos de audio o webhooks.",
+                footer_brand_text: "Diseñando herramientas digitales de alto rendimiento de próxima generación y soluciones full-stack personalizadas.",
+                footer_col_1_title: "Estructuras de Motor",
+                footer_link_1: "Frameworks Web",
+                footer_link_2: "Ecosistemas SaaS",
+                footer_link_3: "Integración de Bases de Datos",
+                footer_col_2_title: "Recursos",
+                footer_link_4: "Perfiles de Caso",
+                footer_link_5: "Diagnóstico del Sistema",
+                footer_col_3_title: "Corporativo",
+                footer_link_6: "Reserva Segura",
+                footer_link_7: "Red de Trabajo",
+                footer_copyright: "© 2026 Sum Web Dev. Todos los derechos reservados.",
+                footer_link_8: "Protocolo de Seguridad",
+                footer_link_9: "Términos de Arquitectura"
+            },
+            it: {
+                nav_home: "Home",
+                nav_services: "Servizi",
+                nav_pricing: "Prezzi",
+                nav_portfolio: "Portfolio",
+                nav_booking: "Prenota Strategia",
+                hero_title: "Ecosistemi <span>Cloud SaaS</span>",
+                hero_subtext: "Unificazione di pipeline backend, gateway di autenticazione e microservizi in motori multi-tenant sicuri e scalabili.",
+                intro_title: "Infrastruttura Disaccoppiata per Fluctuazione Zero",
+                intro_p: "I moderni ambienti cloud richiedono un'assoluta indipendenza. Sviluppiamo livelli di servizio ad alta disponibilità utilizzando backend cloud avanzati per gestire identità, sincronizzazioni e pagamenti sicuri.",
+                card_1_title: "Gateway di Autenticazione",
+                card_1_p: "Distribuzione di registrazioni utente basate su token e controlli di accesso basati sui ruoli tramite Supabase o Firebase Auth.",
+                card_2_title: "Archiviazione Multi-Tenant",
+                card_2_p: "Configurazione di tabelle relazionali strutturate con rigidi protocolli di sicurezza a livello di riga per isolare i metadati.",
+                card_3_title: "Nodi Edge Serverless",
+                card_3_p: "Creazione di funzioni API ad alte prestazioni per elaborare attività in background, algoritmi audio o webhook su richiesta.",
+                footer_brand_text: "Progettazione di strumenti digitali ad alte prestazioni di nuova generazione e soluzioni full-stack personalizzate.",
+                footer_col_1_title: "Strutture del Motore",
+                footer_link_1: "Framework Web",
+                footer_link_2: "Ecosistemi SaaS",
+                footer_link_3: "Integrazione Database",
+                footer_col_2_title: "Risorse",
+                footer_link_4: "Casi di Studio",
+                footer_link_5: "Diagnostica di Sistema",
+                footer_col_3_title: "Aziendale",
+                footer_link_6: "Prenotazione Sicura",
+                footer_link_7: "Network Framework",
+                footer_copyright: "© 2026 Sum Web Dev. Tutti i diritti riservati.",
+                footer_link_8: "Protocollo di Sicurezza",
+                footer_link_9: "Termini di Architettura"
+            },
+            ne: {
+                nav_home: "गृहपृष्ठ",
+                nav_services: "सेवाहरू",
+                nav_pricing: "मूल्य निर्धारण",
+                nav_portfolio: "पोर्टफोलियो",
+                nav_booking: "रणनीति बुक गर्नुहोस्",
+                hero_title: "SaaS <span>क्लाउड इकोसिस्टम</span>",
+                hero_subtext: "ब्याकइन्ड पाइपलाइनहरू, प्रमाणीकरण गेटवेहरू, र माइक्रोसर्भिसहरूलाई सुरक्षित र स्केल गर्न सकिने मल्टि-टेनेन्ट इन्जिनमा एकीकृत गर्दै।",
+                intro_title: "शून्य उतार-चढावका लागि स्वतन्त्र पूर्वाधार",
+                intro_p: "आधुनिक क्लाउड वातावरणलाई पूर्ण स्वतन्त्रता चाहिन्छ। हामी प्रयोगकर्ता पहिचान, डाटा सिङ्क, र सुरक्षित भुक्तानी प्रक्रियाहरू प्रबन्ध गर्न उच्च-उपलब्धता सेवा स्तरहरू प्रयोग गर्दछौं।",
+                card_1_title: "एकीकृत प्रमाणीकरण गेटवे",
+                card_1_p: "Supabase वा Firebase Auth द्वारा संचालित सुरक्षित टोकन-आधारित प्रयोगकर्ता दर्ता र पहुँच नियन्त्रण प्रणाली।",
+                card_2_title: "मल्टि-टेनेन्ट भण्डारण",
+                card_2_p: "मार्केटप्लेस डेटा सुरक्षित राख्न र अलग्गै बनाउन कडा रो-लेभल सुरक्षा प्रोटोकलहरूसहित डेटाबेस संरचना।",
+                card_3_title: "सर्भरलेस एज नोडहरू",
+                card_3_p: "द्रुत ब्याकग्राउन्ड कार्यहरू, अडियो एल्गोरिदमहरू, वा वेबहुक ट्रिगरहरू प्रशोधन गर्न उच्च-प्रदर्शन API प्रकार्यहरू।",
+                footer_brand_text: "नयाँ पुस्ताको डिजिटल कार्यसम्पादन उपकरणहरू र अनुकूलित फुल-स्ट्याक समाधानहरूको निर्माण।",
+                footer_col_1_title: "इन्जिन संरचनाहरू",
+                footer_link_1: "वेब फ्रेमवर्कहरू",
+                footer_link_2: "SaaS इकोसिस्टम",
+                footer_link_3: "डेटाबेस एकीकरण",
+                footer_col_2_title: "स्रोतहरू",
+                footer_link_4: "केस प्रोफाइलहरू",
+                footer_link_5: "प्रणाली निदान",
+                footer_col_3_title: "कर्पोरेट",
+                footer_link_6: "सुरक्षित बुकिङ",
+                footer_link_7: "नेटवर्क फ्रेमवर्क",
+                footer_copyright: "© 2026 Sum Web Dev. सबै अधिकार सुरक्षित। मुख्य सञ्चालन मोम्बासा",
+                footer_link_8: "सुरक्षा प्रोटोकल",
+                footer_link_9: "वास्तुकला सर्तहरू"
             },
             de: {
                 nav_home: "Startseite",
@@ -564,40 +639,9 @@
                 footer_col_3_title: "Unternehmen",
                 footer_link_6: "Sichere Buchung",
                 footer_link_7: "Netzwerk-Framework",
-                footer_copyright: "© 2026 Sum Web Dev. Alle Rechte vorbehalten. Hauptsitz in Mombasa, KE.",
+                footer_copyright: "© 2026 Sum Web Dev. Alle Rechte vorbehalten.",
                 footer_link_8: "Sicherheitsprotokoll",
                 footer_link_9: "Architekturbedingungen"
-            },
-            ar: {
-                nav_home: "الرئيسية",
-                nav_services: "الخدمات",
-                nav_pricing: "الأسعار",
-                nav_portfolio: "الأعمال",
-                nav_booking: "حجز استشارة",
-                hero_title: "أنظمة <span>السحابة لـ SaaS</span>",
-                hero_subtext: "توحيد أنابيب الخادم الخلفي، بوابات التحقق، والخدمات المصغرة في محركات آمنة وقابلة للتوسع.",
-                intro_title: "بنية تحتية منفصلة لضمان الاستقرار التام",
-                intro_p: "تتطلب البيئات السحابية الحديثة استقلالية تامة. نحن نقوم بنشر طبقات خدمة عالية التوفر باستخدام أحدث تقنيات السحابة لإدارة الهويات، مزامنة البيانات، والمعاملات المالية الآمنة.",
-                card_1_title: "بوابات التحقق الموحدة",
-                card_1_p: "نشر أنظمة تسجيل الدخول الآمنة والقائمة على الأدوار باستخدام طبقات Supabase أو Firebase Auth لحماية النطاقات الخاصة.",
-                card_2_title: "تخزين متعدد المستأجرين",
-                card_2_p: "تكوين جداول علاقات مهيكلة مع بروتوكولات أمان صارمة على مستوى الصفوف لعزل بيانات السوق الحساسة.",
-                card_3_title: "عقد Edge السحابية",
-                card_3_p: "بناء وظائف API عالية الأداء لمعالجة المهام الخلفية السريعة، خوارزميات البصمة الصوتية، وإشعارات Webhooks.",
-                footer_brand_text: "هندسة أدوات الأداء الرقمي من الجيل القادم وحلول التطوير الكامل المخصصة.",
-                footer_col_1_title: "هياكل المحرك",
-                footer_link_1: "أطر عمل الويب",
-                footer_link_2: "أنظمة SaaS",
-                footer_link_3: "تكامل قواعد البيانات",
-                footer_col_2_title: "الموارد",
-                footer_link_4: "دراسات الحالة",
-                footer_link_5: "تشخيص النظام",
-                footer_col_3_title: "الشركة",
-                footer_link_6: "الحجز الآمن",
-                footer_link_7: "إطار الشبكة",
-                footer_copyright: "© 2026 Sum Web Dev. جميع الحقوق محفوظة. مركز العمليات في مومباسا، كينيا.",
-                footer_link_8: "بروتوكول الأمان",
-                footer_link_9: "شروط الهندسة"
             }
         };
 
@@ -612,15 +656,7 @@
                 }
             });
 
-            // Handle Language Direction (RTL for Arabic)
-            if (lang === 'ar') {
-                document.documentElement.setAttribute('dir', 'rtl');
-                document.documentElement.setAttribute('lang', 'ar');
-            } else {
-                document.documentElement.removeAttribute('dir');
-                document.documentElement.setAttribute('lang', lang);
-            }
-
+            document.documentElement.setAttribute('lang', lang);
             localStorage.setItem('preferredLang', lang);
         }
 
